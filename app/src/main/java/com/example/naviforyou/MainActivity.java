@@ -33,7 +33,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     InfoWindow infoWindow = new InfoWindow();
     Button btn;
 
-    Gc_Parser gc = new Gc_Parser();
+    Gc_Parser gc_parser = new Gc_Parser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,17 +91,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         //심벌 클릭
         naverMap.setOnSymbolClickListener(symbol -> {
             Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
-            new NaverAsync().execute(symbol.getPosition().longitude + "," +symbol.getPosition().latitude); //doInBackground메서드 호출
+            new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," +symbol.getPosition().latitude); //doInBackground메서드 호출
             return true;
-            /*
-            if ("서울특별시청".equals(symbol.getCaption())) {
-                Toast.makeText(this, "서울시청 클릭", Toast.LENGTH_SHORT).show();
-                // 이벤트 소비, OnMapClick 이벤트는 발생하지 않음
-                return true;
-            }
-            // 이벤트 전파, OnMapClick 이벤트가 발생함
-            return false;
-            */
         });
 
         //클릭
@@ -122,21 +113,25 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    //통신을 위한 백그라운드 작업 설정
-    class NaverAsync extends AsyncTask<String, String, Void> {
+    //통신을 위한 백그라운드 작업 설정 - 심벌 정보
+    class NaverAsync_Gc extends AsyncTask<String, String, Gc> {
 
         @Override
-        protected Void doInBackground(String... strings) {
+        protected Gc doInBackground(String... strings) {
             //각종 반복이나 제어 등 주요 로직을 담당
-            gc.connectNaver(strings);
-            return null;
+            return gc_parser.connectNaver(strings);
         }
 
         @Override
-        protected void onPostExecute(Void s) {
+        protected void onPostExecute(Gc s) {
             //doinBackground를 통해 완료된 작업 결과 처리
             super.onPostExecute(s);
+            //로그 기록
+            Log.d("address","roadAdress : " + s.getRoadAdress());
+            Log.d("address","bulidAdress : " + s.getBulidAdress());
+            Log.d("address","legalCode : " + s.getLegalCode());
+            Log.d("address","admCode : " + s.getAdmCode());
+
         }
     }
-
 }
