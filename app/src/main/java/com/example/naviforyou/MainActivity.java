@@ -1,11 +1,10 @@
 package com.example.naviforyou;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,14 +15,12 @@ import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
-import com.naver.maps.map.NaverMapOptions;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
-import com.naver.maps.map.widget.ZoomControlView;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -35,6 +32,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     Marker marker = new Marker();
     InfoWindow infoWindow = new InfoWindow();
     Button btn;
+
+    Gc_Parser gc = new Gc_Parser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,16 +69,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
        LocationOverlay locationOverlay = naverMap.getLocationOverlay();
 
        //오버레이 추가
-
        marker.setPosition(new LatLng(37.5670135, 126.9783740));
        marker.setMap(naverMap);
        infoWindow.open(marker);
 
        Log.i(this.getClass().getName(), String.valueOf(uiSettings.isCompassEnabled()));
 
-        btn = findViewById(R.id.me);
-
         //자기 위치로 돌아가는 버튼 데모
+        btn = findViewById(R.id.me);
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -94,6 +91,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         //심벌 클릭
         naverMap.setOnSymbolClickListener(symbol -> {
             Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
+            new NaverAsync().execute(symbol.getPosition().longitude + "," +symbol.getPosition().latitude); //doInBackground메서드 호출
             return true;
             /*
             if ("서울특별시청".equals(symbol.getCaption())) {
@@ -110,6 +108,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         naverMap.setOnMapClickListener((point, coord) ->
                 Toast.makeText(this, coord.latitude + ", " + coord.longitude,
                         Toast.LENGTH_SHORT).show());
+
+
     }
 
     //위치 권한 허용
@@ -121,4 +121,22 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+    //통신을 위한 백그라운드 작업 설정
+    class NaverAsync extends AsyncTask<String, String, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            //각종 반복이나 제어 등 주요 로직을 담당
+            gc.connectNaver(strings);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void s) {
+            //doinBackground를 통해 완료된 작업 결과 처리
+            super.onPostExecute(s);
+        }
+    }
+
 }
