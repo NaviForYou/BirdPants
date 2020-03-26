@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class fetchData  extends AsyncTask<Void, Void, Void> {
+public class fetchData  extends AsyncTask <Void, Void, Void> {
     String data = "";
     String dataParsed = "";
     String singleParsed = "";

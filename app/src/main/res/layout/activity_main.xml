@@ -22,8 +22,8 @@
             android:layout_height="wrap_content"
             android:padding = "5dp"
             android:textSize="24sp"
-            android:id="@+id/flecheddata"
-            android:hint="Fletched Text Here!!"/>
+            android:id="@+id/fetcheddata"
+            android:hint="Fetched Text Here!!"/>
 
 
     </ScrollView>
