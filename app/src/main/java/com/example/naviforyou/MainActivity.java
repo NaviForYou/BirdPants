@@ -18,11 +18,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         click = (Button) findViewById(R.id.button_start);
-        data = (TextView) findViewById(R.id.fetcheddata);
+        data = (TextView) findViewById(R.id.flecheddata);
 
         click.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 fetchData process = new fetchData();
                 process.execute();
             }
