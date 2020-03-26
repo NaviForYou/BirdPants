@@ -71,11 +71,11 @@ public class MainActivity extends AppCompatActivity {
                                 String station_image2 = DATA.getString("station_image2");
                                 String time_info4 = DATA.getString("time_info4");
                                 String useyn  = DATA.getString("useyn");
-                                mTextViewResult.append( course1 + ", " + course2 + ", " + station + ", "
-                                + String.valueOf(no) + ", " + telno_info + ", " + station_image + ", " +
-                                        exit_info + ", " + line + ", "+ icon_path + ", " + elevater + ",  " +
-                                        elevater_txt + ", " + time_info2 + ", " + time_info3 + ", " + line_name +
-                                        ", " + time_info1 + ", " + station_image2 + ", " + time_info4 + ", " + useyn + "\n\n");
+                                mTextViewResult.append( "운행방향 1: "+course1 + "\n" + "운행방향2: "+course2 + "\n" + "역 명칭: "+station + "\n"
+                                +"고유번호: "+ String.valueOf(no) + "\n" + "전화번호 안내: " + telno_info + "\n" + "역 이미지: "+ station_image + "\n" +
+                                        "출구 정보: "+exit_info + "\n " + "노선: "+ line + "\n"+ "편의시설 아이콘 이미지 목록: "+icon_path + "\n" + "엘리베이터 동영상: "+elevater + "\n" +
+                                        "엘리베이터 자막: "+ elevater_txt + "\n" + " 코스 1 막차 : "+ time_info2 + "\n" + "코스 2 첫차: " + time_info3 + "\n" + "노선 명칭: " + line_name +
+                                        "\n " + "코스 1 첫차: "+ time_info1 + "\n" + "지하철 팝업 이미지: "+ station_image2 + "\n" + "코스 2 막차: " + time_info4 + "\n" + "사용여부: " + useyn + "\n\n\n");
 
                             }
 
