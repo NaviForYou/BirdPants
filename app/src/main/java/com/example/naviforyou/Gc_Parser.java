@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -58,7 +57,7 @@ public class Gc_Parser {
             br.close();
             json = response.toString();
             Log.d("TEST2", "json => " + json);
-            return paserNAvert(json);
+            return paserNaver(json);
 
 
         }catch (Exception e){
@@ -68,7 +67,7 @@ public class Gc_Parser {
     }
 
     //파서
-    private Gc paserNAvert(String json) {
+    private Gc paserNaver(String json) {
         String roadAdress = null; //도로명
         String bulidAdress = null; //지번
         String legalcode = null; //법정동

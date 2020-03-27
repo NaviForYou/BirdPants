@@ -22,6 +22,8 @@ import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.util.ArrayList;
+
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
     // 위치를 반환하는 FusedLocationSource 선언
@@ -33,12 +35,21 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     InfoWindow infoWindow = new InfoWindow();
     Button btn;
 
+    //파서 객체
     Gc_Parser gc_parser = new Gc_Parser();
+    Search_Parser search_parser = new Search_Parser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 검색 기능 추가되면 넣기
+        /*
+        String tempX ="127.06283102249932";
+        String tempY ="37.514322572335935";
+        new KakaoAsync_Search().execute(tempX,tempY);
+        */
 
         //NaverMap 객체 얻어오기 - api 호출하는 인터페이스 역할을 함
         FragmentManager fm = getSupportFragmentManager();
@@ -132,6 +143,27 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             Log.d("address","legalCode : " + s.getLegalCode());
             Log.d("address","admCode : " + s.getAdmCode());
 
+        }
+    }
+
+    class KakaoAsync_Search extends AsyncTask<String, String, ArrayList<Search>> {
+
+        @Override
+        protected ArrayList<Search> doInBackground(String... strings) {
+            return search_parser.connectKakao(strings); // x,y 좌표
+        }
+
+        protected void onPostExecute(ArrayList<Search> s) {
+            //doinBackground를 통해 완료된 작업 결과 처리
+            super.onPostExecute(s);
+            //로그 기록
+            for(int i = 0; i < s.size(); i++) {
+                Log.d("address", "PlaceName : " + s.get(i).getPlaceName());
+                Log.d("address", "BulidAdress : " + s.get(i).getBulidAddress());
+                Log.d("address", "RoadAddress : " + s.get(i).getRoadAddress());
+                Log.d("address", "Phone_number : " + s.get(i).getPhone_number());
+                Log.d("address", "Distance : " + s.get(i).getDistancs());
+            }
         }
     }
 }
