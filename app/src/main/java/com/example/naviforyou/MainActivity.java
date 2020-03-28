@@ -38,6 +38,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     //파서 객체
     Gc_Parser gc_parser = new Gc_Parser();
     Search_Parser search_parser = new Search_Parser();
+    LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         String tempY ="37.514322572335935";
         new KakaoAsync_Search().execute(tempX,tempY);
         */
+
+        SeoulAsync_LowbusStop seoulAsync_lowbusStop = new SeoulAsync_LowbusStop();
+        seoulAsync_lowbusStop.execute();
 
         //NaverMap 객체 얻어오기 - api 호출하는 인터페이스 역할을 함
         FragmentManager fm = getSupportFragmentManager();
@@ -146,6 +150,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    //통신을 위한 백그라운드 작업 설정 - 검색
     class KakaoAsync_Search extends AsyncTask<String, String, ArrayList<Search>> {
 
         @Override
@@ -164,6 +169,16 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.d("address", "Phone_number : " + s.get(i).getPhone_number());
                 Log.d("address", "Distance : " + s.get(i).getDistancs());
             }
+        }
+    }
+
+    //통신을 위한 백그라운드 작업 설정 - 버스 정류장 도착 정보
+    class SeoulAsync_LowbusStop extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            lowbusStop_parser.connectSeoul();
+            return null;
         }
     }
 }

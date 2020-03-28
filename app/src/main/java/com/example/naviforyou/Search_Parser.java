@@ -13,6 +13,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+
+//키워드를 통한 검색
 public class Search_Parser {
     String json = null;
 
