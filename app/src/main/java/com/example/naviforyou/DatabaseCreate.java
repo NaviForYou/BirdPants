@@ -1,3 +1,5 @@
+
+
 package com.example.naviforyou;/*
 SQLiteOpenHelper를 사용한 데이터베이스 제작
 1. 이지우(0328)
@@ -11,6 +13,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.widget.Toast;
 
 //DB를 총괄관리
@@ -62,31 +66,8 @@ class DBManager {
             // TODO Auto-generated method stub
         }
     }
-/*
-    // 데이터 추가
-    public void insertData(APinfo info) {
-        String sql = "insert into " + tableName + " values(NULL, '"
-                + info.getSSID() + "', " + info.getCapabilities() + ", '"
-                + info.getPasswd() + "');";
-        db.execSQL(sql);
-    }
 
-    // 데이터 갱신
-    public void updateData(APinfo info, int index) {
-        String sql = "update " + tableName + " set SSID = '" + info.getSSID()
-                + "', capabilities = " + info.getCapabilities()
-                + ", passwd = '" + info.getPasswd() + "' where id = " + index
-                + ";";
-        db.execSQL(sql);
-    }
 
- */
-
-    // 데이터 삭제
-    public void removeData(int index) {
-        String sql = "delete from " + tableName + " where id = " + index + ";";
-        db.execSQL(sql);
-    }
 /*
     // 데이터 검색
     public APinfo selectData(int index) {
@@ -123,6 +104,43 @@ class DBManager {
         return infos;
     }
 
+
+
  */
+
+    class APinfo {
+        // 데이터 추가
+        public void getWifiInfo() {
+            WifiManager wifimanager;
+            wifimanager = (WifiManager) context.getSystemService();
+
+            WifiInfo info = wifimanager.getConnectionInfo();
+
+            String ssid = info.getSSID();
+
+        public void insertData(APinfo info) {
+            String sql = "insert into " + tableName + " values(NULL, '"
+                    + info.getSSID() + "', " + info.getCapabilities() + ", '"
+                    + info.getPasswd() + "');";
+            db.execSQL(sql);
+        }
+
+        // 데이터 갱신
+        public void updateData(APinfo info, int index) {
+            String sql = "update " + tableName + " set SSID = '" + info.getSSID()
+                    + "', capabilities = " + info.getCapabilities()
+                    + ", passwd = '" + info.getPasswd() + "' where id = " + index
+                    + ";";
+            db.execSQL(sql);
+        }
+
+
+
+        // 데이터 삭제
+        public void removeData(int index) {
+            String sql = "delete from " + tableName + " where id = " + index + ";";
+            db.execSQL(sql);
+        }
+    }
 }
 
