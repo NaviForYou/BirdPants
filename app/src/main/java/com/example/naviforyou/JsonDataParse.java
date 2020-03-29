@@ -9,6 +9,8 @@ url로 하는게 나으면 추후에 그걸로 바꾸겠음
 
 package com.example.naviforyou;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,12 +21,12 @@ import java.util.ArrayList;
 
 public class JsonDataParse<SeoulDisabledFacilities> {
 
-    private String getJsonString() {
+
+    private String getJsonString(Context context) {
         String json = "";
 
         try {
-            //여기 해결해야함
-            InputStream is = getAssets().open("SeoulDisabledFacilities.json");
+            InputStream is = context.getAssets().open("SeoulDisabledFacilities.json");
             int fileSize = is.available();
 
             byte[] buffer = new byte[fileSize];
