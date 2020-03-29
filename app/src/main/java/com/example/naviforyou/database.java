@@ -1,3 +1,5 @@
+/*
+
 package com.example.naviforyou;
 
 import android.database.sqlite.SQLiteDatabase;
@@ -13,7 +15,7 @@ public class database extends AppCompatActivity {
     public static final String NVFU_TABLE = "NVFU";
     public static SQLiteDatabase nvfuDB = null;
 
-    public static ArrayList<Double> mAverageAttention = new ArrayList<Double>();
+    public static ArrayList<Double> mAverage Attention = new ArrayList<Double>()
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +25,7 @@ public class database extends AppCompatActivity {
         nvfuDB.execSQL("CREATE TABLE IF NOT EXISTS" + NVFU_TABLE + "(id VARCHAR(50)), name VARCHAR(50));"); //id와 name 자리 -> 들어가는 데이터 내용으로 바꿔야함
 
     }
-    /*
+
     //필요없을 것 같아서 주석처리해놓음
     private void addAverageAttention(double attention) {
         mAverageAttention.add(attention);
@@ -43,5 +45,7 @@ public class database extends AppCompatActivity {
     }
 
 
-     */
+
 }
+
+*/
