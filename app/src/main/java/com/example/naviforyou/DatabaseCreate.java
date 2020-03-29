@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.widget.Toast;
 
 //DB를 총괄관리
-public class DBManager {
+class DBManager {
 
     // DB관련 상수 선언
     private static final String dbName = "APinfo.db";
