@@ -52,8 +52,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         new KakaoAsync_Search().execute(tempX,tempY);
         */
 
+        // 버스 정류소 저상버스 도착
+        /*
         SeoulAsync_LowbusStop seoulAsync_lowbusStop = new SeoulAsync_LowbusStop();
-        seoulAsync_lowbusStop.execute();
+        seoulAsync_lowbusStop.execute("22167");
+         */
 
         //NaverMap 객체 얻어오기 - api 호출하는 인터페이스 역할을 함
         FragmentManager fm = getSupportFragmentManager();
@@ -73,6 +76,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+        //버스 정류장 표시
+        naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT,true);
+
         // UI 설정
         UiSettings uiSettings = naverMap.getUiSettings();
 
@@ -158,6 +164,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             return search_parser.connectKakao(strings); // x,y 좌표
         }
 
+        @Override
         protected void onPostExecute(ArrayList<Search> s) {
             //doinBackground를 통해 완료된 작업 결과 처리
             super.onPostExecute(s);
@@ -173,12 +180,23 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     //통신을 위한 백그라운드 작업 설정 - 버스 정류장 도착 정보
-    class SeoulAsync_LowbusStop extends AsyncTask<Void,Void,Void>{
+    class SeoulAsync_LowbusStop extends AsyncTask<String, String, ArrayList<LowbusStop>>{
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            lowbusStop_parser.connectSeoul();
-            return null;
+        protected ArrayList<LowbusStop> doInBackground(String... strings) {
+            return lowbusStop_parser.connectSeoul(strings);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<LowbusStop> s) {
+            //doinBackground를 통해 완료된 작업 결과 처리
+            super.onPostExecute(s);
+            //로그 기록
+            for(int i = 0; i < s.size(); i++) {
+                Log.d("Lowbus", "rtName : " + s.get(i).getRtName());
+                Log.d("Lowbus", "arrmsg1 : " + s.get(i).getTime1());
+                Log.d("Lowbus", "arrmsg2 : " + s.get(i).getTime2());
+            }
         }
     }
 }
