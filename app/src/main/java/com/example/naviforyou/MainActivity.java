@@ -113,6 +113,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         naverMap.setOnSymbolClickListener(symbol -> {
             Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
             new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," +symbol.getPosition().latitude); //doInBackground메서드 호출
+            Log.i("LAT", String.valueOf(symbol.getPosition()));
             return true;
         });
 
