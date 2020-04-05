@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#FBF9ED">
+
+    <EditText
+        android:id="@+id/startPoint"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:hint="  출발지를 검색하세요"
+        android:textSize="20dp"
+        android:background="@drawable/round_rayout"/>
+
+    <EditText
+        android:id="@+id/EndPoint"
+        android:layout_below="@id/startPoint"
+        android:layout_width="340dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:hint="  도착지를 검색하세요"
+        android:textSize="20dp"
+        android:background="@drawable/round_rayout" />
+
+    <ImageButton
+        android:id="@+id/rotation"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginVertical="10dp"
+        android:layout_toRightOf="@id/startPoint"
+        android:src="@drawable/ic_launcher_foreground"/>
+
+    <ImageButton
+        android:id="@+id/noName_1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginVertical="10dp"
+        android:layout_below="@id/rotation"
+        android:layout_toRightOf="@id/EndPoint"
+        android:src="@drawable/ic_launcher_foreground"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/EndPoint"
+        android:layout_above="@id/menuBar">
+
+        <RelativeLayout
+            android:id="@+id/result_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/menuOfFinding"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/All"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="전체"
+                        android:textSize="20dp"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:id="@+id/Bus"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="버스"
+                        android:textSize="20dp"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:id="@+id/Subway_result"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="지하철"
+                        android:textSize="20dp"
+                        android:textColor="#000000"/>
+                    <TextView
+                        android:id="@+id/BusnSubway"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="버스+지하철"
+                        android:textSize="20dp"
+                        android:textColor="#000000"/>
+
+                </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/lift"
+                android:layout_toRightOf="@id/menuOfFinding"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:src="@mipmap/ic_launcher"/>
+            <ImageButton
+                android:id="@+id/bookMark"
+                android:layout_toRightOf="@id/lift"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:src="@mipmap/ic_launcher"/>
+
+            <ListView
+                android:layout_below="@id/menuOfFinding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+
+        </RelativeLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/menuBar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#5B70DA"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/finding"
+            android:layout_weight="1"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginVertical="7dp"
+            android:layout_marginHorizontal="15dp"
+            android:src="@drawable/ic_launcher_foreground" />
+        <ImageButton
+            android:id="@+id/subway"
+            android:layout_weight="1"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginVertical="7dp"
+            android:layout_marginHorizontal="15dp"
+            android:src="@drawable/ic_launcher_foreground"/>
+        <ImageButton
+            android:id="@+id/taxi"
+            android:layout_weight="1"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginVertical="7dp"
+            android:layout_marginHorizontal="15dp"
+            android:src="@drawable/ic_launcher_foreground"/>
+        <ImageButton
+            android:id="@+id/bookMark_open"
+            android:layout_weight="1"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginVertical="7dp"
+            android:layout_marginHorizontal="15dp"
+            android:src="@drawable/ic_launcher_foreground"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
