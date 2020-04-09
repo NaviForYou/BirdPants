@@ -30,7 +30,6 @@ public class Search_Parser {
     //public ArrayList<Search> connectNaver(ArrayList<Search> list, String[] coords){
     public ArrayList<Search> connectKakao(String[] coords){
         try{
-
             //현위치 좌표
             Log.d("coords",coords[0]);
             coordsX = URLEncoder.encode(coords[0],"UTF-8");
@@ -96,5 +95,5 @@ public class Search_Parser {
 
         return searches;
     }
-
 }
+

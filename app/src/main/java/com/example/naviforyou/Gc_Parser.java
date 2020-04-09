@@ -12,6 +12,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+/*
+삼벌 클릭시 해당 좌표로 주소값 얻어오기
+ */
 
 public class Gc_Parser {
    String json = null;
@@ -129,4 +132,8 @@ public class Gc_Parser {
         }
         return null;
     }
+
+
+
 }
+

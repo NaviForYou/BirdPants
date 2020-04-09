@@ -1,6 +1,7 @@
 package com.example.naviforyou;
 
-public class LowbusStop {
+//저상버스
+class LowbusStop {
     String time1;
     String time2;
     String rtName;
