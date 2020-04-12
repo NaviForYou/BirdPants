@@ -32,45 +32,40 @@ public class MainActivity extends AppCompatActivity {
                 {
                     try {if (api == API.SEARCH_PUB_TRANS_PATH) {
                         JSONObject json = oDsayData.getJson();
-                        Traffic traffic= new Traffic();
-                        traffic.what(json);
+
                         ArrayList<ArrayList<Object>>LIST=new ArrayList<ArrayList<Object>>();
+
                         JSONArray path = json.getJSONObject("result").getJSONArray("path");
-                        for(int i=0;i<path.length();i++)
-                        {
-                            String pathType=path.getJSONObject(i).getString("pathType");
-                            JSONArray subPath=path.getJSONObject(i).getJSONArray("subPath");
+                        ArrayList<Object> content=new ArrayList<>();
+                        for(int i=0;i<path.length();i++) {
+                            Traffic traffic=new Traffic(i);
+                            traffic.what(json);
+                            content.add(i,traffic);
+                            JSONArray subPath = path.getJSONObject(i).getJSONArray("subPath");
                             ArrayList<Object> list = new ArrayList<>();
-                            for(int j=0;j<subPath.length();j++) {
-                                String trafficType=subPath.getJSONObject(j).getString("trafficType");
+                            for (int j = 0; j < subPath.length(); j++) {
+                                String trafficType = subPath.getJSONObject(j).getString("trafficType");
                                 int T = Integer.parseInt(trafficType);
-                                if(T==1){
-                                    Subway subway=new Subway(i,j);
+                                if (T == 1) {
+                                    Subway subway = new Subway(i, j);
                                     subway.what(json);
-                                   // list.add(subway);
-                                  //  Subway S=(Subway)list.get(j);
-                                   // String[] AAA=S.getSubwayInfo_1();
-                                    //System.out.println(AAA[2]);
-                                }
-                                else if(T==2){
-                                    Bus bus=new Bus(i,j);
+                                    list.add(j, subway);
+                                } else if (T == 2) {
+                                    Bus bus = new Bus(i, j);
                                     bus.what(json);
-                                  //  list.add(j,bus);
-                                }
-                                else if(T==3){
-                                    Walk walk=new Walk(i,j);
+                                    list.add(j, bus);
+                                } else if (T == 3) {
+                                    Walk walk = new Walk(i, j);
                                     walk.what(json);
-                                    list.add(walk);
-                                    //Walk W=(Walk)list.get(j);
-                                    //String[] S=W.getWalkInfo();
-                                    //System.out.println(S[0]);
-                                    //  Subway S=(Subway)list.get(j);
-                                    // String[] AAA=S.getSubwayInfo_1();
-                                    //System.out.println(AAA[2]);
+                                    list.add(j, walk);
                                 }
                             }
-                            LIST.add(i,list);
+                            String  busCount= json.getJSONObject("result").getString("busCount");
+                            String  subwayCount = json.getJSONObject("result").getString("subwayCount");
+                            String  subwaybusCount = json.getJSONObject("result").getString("subwayBusCount");
+                            LIST.add(i, list);
                         }
+
                     }
                     } catch (JSONException e) {
                         e.printStackTrace();
