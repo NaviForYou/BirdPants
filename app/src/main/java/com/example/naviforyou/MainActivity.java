@@ -3,6 +3,7 @@ package com.example.naviforyou;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 
 
 public class MainActivity extends AppCompatActivity {
+
     private TextView mTextViewResult;
     private RequestQueue mQueue;
 
@@ -28,7 +30,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DatabaseCreate databaseCreate = new DatabaseCreate(this );
+        Jas
+        Log.d("Jiu", "msg");
 
+
+    }
+/*
         mTextViewResult = findViewById(R.id.text_view_result);
         Button buttonParse = findViewById(R.id.button_parse);
 
@@ -42,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+ */
+/*
     private void jsonParse()  {
         String url = "https://api.myjson.com/bins/7piyk";
 
@@ -97,5 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+ */
 
 }
