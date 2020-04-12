@@ -12,6 +12,7 @@ public class Traffic {
     private  String totalTime;
     private   String payment;
 
+
     String json = "";
 
     public String what(JSONObject jsonObject) {
