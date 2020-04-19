@@ -39,7 +39,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // ?�이�? 지?? SDK
+    // ?�이�? 지?? SDK
     implementation 'com.naver.maps:map-sdk:3.7.1'
 
     implementation 'com.google.android.gms:play-services-location:16.0.0'
@@ -50,4 +50,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

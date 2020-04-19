@@ -12,13 +12,13 @@
 
 
     <Button
-        android:id="@+id/datebase"
+        android:id="@+id/database"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="29dp"
-        android:text="datebase"
+        android:text="database"
         android:visibility="gone"/>
    <Button
        android:id="@+id/me"
