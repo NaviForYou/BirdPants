@@ -12,6 +12,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -20,11 +21,27 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src/main/assets', 'src/main/assets/', '/app/assets/'
+            }
+        }
+    }
 
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // 네이버 지도 SDK
+    implementation 'com.naver.maps:map-sdk:3.7.1'
+
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
