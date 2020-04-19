@@ -1,3 +1,6 @@
+// made by Jiu
+// https://www.youtube.com/watch?v=T3y3370UE8w
+
 package com.example.naviforyou.model;
 
 import android.content.ContentValues;
