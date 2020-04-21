@@ -61,8 +61,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        datebase = findViewById(R.id.datebase);
-        // 누나꺼 부분 버튼 이름: datebase로 변경
+        datebase = findViewById(R.id.database);
+        // 누나꺼 부분 버튼 이름: database로 변경
         /*
         mTextViewResult = findViewById(R.id.text_view_result);
         Button buttonParse = findViewById(R.id.button_parse);
@@ -128,9 +128,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();
 
         //오버레이 추가
-        marker.setPosition(new LatLng(37.5670135, 126.9783740));
-        marker.setMap(naverMap);
-        infoWindow.open(marker);
+        //infoWindow.open(marker); //wjdqhckd
 
         Log.i(this.getClass().getName(), String.valueOf(uiSettings.isCompassEnabled()));
 
@@ -152,7 +150,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
             new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," +symbol.getPosition().latitude); //doInBackground메서드 호출
             Log.i("LAT", String.valueOf(symbol.getPosition()));
-
+            marker.setPosition(new LatLng(symbol.getPosition().latitude, symbol.getPosition().longitude));
+            marker.setMap(naverMap);
             return true;
         });
 
@@ -160,6 +159,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         naverMap.setOnMapClickListener((point, coord) -> {
             Toast.makeText(this, coord.latitude + ", " + coord.longitude,
                     Toast.LENGTH_SHORT).show();
+            marker.setMap(null);
             datebase.setVisibility(View.GONE);
         });
 
