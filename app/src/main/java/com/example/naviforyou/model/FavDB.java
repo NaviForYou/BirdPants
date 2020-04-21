@@ -18,7 +18,7 @@ public class FavDB extends SQLiteOpenHelper {
     private static String KEY_ID = "id";
     public static String PLACE_TITLE = "placeTitle";
     public static String FAVORITE_STATUS ="fStatus";
-    private static String CREATE_TABLE = "CREATE TABLE" + TABLE_NAME + "("
+    private static String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
             + KEY_ID + " TEXT,"+ PLACE_TITLE + " TEXT,"
             + FAVORITE_STATUS + "TEXT)";
 
@@ -37,7 +37,7 @@ public class FavDB extends SQLiteOpenHelper {
     //create empty table
     public void insertEmpty() {
         SQLiteDatabase db= this.getWritableDatabase();
-        ContentValues cv = new.ContentValues();
+        ContentValues cv = new ContentValues();
         //enter the value
         for (int x=1; x<11 ; x++){
             cv.put(KEY_ID, x);
