@@ -2,27 +2,27 @@ package com.example.naviforyou.data;
 
 //심벌 클릭시 해당 주소값 저장
 public class Gc {
-    private String roadAdress;
-    private String bulidAdress;
+    private String roadAddress;
+    private String buildAddress;
     private String legalCode; // 법정동
     private String admCode; //행정동
     private String zipCode; //우편번호
-    private String bulidName; //건물이름
+    private String buildName; //건물이름
 
-    public Gc(String roadAdress, String bulidAdress, String legalCode, String admCode, String zipCode) {
-        this.roadAdress = roadAdress;
-        this.bulidAdress = bulidAdress;
+    public Gc(String roadAddress, String buildAddress, String legalCode, String admCode, String zipCode) {
+        this.roadAddress = roadAddress;
+        this.buildAddress = buildAddress;
         this.legalCode = legalCode;
         this.admCode = admCode;
         this.zipCode = zipCode;
     }
 
-    public String getBulidName() {
-        return bulidName;
+    public String getBuildName() {
+        return buildName;
     }
 
-    public void setBulidName(String bulidName) {
-        this.bulidName = bulidName;
+    public void setBuildName(String bulidName) {
+        this.buildName = bulidName;
     }
 
     public String getZipCode() { return zipCode; }
@@ -31,11 +31,11 @@ public class Gc {
 
     public String getAdmCode() { return admCode;  }
 
-    public String getBulidAdress() {
-        return bulidAdress;
+    public String getBuildAddress() {
+        return buildAddress;
     }
 
-    public String getRoadAdress() {
-        return roadAdress;
+    public String getRoadAddress() {
+        return roadAddress;
     }
 }

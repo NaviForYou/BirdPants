@@ -17,24 +17,22 @@ import java.util.ArrayList;
 
 public class FavDB {
 
-    private static int DATABASE_VERSION = 1; //DB 버전 몇번인지
-    private static String DATABASE_NAME = "PlaceDB";
+    private static int DATABASE_VERSION = 2; //DB 버전 몇번인지
+    private static String DATABASE_NAME = "PlaceDB.db";
     public static SQLiteDatabase mDB;
     private DatabaseHelper mDBHelper;
     private Context mCtx;
 
     public static  final class DB implements BaseColumns {
-        private static String TABLE_NAME = "favoriteTable"; // SQLite 사용하기에 만드는 표이름
-        private static String KEY_ID = "id";
-        public static String PLACE_TITLE = "placeTitle"; // 장소 이름
-        public static String BUILD_ADDRESS = "bAddress";
-        public static String ROAD_ADDRESS = "rAddress";
-        private static String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-                +_ID+" int"
-                + KEY_ID + "integer primary key autoincrement, "
-                + PLACE_TITLE + " TEXT,"
-                + ROAD_ADDRESS + " TEXT,"
-                + BUILD_ADDRESS + "TEXT )";
+        private static final String TABLE_NAME = "favoriteTable"; // SQLite 사용하기에 만드는 표이름
+        private static final String KEY_ID = "id";
+        public static final String PLACE_TITLE = "placeTitle"; // 장소 이름
+        public static final String ROAD_ADDRESS = "rAddress";
+        private static final String CREATE_TABLE =  "create table if not exists " + TABLE_NAME + "("
+                +_ID+" integer primary key autoincrement, "
+                + KEY_ID + " text not null,"
+                + PLACE_TITLE + " text not null,"
+                + ROAD_ADDRESS + " text not null );";
     }
 
     private class DatabaseHelper extends SQLiteOpenHelper {
@@ -77,13 +75,12 @@ public class FavDB {
 
 
     // insert data into database
-    public long insert(String id, String place_title, String build_address , String road_address ) {
+    public long insert(String id, String place_title,  String road_address ) {
         ContentValues cv = new ContentValues();
         cv.put(DB.PLACE_TITLE , place_title);
         cv.put(DB.KEY_ID, id);
-        cv.put(DB.BUILD_ADDRESS, build_address );
         cv.put(DB.ROAD_ADDRESS, road_address);
-        Log.d("FavDB Status", place_title + ", buildAddress - "+ build_address  + " roadAddress- . " +road_address + ", ." +cv);
+        Log.d("FavDB Status", place_title +  " roadAddress- . " +road_address + ", ." +cv);
         return mDB.insert(DB.TABLE_NAME, null, cv);
     }
 
@@ -116,7 +113,6 @@ public class FavDB {
             if(tempID.equals(id)){
                 temp.add(tempID);
                 temp.add(iCursor.getString(iCursor.getColumnIndex("placeTitle")));
-                temp.add(iCursor.getString(iCursor.getColumnIndex("bAddress")));
                 temp.add(iCursor.getString(iCursor.getColumnIndex("rAddress")));
             }
         }
@@ -128,20 +124,25 @@ public class FavDB {
         ContentValues cv = new ContentValues();
         cv.put(DB.PLACE_TITLE , place_title);
         cv.put(DB.KEY_ID, id);
-        cv.put(DB.BUILD_ADDRESS, build_address );
         cv.put(DB.ROAD_ADDRESS, road_address);
         Log.d("FavDB Status", place_title + ", buildAddress - "+ build_address  + " roadAddress- . " +road_address + ", ." +cv);
         return mDB.update(DB.TABLE_NAME, cv, "_id=" + id, null) > 0;
     }
 
-    // Delete All
-    public void deleteAllColumns() {
+    // 모든 데이터 지우기
+    public void deleteAll() {
         mDB.delete(DB.TABLE_NAME, null, null);
     }
 
-    // Delete Column
+    // 특정 행 지우기
     public boolean deleteColumn(long id){
         return mDB.delete(DB.TABLE_NAME, "_id="+id, null) > 0;
+    }
+
+    // 모든 데이터 읽기
+    public Cursor readAll(String id) {
+        String sql = "select * from " + DB.TABLE_NAME + " where " + DB.KEY_ID+"="+id+"";
+        return mDB.rawQuery(sql,null,null);
     }
 
 

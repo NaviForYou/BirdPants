@@ -10,15 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -51,10 +42,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     //마커 객체 생성
     Marker marker = new Marker();
     InfoWindow infoWindow = new InfoWindow();
-    Button btn;
 
-    private TextView mTextViewResult;
-    private RequestQueue mQueue;
+
     //파서 객체
     Gc_Parser gc_parser = new Gc_Parser();
     Search_Parser search_parser = new Search_Parser();
@@ -65,14 +54,18 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private FavDB favDb;
 
     //그외 객체
-    Button datebasebtn;
+    Button databaseBtn;
+    Button btn;
+    TextView temp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        datebasebtn = findViewById(R.id.database);
+        databaseBtn = findViewById(R.id.database);
+        temp = findViewById(R.id.temp);
 
         //MAP 부분
 
@@ -89,7 +82,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         seoulAsync_lowbusStop.execute("22167");
          */
 
-        //NaverMap 객체 얻어오기 - api 호출하는 인터페이스 역할을 함
+                //NaverMap 객체 얻어오기 - api 호출하는 인터페이스 역할을 함
         FragmentManager fm = getSupportFragmentManager();
         MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
         if (mapFragment == null) {
@@ -97,20 +90,24 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             fm.beginTransaction().add(R.id.map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
+        
+        //데이터베이스
+        favDb = new FavDB(this);
+        favDb.open();
+        favDb.create();
+        favDb.deleteAll();;
 
         // 위치를 반환하는 FusedLocationSource 선언
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-        datebasebtn.setOnClickListener(v -> {
-
+        databaseBtn.setOnClickListener(v -> {
+            String ID = temp.getText().toString();
+            favDb.insert(ID,gc.getBuildName(),gc.getRoadAddress());
                 }
         );
 
-        //데이터베이스
-        favDb = new FavDB(this);
-        favDb.open();
-        favDb.create();
+
     }
 
     @Override
@@ -149,9 +146,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         //심벌 클릭
         naverMap.setOnSymbolClickListener(symbol -> {
             Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
-            new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," +symbol.getPosition().latitude); //doInBackground메서드 호출
-            gc.setBulidName(symbol.getCaption());
-            Log.i("LAT", String.valueOf(symbol.getPosition()));
+            new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," +symbol.getPosition().latitude, symbol.getCaption()); //doInBackground메서드 호출
+
+            databaseBtn.setVisibility(View.VISIBLE);
+            temp.setVisibility(View.VISIBLE);
+
+            //마커 추가
             marker.setPosition(new LatLng(symbol.getPosition().latitude, symbol.getPosition().longitude));
             marker.setMap(naverMap);
             return true;
@@ -162,7 +162,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this, coord.latitude + ", " + coord.longitude,
                     Toast.LENGTH_SHORT).show();
             marker.setMap(null);
-            datebasebtn.setVisibility(View.GONE);
+            databaseBtn.setVisibility(View.GONE);
+            temp.setVisibility(View.GONE);
         });
 
 
@@ -185,7 +186,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         protected Gc doInBackground(String... strings) {
             //각종 반복이나 제어 등 주요 로직을 담당
 
-            return gc_parser.connectNaver(strings);
+            return gc_parser.connectNaver(strings[0],strings[1]);
         }
 
         @Override
@@ -193,8 +194,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             //doinBackground를 통해 완료된 작업 결과 처리
             super.onPostExecute(s);
             //로그 기록
-            Log.d("address","roadAdress : " + s.getRoadAdress());
-            Log.d("address","bulidAdress : " + s.getBulidAdress());
+            Log.d("address","roadAdress : " + s.getRoadAddress());
+            Log.d("address","bulidAdress : " + s.getBuildAddress());
             Log.d("address","legalCode : " + s.getLegalCode());
             Log.d("address","admCode : " + s.getAdmCode());
 
@@ -246,7 +247,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-
+/*
     private void jsonParse()  {
         String url = "https://api.myjson.com/bins/7piyk";
 
@@ -301,7 +302,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mQueue.add(request);
 
     }
-
+*/
 
 }
 
