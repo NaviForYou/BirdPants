@@ -1,4 +1,4 @@
-package com.example.naviforyou;
+package com.example.naviforyou.data;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package com.example.naviforyou;
+package com.example.naviforyou.data;
 
 public class Search {
     String placeName;

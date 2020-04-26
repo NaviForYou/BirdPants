@@ -1,7 +1,7 @@
-package com.example.naviforyou;
+package com.example.naviforyou.data;
 
 //저상버스
-class LowbusStop {
+public class LowbusStop {
     String time1;
     String time2;
     String rtName;

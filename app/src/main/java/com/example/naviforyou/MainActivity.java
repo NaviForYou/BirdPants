@@ -22,6 +22,13 @@ import org.json.JSONObject;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.naviforyou.data.Gc;
+import com.example.naviforyou.data.Gc_Parser;
+import com.example.naviforyou.data.LowbusStop;
+import com.example.naviforyou.data.LowbusStop_Parser;
+import com.example.naviforyou.data.Search;
+import com.example.naviforyou.data.Search_Parser;
+import com.example.naviforyou.model.FavDB;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -54,28 +61,20 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
     Gc gc;
 
-    Button datebase;
+    //데이터 베이스
+    private FavDB favDb;
+
+    //그외 객체
+    Button datebasebtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        datebase = findViewById(R.id.database);
-        // 누나꺼 부분 버튼 이름: database로 변경
-        /*
-        mTextViewResult = findViewById(R.id.text_view_result);
-        Button buttonParse = findViewById(R.id.button_parse);
+        datebasebtn = findViewById(R.id.database);
 
-        mQueue = Volley.newRequestQueue( this);
-
-        buttonParse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jsonParse();
-            }
-        })
-         */
+        //MAP 부분
 
         // 검색 기능 추가되면 넣기
         /*
@@ -103,13 +102,15 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-        datebase.setOnClickListener(v -> {
-            Log.d("address","gc : roadAdress : " + gc.getRoadAdress());
-            Log.d("address","gc : bulidAdress : " + gc.getBulidAdress());
-            Log.d("address","gc : legalCode : " + gc.getLegalCode());
-            Log.d("address","gc : admCode : " + gc.getAdmCode());
-        }
+        datebasebtn.setOnClickListener(v -> {
+
+                }
         );
+
+        //데이터베이스
+        favDb = new FavDB(this);
+        favDb.open();
+        favDb.create();
     }
 
     @Override
@@ -149,6 +150,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         naverMap.setOnSymbolClickListener(symbol -> {
             Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
             new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," +symbol.getPosition().latitude); //doInBackground메서드 호출
+            gc.setBulidName(symbol.getCaption());
             Log.i("LAT", String.valueOf(symbol.getPosition()));
             marker.setPosition(new LatLng(symbol.getPosition().latitude, symbol.getPosition().longitude));
             marker.setMap(naverMap);
@@ -160,7 +162,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this, coord.latitude + ", " + coord.longitude,
                     Toast.LENGTH_SHORT).show();
             marker.setMap(null);
-            datebase.setVisibility(View.GONE);
+            datebasebtn.setVisibility(View.GONE);
         });
 
 
@@ -197,7 +199,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             Log.d("address","admCode : " + s.getAdmCode());
 
             gc = s;
-            datebase.setVisibility(View.VISIBLE);
         }
     }
 
