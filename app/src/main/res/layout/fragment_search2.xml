@@ -11,7 +11,18 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"></LinearLayout>
+            android:layout_height="100dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/place_name"></TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/place_address"
+                android:layout_gravity="bottom"></TextView>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -19,14 +30,14 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/menu_1"></ImageView>
+                android:src="@mipmap/menu_1"></ImageView><!--전화하기-->
             <LinearLayout
                 android:layout_width="10dp"
                 android:layout_height="match_parent"></LinearLayout>
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/menu_1"></ImageView>
+                android:src="@mipmap/menu_1"></ImageView><!--즐겨찾기에 추가하기-->
             <LinearLayout
                 android:layout_width="220dp"
                 android:layout_height="match_parent"></LinearLayout>
@@ -34,12 +45,12 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:src="@mipmap/menu_1"></ImageView>
+                android:src="@mipmap/menu_1"></ImageView><!--출발-->
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:src="@mipmap/menu_1"></ImageView>
+                android:src="@mipmap/menu_1"></ImageView><!--도착-->
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
