@@ -28,8 +28,9 @@ import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Gc_Parser gc_parser = new Gc_Parser();
     Search_Parser search_parser = new Search_Parser();
     LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
-    TextView search_bar; //main layout의 검색창
-    private View frame;
+    Gc gc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
 
-        frame = findViewById(R.id.frame);
+
 
     }
 
@@ -101,9 +102,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();
 
         //오버레이 추가
-        marker.setPosition(new LatLng(37.5670135, 126.9783740));
-        marker.setMap(naverMap);
-        infoWindow.open(marker);
+
 
         Log.i(this.getClass().getName(), String.valueOf(uiSettings.isCompassEnabled()));
 
@@ -121,10 +120,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        AtomicBoolean view = new AtomicBoolean(false);
-        AtomicBoolean view2 = new AtomicBoolean(false);
         fragment_search fragment_search = new fragment_search();
-        fragment_search2 fragment_search2 = new fragment_search2();
+        AtomicReference<fragment_search2> fragment_search2 = new AtomicReference<>(new fragment_search2());
 
 
         //심벌 클릭
@@ -133,21 +130,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude); //doInBackground메서드 호출
             Log.i("LAT", String.valueOf(symbol.getPosition()));
 
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("Gc", (Serializable) gc);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (!view.get()) {
+            if (!fragment_search.isAdded()) {
                 transaction.replace(R.id.frame, fragment_search);
-                view.set(true);
             }
 
-            if (!view2.get()){
-                transaction.add(R.id.frame,fragment_search2);
-                view2.set(true);
-            }else{
-                transaction.remove(fragment_search2);
-                view2.set(false);
+            Log.i("id", "fragment_search2:"+String.valueOf(fragment_search2.get().isAdded()));
+            if (fragment_search2.get().isAdded()) {
+                transaction.remove(fragment_search2.get());
+                fragment_search2.set(new fragment_search2());
             }
-
+            transaction.add(R.id.frame, fragment_search2.get());
+            fragment_search2.get().setArguments(bundle);
             transaction.commit();
+
+
+            marker.setPosition(new LatLng(symbol.getPosition().latitude, symbol.getPosition().longitude));
+            marker.setMap(naverMap);
 
             return true;
         });
@@ -160,20 +161,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            if (!view.get()) {
+            if (!fragment_search.isAdded()) {
                 transaction.replace(R.id.frame, fragment_search);
-                view.set(true);
             } else {
                 transaction.remove(fragment_search);
-                view.set(false);
             }
 
-            if (view2.get()){
-                transaction.remove(fragment_search2);
-                view2.set(false);
+            if (fragment_search2.get().isAdded()){
+                transaction.remove(fragment_search2.get());
             }
 
             transaction.commit();
+
+            marker.setMap(null);
         });
     }
 
@@ -205,6 +205,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d("address", "bulidAdress : " + s.getBulidAdress());
             Log.d("address", "legalCode : " + s.getLegalCode());
             Log.d("address", "admCode : " + s.getAdmCode());
+
+            gc=s;
 
         }
     }
