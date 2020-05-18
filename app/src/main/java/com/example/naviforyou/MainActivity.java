@@ -2,7 +2,6 @@ package com.example.naviforyou;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 
@@ -30,6 +29,7 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -82,15 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         frame = findViewById(R.id.frame);
-        frame.setOnClickListener(new View.OnClickListener() {
-            @Override  //클릭했얼 경우 검책 프래그먼트창 켜지기 근데 이게 프레임 레이아웃이 바뀌는 느낌이어서 드로워 레이아웃 뒤로 가는듯 하닫
-            public void onClick(View v) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                fragment_search fragment_search = new fragment_search();
-                transaction.replace(R.id.frame, fragment_search);
-                transaction.commit();
-            }
-        });
+
     }
 
     @Override
@@ -129,20 +121,60 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        AtomicBoolean view = new AtomicBoolean(false);
+        AtomicBoolean view2 = new AtomicBoolean(false);
+        fragment_search fragment_search = new fragment_search();
+        fragment_search2 fragment_search2 = new fragment_search2();
+
+
         //심벌 클릭
         naverMap.setOnSymbolClickListener(symbol -> {
             Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
             new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude); //doInBackground메서드 호출
             Log.i("LAT", String.valueOf(symbol.getPosition()));
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            if (!view.get()) {
+                transaction.replace(R.id.frame, fragment_search);
+                view.set(true);
+            }
+
+            if (!view2.get()){
+                transaction.add(R.id.frame,fragment_search2);
+                view2.set(true);
+            }else{
+                transaction.remove(fragment_search2);
+                view2.set(false);
+            }
+
+            transaction.commit();
+
             return true;
         });
 
+
         //클릭
-        naverMap.setOnMapClickListener((point, coord) ->
-                Toast.makeText(this, coord.latitude + ", " + coord.longitude,
-                        Toast.LENGTH_SHORT).show());
+        naverMap.setOnMapClickListener((point, coord) -> {
+            Toast.makeText(this, coord.latitude + ", " + coord.longitude,
+                        Toast.LENGTH_SHORT).show();
 
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+            if (!view.get()) {
+                transaction.replace(R.id.frame, fragment_search);
+                view.set(true);
+            } else {
+                transaction.remove(fragment_search);
+                view.set(false);
+            }
+
+            if (view2.get()){
+                transaction.remove(fragment_search2);
+                view2.set(false);
+            }
+
+            transaction.commit();
+        });
     }
 
     //위치 권한 허용
