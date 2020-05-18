@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.util.ArrayList;
 
 
 public class fragment_search2 extends Fragment {
@@ -29,11 +32,13 @@ public class fragment_search2 extends Fragment {
 
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_search2, container, false);
 
-        gc = (Gc)getArguments().get("Gc");
+        Bundle bundle = getArguments();
+        gc = (Gc)bundle.getSerializable("Gc");
         place_name = (TextView) layout.findViewById(R.id.place_name);
         place_address = (TextView) layout.findViewById(R.id.place_address);
-        place_name.setText();
-        place_address.setText("서울특별시 노원구 월계동 광운로 20");
+
+        place_name.setText(gc.getBuildName());
+        place_address.setText(gc.getBulidAdress());
 
         //괄호안이 데이터 값
 
