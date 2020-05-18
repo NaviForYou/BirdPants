@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"><!--이 프래그먼트도 마찬가지 이게 화면 아래창에 뜨는 건물 정보 같은 느낌인데 프래그먼트 1번이 안되니까 그냥 얘도 안함ㅋ-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/menu_1"></ImageView>
+            <LinearLayout
+                android:layout_width="10dp"
+                android:layout_height="match_parent"></LinearLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@mipmap/menu_1"></ImageView>
+            <LinearLayout
+                android:layout_width="220dp"
+                android:layout_height="match_parent"></LinearLayout>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:src="@mipmap/menu_1"></ImageView>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:src="@mipmap/menu_1"></ImageView>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

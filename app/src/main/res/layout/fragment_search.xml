@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="#FFFFFF">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:id="@+id/search_button"
+            android:src="@mipmap/ic_launcher"/>
+        <!--검색버튼-->
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:id="@+id/search_bar"
+            android:hint="검색어를 입력하시오"
+            android:textSize="23dp"
+            android:layout_toRightOf="@id/search_button"
+            android:gravity="center"
+            android:background="#FFFFFF"/>
+        <!--검색바-->
+        <ImageView
+            android:id="@+id/x_button"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/search_bar"
+            android:src="@mipmap/ic_launcher"/>
+        <!--음성검색버튼-->
+    </RelativeLayout>
+
+</FrameLayout>

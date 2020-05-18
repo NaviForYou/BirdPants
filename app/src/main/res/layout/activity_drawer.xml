@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 드로워 레이아웃, 계속 찾앙보고 안되면 일반 메뉴로 만들기-->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"><!--말만고 탈많은 드로워레이아웃인데 몰라 그냥 될대로 되라ㅏㅏㅏㅏㅏㅏㅏㅏ-->
+
+<!--    <RelativeLayout
+        android:id="@+id/drawer"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:layout_gravity="bottom">-->
+
+<!--        <RelativeLayout
+            android:id="@+id/gps"
+            android:layout_width="50dp"
+            android:layout_height="120dp" />-->
+
+<!--        <ImageView
+            android:id="@+id/category"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="1dp"
+            android:src="@mipmap/setting_1" />카테고리-->
+        <!--카테고리는 스피너 사용하기//아닐수도 있고-->
+<!--        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/category"
+            android:layout_margin="1dp"
+            android:src="@mipmap/setting_1" />자기위치표시하기-->
+<!--        <RelativeLayout
+            android:id="@+id/menu_1"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:layout_below="@id/gps"
+            android:background="#095CD7" />-->
+
+<!--        <ImageView
+            android:id="@+id/map"
+            android:layout_width="82dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/gps"
+            android:layout_margin="10dp"
+            android:src="@mipmap/map_2" />길찾기-->
+<!--        <ImageView
+            android:id="@+id/subway"
+            android:layout_width="82dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/gps"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/map"
+            android:src="@mipmap/subway_2" />지하철-->
+<!--        <ImageView
+            android:id="@+id/taxi"
+            android:layout_width="82dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/gps"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/subway"
+            android:src="@mipmap/taxi_2" />택시-->
+<!--        <ImageView
+            android:id="@+id/star"
+            android:layout_width="82dp"
+            android:layout_height="50dp"
+            android:layout_below="@id/gps"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/taxi"
+            android:src="@mipmap/person_2" />즐겨찾기-->
+<!--        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/menu_1"
+            android:background="#FBF9ED" />-->
+
+<!--        <ImageView
+            android:id="@+id/web"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/menu_1"
+            android:layout_margin="10dp"
+            android:src="@mipmap/menu_1" />웹사이트-->
+<!--        <ImageView
+            android:id="@+id/send"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/menu_1"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/web"
+            android:src="@mipmap/menu_1" />의견보내기-->
+<!--        <ImageView
+            android:id="@+id/setting"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/menu_1"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/send"
+            android:src="@mipmap/setting_1" />설정-->
+<!--        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:layout_below="@id/web"
+            android:layout_margin="20dp"
+            android:src="@mipmap/menu_1" />
+    </RelativeLayout>-->
+</FrameLayout>

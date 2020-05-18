@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="place">
+        <item>광운대학교</item>
+        <item>새빛관</item>
+        <item>참빗관</item>
+        <item>비마관</item>
+        <item>화도관</item>
+        <item>옥의관</item>
+        <item>한울관</item>
+        <item>중앙도서관</item>
+        <item>80주년 기념관</item>
+        <item>복지관</item>
+        <item>동해문화예술관</item>
+    </string-array>
+</resources>
