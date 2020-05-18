@@ -36,12 +36,4 @@ public class fragment_search extends Fragment {
 
         return layout;
     }
-<<<<<<< HEAD
-=======
-
-
-
-
-
->>>>>>> 40d1f467ed3249e8e8625880aaacc1463e201355
 }

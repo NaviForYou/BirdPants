@@ -29,8 +29,10 @@ public class fragment_search2 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 
-        place_name = (TextView) layout.findViewByld(R.id.place_name);
-        place_address = (TextView) layout.findViewByld(R.id.place_address);
+        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
+
+        place_name = (TextView) layout.findViewById(R.id.place_name);
+        place_address = (TextView) layout.findViewById(R.id.place_address);
         place_name.setText("광운대학교");
         place_address.setText("서울특별시 노원구 월계동 광운로 20");
         //괄호안이 데이터 값
