@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             try {
                 gc = new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude).get(); //doInBackground메서드 호출
                 gc.setBuildName(symbol.getCaption());
+
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 if (!fragment_search.isAdded()) {
                     transaction.replace(R.id.frame, fragment_search);
