@@ -33,21 +33,15 @@
 
 
 
-<!--  이거는 왜 넣은 거야?? 왜 넣은지 나중에 말해줘
-   <EditText
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-      android:hint="search"
-       android:textFontWeight="1"
-      android:id="@+id/search"/>
--->
+        <!--  이거는 왜 넣은 거야?? 왜 넣은지 나중에 말해줘
+           <EditText
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+              android:hint="search"
+               android:textFontWeight="1"
+              android:id="@+id/search"/>
+        -->
 
     </RelativeLayout>
 
 </LinearLayout>
-
-
-
-
-
-
