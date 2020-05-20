@@ -12,7 +12,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="#FBF9ED">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -26,7 +27,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="#095CD7">
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
