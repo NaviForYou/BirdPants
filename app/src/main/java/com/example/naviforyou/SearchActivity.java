@@ -41,7 +41,8 @@ public class SearchActivity extends AppCompatActivity {
 
                 adapter = null;
 
-                new KakaoAsync_Search().execute("127.06283102249932","37.514322572335935");
+                if(searchText.getText().toString().length() != 0)
+                    new KakaoAsync_Search().execute("127.06283102249932","37.514322572335935",searchText.getText().toString());
 
 
             }
@@ -53,7 +54,7 @@ public class SearchActivity extends AppCompatActivity {
 
         @Override
         protected ArrayList<Search> doInBackground(String... strings) {
-            return search_parser.connectKakao(strings); // x,y 좌표
+            return search_parser.connectKakao(strings); // x,y 좌표, 검색어
         }
 
         @Override

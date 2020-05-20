@@ -41,12 +41,13 @@ public class ViewSearchAdapter extends ArrayAdapter<Search> {
         search = list.get(position);
 
         TextView placeName = convertView.findViewById(R.id.search_placeName);
-        TextView roadAddress = convertView.findViewById(R.id.search_roadAddress);
+        TextView Address = convertView.findViewById(R.id.search_roadAddress);
         TextView phoneNumber = convertView.findViewById(R.id.search_phoneNumber);
 
-        placeName.setText(search.placeName);
-        roadAddress.setText(search.roadAddress);
-        phoneNumber.setText(search.phone_number);
+        placeName.setText(search.getPlaceName());
+        if(!search.getRoadAddress().isEmpty()) Address.setText(search.getRoadAddress());
+        else Address.setText(search.getBulidAddress());
+        phoneNumber.setText(search.getPhone_number());
 
         return convertView;
     }

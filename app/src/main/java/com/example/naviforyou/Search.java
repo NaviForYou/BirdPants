@@ -1,20 +1,20 @@
 package com.example.naviforyou;
 
 public class Search {
-    String placeName;
-    String roadAddress;
-    String bulidAddress;
-    String phone_number;
-    String distancs;
+    private String placeName;
+    private String roadAddress;
+    private String bulidAddress;
+    private String phone_number;
+    private String distancs;
 
 
 
-    public Search(String placeName, String roadAddress, String bulidAddress, String phone_number, String distancs) {
+    public Search(String placeName, String roadAddress, String buildAddress, String phone_number, String distance) {
         this.placeName = placeName;
         this.roadAddress = roadAddress;
-        this.bulidAddress = bulidAddress;
+        this.bulidAddress = buildAddress;
         this.phone_number = phone_number;
-        this.distancs = distancs;
+        this.distancs = distance;
     }
 
     public String getPlaceName() {

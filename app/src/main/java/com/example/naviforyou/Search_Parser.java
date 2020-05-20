@@ -20,7 +20,7 @@ public class Search_Parser {
 
     private String coordsX = "";
     private String coordsY = "";
-    private String search = "카카오프렌즈";
+    private String search = "";
 
     private String radius = "20000";
     private String sort = "distance"; //정렬 기준 : distance or accuracy
@@ -28,16 +28,15 @@ public class Search_Parser {
 
 
     //public ArrayList<Search> connectNaver(ArrayList<Search> list, String[] coords){
-    public ArrayList<Search> connectKakao(String[] coords){
+    public ArrayList<Search> connectKakao(String[] temp){
         try{
 
             //현위치 좌표
-            Log.d("coords",coords[0]);
-            coordsX = URLEncoder.encode(coords[0],"UTF-8");
-            coordsY = URLEncoder.encode(coords[1],"UTF-8");
+            coordsX = URLEncoder.encode(temp[0],"UTF-8");
+            coordsY = URLEncoder.encode(temp[1],"UTF-8");
 
             //검색정보
-            search = URLEncoder.encode(search,"UTF-8");
+            search = URLEncoder.encode(temp[2],"UTF-8");
 
             String apiURL = "https://dapi.kakao.com/v2/local/search/keyword.json?query="+ search +"&x="+coordsX +"&y="+ coordsY +"&radius=" + radius + "&sort="+sort;
 
@@ -82,11 +81,12 @@ public class Search_Parser {
             for(int i =0; i < jsonArray.length(); i++){
                 jsonObject = jsonArray.getJSONObject(i);
                 //장소이름, 도로명, 지번, 전화번호, 거리
+
                 Search temp = new Search(
                         jsonObject.getString("place_name"),
                         jsonObject.getString("road_address_name"),
                         jsonObject.getString("address_name"),
-                        jsonObject.getString("place_name"),
+                        jsonObject.getString("phone"),
                         jsonObject.getString("distance")+"m");
                 searches.add(temp);
             }
