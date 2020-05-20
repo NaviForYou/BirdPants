@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -29,7 +28,8 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Gc_Parser gc_parser = new Gc_Parser();
     Search_Parser search_parser = new Search_Parser();
     LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
-    TextView search_bar; //main layout의 검색창
-    private View frame;
+    Gc gc;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
 
-        frame = findViewById(R.id.frame);
+
 
     }
 
@@ -101,53 +101,62 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();
 
         //오버레이 추가
-        marker.setPosition(new LatLng(37.5670135, 126.9783740));
-        marker.setMap(naverMap);
-        infoWindow.open(marker);
+
 
         Log.i(this.getClass().getName(), String.valueOf(uiSettings.isCompassEnabled()));
 
         //자기 위치로 돌아가는 버튼 데모
         btn = findViewById(R.id.me);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (naverMap.getLocationTrackingMode() == LocationTrackingMode.NoFollow) {
-                    naverMap.setLocationTrackingMode(LocationTrackingMode.Face);
-                }
-                else {
-                    naverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
-                }
+        btn.setOnClickListener(v -> {
+            if (naverMap.getLocationTrackingMode() == LocationTrackingMode.NoFollow) {
+                naverMap.setLocationTrackingMode(LocationTrackingMode.Face);
+            }
+            else {
+                naverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
             }
         });
 
-        AtomicBoolean view = new AtomicBoolean(false);
-        AtomicBoolean view2 = new AtomicBoolean(false);
         fragment_search fragment_search = new fragment_search();
-        fragment_search2 fragment_search2 = new fragment_search2();
+        AtomicReference<fragment_search2> fragment_search2 = new AtomicReference<>(new fragment_search2());
+
 
 
         //심벌 클릭
         naverMap.setOnSymbolClickListener(symbol -> {
             Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
-            new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude); //doInBackground메서드 호출
-            Log.i("LAT", String.valueOf(symbol.getPosition()));
+            try {
+                gc = new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude).get(); //doInBackground메서드 호출
+                gc.setBuildName(symbol.getCaption());
 
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (!view.get()) {
-                transaction.replace(R.id.frame, fragment_search);
-                view.set(true);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                if (!fragment_search.isAdded()) {
+                    transaction.replace(R.id.frame, fragment_search);
+                }
+
+
+                if (fragment_search2.get().isAdded()) {
+                    transaction.remove(fragment_search2.get());
+                    fragment_search2.set(new fragment_search2());
+                }
+
+                transaction.add(R.id.frame, fragment_search2.get());
+                transaction.commit();
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Gc", gc);
+                fragment_search2.get().setArguments(bundle);
+
+                marker.setPosition(new LatLng(symbol.getPosition().latitude, symbol.getPosition().longitude));
+                marker.setMap(naverMap);
+
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
-            if (!view2.get()){
-                transaction.add(R.id.frame,fragment_search2);
-                view2.set(true);
-            }else{
-                transaction.remove(fragment_search2);
-                view2.set(false);
-            }
 
-            transaction.commit();
+
 
             return true;
         });
@@ -160,20 +169,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            if (!view.get()) {
+            if (!fragment_search.isAdded()) {
                 transaction.replace(R.id.frame, fragment_search);
-                view.set(true);
             } else {
                 transaction.remove(fragment_search);
-                view.set(false);
             }
 
-            if (view2.get()){
-                transaction.remove(fragment_search2);
-                view2.set(false);
+            if (fragment_search2.get().isAdded()){
+                transaction.remove(fragment_search2.get());
             }
 
             transaction.commit();
+
+            marker.setMap(null);
         });
     }
 
@@ -205,6 +213,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             Log.d("address", "bulidAdress : " + s.getBulidAdress());
             Log.d("address", "legalCode : " + s.getLegalCode());
             Log.d("address", "admCode : " + s.getAdmCode());
+
+            gc=s;
 
         }
     }

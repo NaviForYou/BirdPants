@@ -23,12 +23,11 @@ public class Gc_Parser {
 
 
    //통신을 위한 메서드
-    public Gc connectNaver(String[] coords) //위경도
+    public Gc connectNaver(String[] coords) //[0] : 위경도 [1] : 건물이름
     {
 
         try{
             //심벌 좌표
-            Log.d("coords",coords[0]);
             this.coords = URLEncoder.encode(coords[0],"UTF-8");
             //출력 순서 : 법정동, 주소, 행정동, 도로명 주소
             String apiURL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc?coords="+this.coords+"&sourcecrs=epsg:4326&output=json&orders=legalcode,addr,admcode,roadaddr";
@@ -68,6 +67,7 @@ public class Gc_Parser {
 
     //파서
     private Gc paserNaver(String json) {
+
         String roadAdress = null; //도로명
         String bulidAdress = null; //지번
         String legalcode = null; //법정동
