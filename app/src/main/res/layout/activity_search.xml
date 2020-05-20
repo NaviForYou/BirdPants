@@ -17,18 +17,20 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/search_1"
+                android:src="@mipmap/ic_launcher"
                 android:layout_margin="5dp"></ImageView><!--뒤로가기-->
             <EditText
                 android:layout_width="310dp"
                 android:layout_height="match_parent"
                 android:hint="장소,버스,지하철,주소 검색"
-                android:textSize="20dp"></EditText><!--검색창-->
+                android:textSize="20dp"
+                android:id="@+id/searchText"></EditText><!--검색창-->
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:src="@mipmap/search_1"
-                android:layout_margin="5dp"></ImageView><!--x버튼-->
+                android:layout_margin="5dp"
+                android:id="@+id/search"></ImageView><!--x버튼-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,7 +51,7 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:entries="@array/place"></ListView>
+                android:id="@+id/myListView"></ListView>
             <!--일단 리스트뷰로 해놨는데 API에 따라서 스피너로 바꿔야될 수도 있음!!-->
         </LinearLayout>
     </LinearLayout>

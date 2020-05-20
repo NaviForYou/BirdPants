@@ -11,7 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -29,6 +28,7 @@ import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         mapFragment.getMapAsync(this);
 
+
         // 위치를 반환하는 FusedLocationSource 선언
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
@@ -118,12 +119,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         fragment_search fragment_search = new fragment_search();
         AtomicReference<fragment_search2> fragment_search2 = new AtomicReference<>(new fragment_search2());
+        AtomicBoolean frag = new AtomicBoolean(true);
 
-
+        FragmentTransaction tras = getSupportFragmentManager().beginTransaction();
+        tras.replace(R.id.frame, fragment_search);
+        tras.commit();
 
         //심벌 클릭
         naverMap.setOnSymbolClickListener(symbol -> {
-            Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
+           //Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
             try {
                 gc = new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude).get(); //doInBackground메서드 호출
                 gc.setBuildName(symbol.getCaption());
@@ -132,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (!fragment_search.isAdded()) {
                     transaction.replace(R.id.frame, fragment_search);
                 }
+                frag.set(false);
 
 
                 if (fragment_search2.get().isAdded()) {
@@ -164,15 +169,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //클릭
         naverMap.setOnMapClickListener((point, coord) -> {
-            Toast.makeText(this, coord.latitude + ", " + coord.longitude,
-                        Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, coord.latitude + ", " + coord.longitude,
+            //           Toast.LENGTH_SHORT).show();
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            if (!fragment_search.isAdded()) {
-                transaction.replace(R.id.frame, fragment_search);
+            if (!frag.get()) {
+                if(!fragment_search.isAdded()) transaction.replace(R.id.frame, fragment_search);
+                frag.set(true);
             } else {
                 transaction.remove(fragment_search);
+                frag.set(false);
             }
 
             if (fragment_search2.get().isAdded()){
@@ -219,28 +226,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    //통신을 위한 백그라운드 작업 설정 - 검색
-    class KakaoAsync_Search extends AsyncTask<String, String, ArrayList<Search>> {
 
-        @Override
-        protected ArrayList<Search> doInBackground(String... strings) {
-            return search_parser.connectKakao(strings); // x,y 좌표
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Search> s) {
-            //doinBackground를 통해 완료된 작업 결과 처리
-            super.onPostExecute(s);
-            //로그 기록
-            for (int i = 0; i < s.size(); i++) {
-                Log.d("address", "PlaceName : " + s.get(i).getPlaceName());
-                Log.d("address", "BulidAdress : " + s.get(i).getBulidAddress());
-                Log.d("address", "RoadAddress : " + s.get(i).getRoadAddress());
-                Log.d("address", "Phone_number : " + s.get(i).getPhone_number());
-                Log.d("address", "Distance : " + s.get(i).getDistancs());
-            }
-        }
-    }
 
     //통신을 위한 백그라운드 작업 설정 - 버스 정류장 도착 정보
     class SeoulAsync_LowbusStop extends AsyncTask<String, String, ArrayList<LowbusStop>> {
