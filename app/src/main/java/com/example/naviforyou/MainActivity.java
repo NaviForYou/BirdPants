@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
@@ -47,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Search_Parser search_parser = new Search_Parser();
     LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
     Gc gc;
+
+    //2번째
+    boolean isSearch = false;
+    double searchX = 0;
+    double searchY = 0;
 
 
     @Override
@@ -80,14 +87,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // 위치를 반환하는 FusedLocationSource 선언
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+    }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        Log.d("isSearch","isSearch : " + intent.hasExtra("isSearch"));
+        if(intent.hasExtra("isSearch")){
+            isSearch = intent.getExtras().getBoolean("isSearch");
+            searchX = intent.getExtras().getDouble("X");
+            searchY = intent.getExtras().getDouble("Y");
+        }
     }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+
+
         //버스 정류장 표시
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
 
@@ -104,7 +121,24 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //오버레이 추가
 
 
+
         Log.i(this.getClass().getName(), String.valueOf(uiSettings.isCompassEnabled()));
+
+        //검색 장소 클릭 후
+        if(isSearch){
+            Toast.makeText(this, "X : " + searchX + ",Y : " + searchY,Toast.LENGTH_SHORT).show();
+            //카메라 이동
+            CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(searchY, searchX));
+            naverMap.moveCamera(cameraUpdate);
+            // 마커
+            marker.setMap(null);
+            marker.setPosition(new LatLng(searchY, searchX));
+            marker.setMap(naverMap);
+
+            isSearch = false;
+            searchX = 0;
+            searchY = 0;
+        }
 
         //자기 위치로 돌아가는 버튼 데모
         btn = findViewById(R.id.me);
@@ -151,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 bundle.putSerializable("Gc", gc);
                 fragment_search2.get().setArguments(bundle);
 
+                marker.setMap(null);
                 marker.setPosition(new LatLng(symbol.getPosition().latitude, symbol.getPosition().longitude));
                 marker.setMap(naverMap);
 

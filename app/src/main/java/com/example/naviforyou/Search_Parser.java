@@ -88,6 +88,8 @@ public class Search_Parser {
                         jsonObject.getString("address_name"),
                         jsonObject.getString("phone"),
                         jsonObject.getString("distance")+"m");
+                temp.setLatitude_Y(jsonObject.getDouble("y"));
+                temp.setLongitude_X(jsonObject.getDouble("x"));
                 searches.add(temp);
             }
         }catch (JSONException e){

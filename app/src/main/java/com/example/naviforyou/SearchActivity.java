@@ -1,6 +1,7 @@
 package com.example.naviforyou;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,9 +12,11 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +30,7 @@ public class SearchActivity extends AppCompatActivity {
     static EditText searchText;
     ListView myListView;
     Search_Parser search_parser;
-    ArrayList<Search> list;
+    ArrayList<Search> searchList;
     ViewSearchAdapter adapter;
     ImageView search;
 
@@ -47,7 +50,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                list = new ArrayList<>();
+                searchList = new ArrayList<>();
 
                 adapter = null;
 
@@ -61,7 +64,6 @@ public class SearchActivity extends AppCompatActivity {
                     String provider = location.getProvider();
                     double longitude = location.getLongitude();
                     double latitude = location.getLatitude();
-                    double altitude = location.getAltitude();
 
                     /*
                     위치 정보 업데이트
@@ -83,6 +85,24 @@ public class SearchActivity extends AppCompatActivity {
 
 
 
+            }
+        });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("isSearch",true);
+                intent.putExtra("X",searchList.get(position).getLongitude_X());
+                intent.putExtra("Y",searchList.get(position).getLatitude_Y());
+                startActivity(intent);
             }
         });
     }
@@ -125,7 +145,7 @@ public class SearchActivity extends AppCompatActivity {
             //로그 기록
             if(adapter == null){
                 adapter = new ViewSearchAdapter( SearchActivity.this, R.layout.search_item, list);
-
+                searchList = list;
                 myListView.setAdapter(adapter);
             }
         }

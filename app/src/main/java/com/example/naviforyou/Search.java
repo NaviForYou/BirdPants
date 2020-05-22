@@ -6,6 +6,8 @@ public class Search {
     private String bulidAddress;
     private String phone_number;
     private String distancs;
+    private double longitude_X;
+    private double latitude_Y;
 
 
 
@@ -37,6 +39,10 @@ public class Search {
         return distancs;
     }
 
+    public double getLongitude_X() { return longitude_X; }
+
+    public double getLatitude_Y() { return latitude_Y; }
+
     public void setPlaceName(String placeName) {
         this.placeName = placeName;
     }
@@ -57,6 +63,9 @@ public class Search {
         this.distancs = distancs;
     }
 
+    public void setLongitude_X(double longitude_X) {  this.longitude_X = longitude_X; }
+
+    public void setLatitude_Y(double latitude_Y) { this.latitude_Y = latitude_Y; }
 
 
 }
