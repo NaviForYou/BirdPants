@@ -16,6 +16,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.example.naviforyou.API.Gc;
+import com.example.naviforyou.API.Gc_Parser;
+import com.example.naviforyou.API.LowbusStop;
+import com.example.naviforyou.API.LowbusStop_Parser;
+import com.example.naviforyou.API.Search_Parser;
+import com.example.naviforyou.ODsay.FindRoute;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
@@ -27,6 +33,9 @@ import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
+import com.naver.maps.map.widget.CompassView;
+import com.naver.maps.map.widget.ZoomControlView;
+import com.odsay.odsayandroidsdk.ODsayService;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
@@ -49,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Search_Parser search_parser = new Search_Parser();
     LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
     Gc gc;
+
+
 
     //2번째
     boolean isSearch = false;
@@ -87,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         // 위치를 반환하는 FusedLocationSource 선언
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+
+        FindRoute findRoute = new FindRoute();
+        findRoute.execution(this);
+
     }
 
     @Override
@@ -103,13 +118,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
-
-
         //버스 정류장 표시
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
 
         // UI 설정
         UiSettings uiSettings = naverMap.getUiSettings();
+        //uiSettings.setCompassEnabled(false);
+        //uiSettings.setZoomControlEnabled(false);
 
         // FusedLocationSource을 NaverMap에 지정
         naverMap.setLocationSource(locationSource);
@@ -120,9 +135,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //오버레이 추가
 
-
-
-        Log.i(this.getClass().getName(), String.valueOf(uiSettings.isCompassEnabled()));
 
         //검색 장소 클릭 후
         if(isSearch){
@@ -201,7 +213,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return true;
         });
 
-
         //클릭
         naverMap.setOnMapClickListener((point, coord) -> {
             //Toast.makeText(this, coord.latitude + ", " + coord.longitude,
@@ -261,8 +272,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-
-
     //통신을 위한 백그라운드 작업 설정 - 버스 정류장 도착 정보
     class SeoulAsync_LowbusStop extends AsyncTask<String, String, ArrayList<LowbusStop>> {
 
@@ -284,7 +293,5 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
     }
-
-
 }
 

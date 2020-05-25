@@ -1,4 +1,4 @@
-package com.example.naviforyou;
+package com.example.naviforyou.API;
 
 import java.io.Serializable;
 

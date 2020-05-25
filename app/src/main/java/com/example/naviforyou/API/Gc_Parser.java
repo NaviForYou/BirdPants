@@ -1,6 +1,8 @@
-package com.example.naviforyou;
+package com.example.naviforyou.API;
 
 import android.util.Log;
+
+import com.example.naviforyou.API.Gc;
 
 import org.json.JSONArray;
 import org.json.JSONException;

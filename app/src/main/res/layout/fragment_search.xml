@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_margin="10dp"
-        android:background="#FFFFFF">
+        android:background="#FFFFFF"
+        android:id="@+id/search_layout">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="40dp"

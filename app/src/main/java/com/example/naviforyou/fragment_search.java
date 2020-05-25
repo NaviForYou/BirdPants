@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +15,7 @@ import androidx.fragment.app.Fragment;
 
 public class fragment_search extends Fragment {
 
-    TextView search_button;
+    RelativeLayout search_layout;
 
     @NonNull
     @Override
@@ -22,8 +23,8 @@ public class fragment_search extends Fragment {
 
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_search, container, false);
 
-        search_button = (TextView) layout.findViewById(R.id.search_bar);
-        search_button.setOnClickListener(new View.OnClickListener() {
+        search_layout = (RelativeLayout) layout.findViewById(R.id.search_layout);
+        search_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
