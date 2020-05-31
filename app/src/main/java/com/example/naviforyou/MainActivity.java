@@ -101,9 +101,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationSource =
                 new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
 
-        FindRoute findRoute = new FindRoute();
-        findRoute.execution(this);
-
     }
 
     @Override

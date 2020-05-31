@@ -6,7 +6,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Subway {//지하철 1 :구간
+import java.io.Serializable;
+
+public class Subway implements Serializable {//지하철 1 :구간
 
     //1번 {이동거리,이동소요시간,이동정거장수,승차정류장명,하차정류장명,방면정보,빠른환승위치,들어가는출구,나가는출구}
     private String[] SubwayInfo_1=new String[9];

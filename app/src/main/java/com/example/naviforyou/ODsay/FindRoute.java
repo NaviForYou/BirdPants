@@ -1,7 +1,10 @@
 package com.example.naviforyou.ODsay;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.example.naviforyou.RouteActivity;
+import com.example.naviforyou.SearchActivity;
 import com.odsay.odsayandroidsdk.API;
 import com.odsay.odsayandroidsdk.ODsayData;
 import com.odsay.odsayandroidsdk.ODsayService;
@@ -11,15 +14,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FindRoute {
-
+public class FindRoute implements Serializable {
 
     public void execution(Context context){
         ODsayService odsayService = ODsayService.init(context, "3BeWEymToCezTng4oHpttVpNpcq+3Qdn0WoQc/S9R+c");
         odsayService.setReadTimeout(5000);
         odsayService.setConnectionTimeout(5000);
+
         OnResultCallbackListener onResultCallbackListener = new OnResultCallbackListener() {
             @Override
             public void onSuccess(ODsayData oDsayData, API api) {
@@ -28,7 +32,6 @@ public class FindRoute {
                         JSONObject json = oDsayData.getJson();
 
                         ArrayList<ArrayList<Object>>LIST= new ArrayList<>();
-
                         JSONArray path = json.getJSONObject("result").getJSONArray("path");
                         ArrayList<Object> content=new ArrayList<>();
                         for(int i=0;i<path.length();i++) {
@@ -58,6 +61,10 @@ public class FindRoute {
                             String  subwayCount = json.getJSONObject("result").getString("subwayCount");
                             String  subwaybusCount = json.getJSONObject("result").getString("subwayBusCount");
                             LIST.add(i, list);
+
+                            Intent intent = new Intent(context, RouteActivity.class);
+                            intent.putExtra("LIST",LIST);
+                            context.startActivity(intent);
                         }
 
                     }
@@ -74,7 +81,9 @@ public class FindRoute {
                 }
             }
         };
+
         odsayService.requestSearchPubTransPath("126.97839260101318","37.56660635021524","127.05842971801758","37.61979786831449","1","0","0",onResultCallbackListener);
 
     }
+
 }

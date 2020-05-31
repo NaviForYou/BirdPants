@@ -145,7 +145,7 @@ public class SearchActivity extends AppCompatActivity {
             super.onPostExecute(list);
             //로그 기록
             if(adapter == null){
-                adapter = new ViewSearchAdapter( SearchActivity.this, R.layout.search_item, list);
+                adapter = new ViewSearchAdapter( SearchActivity.this, R.layout.item_search, list);
                 searchList = list;
                 myListView.setAdapter(adapter);
             }

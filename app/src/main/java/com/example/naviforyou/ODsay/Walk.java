@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Walk {
+import java.io.Serializable;
+
+public class Walk implements Serializable {
 
     private String[] WalkInfo=new String[2];//walk에 대한 정보를 담는 배열 {이동거리,이동소요시간}
     private int I;

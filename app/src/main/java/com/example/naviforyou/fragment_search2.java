@@ -12,10 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.naviforyou.API.Gc;
+import com.example.naviforyou.ODsay.FindRoute;
 
 
 public class fragment_search2 extends Fragment {
 
+    ImageView route;
     TextView place_name;
     TextView place_address;
     ImageView start;
@@ -34,6 +36,7 @@ public class fragment_search2 extends Fragment {
 
         place_name = (TextView) layout.findViewById(R.id.place_name);
         place_address = (TextView) layout.findViewById(R.id.place_address);
+        route = (ImageView) layout.findViewById(R.id.route);
 
         Bundle bundle = getArguments();
         isSearch = bundle.getBoolean("isSearch");
@@ -63,6 +66,14 @@ public class fragment_search2 extends Fragment {
         // 도착 버튼 클릭
         end = (ImageView)layout.findViewById(R.id.end);
 
+        route.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FindRoute findRoute = new FindRoute();
+                findRoute.execution(getActivity());
+            }
+        });
+        //괄호안이 데이터 값
         return layout;
     }
 

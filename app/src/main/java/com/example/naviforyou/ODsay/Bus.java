@@ -4,7 +4,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Bus {
+import java.io.Serializable;
+
+public class Bus implements Serializable {
     //1번 {이동거리,이동소요시간,이동정거장수,승차정류장역명,하차정류장역명}
     private String[] BusInfo_1=new String[5];
 
