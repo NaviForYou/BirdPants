@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     boolean isSearch = false;
     double searchX = 0;
     double searchY = 0;
+    String placeName;
+    String buildAddress;
 
 
     @Override
@@ -110,9 +112,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Intent intent = getIntent();
         Log.d("isSearch","isSearch : " + intent.hasExtra("isSearch"));
         if(intent.hasExtra("isSearch")){
+            //SearchActivity
             isSearch = intent.getExtras().getBoolean("isSearch");
             searchX = intent.getExtras().getDouble("X");
             searchY = intent.getExtras().getDouble("Y");
+            buildAddress = intent.getExtras().getString("BuildAddress");
+            placeName = intent.getExtras().getString("PlaceName");
         }
     }
 
@@ -136,22 +141,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //오버레이 추가
 
 
-        //검색 장소 클릭 후
-        if(isSearch){
-            Toast.makeText(this, "X : " + searchX + ",Y : " + searchY,Toast.LENGTH_SHORT).show();
-            //카메라 이동
-            CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(searchY, searchX));
-            naverMap.moveCamera(cameraUpdate);
-            // 마커
-            marker.setMap(null);
-            marker.setPosition(new LatLng(searchY, searchX));
-            marker.setMap(naverMap);
-
-            isSearch = false;
-            searchX = 0;
-            searchY = 0;
-        }
-
         //자기 위치로 돌아가는 버튼 데모
         btn = findViewById(R.id.me);
         btn.setOnClickListener(v -> {
@@ -165,11 +154,45 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         fragment_search fragment_search = new fragment_search();
         AtomicReference<fragment_search2> fragment_search2 = new AtomicReference<>(new fragment_search2());
-        AtomicBoolean frag = new AtomicBoolean(true);
+        AtomicBoolean frag = new AtomicBoolean(true); //fragment_Search 추가 여부
 
         FragmentTransaction tras = getSupportFragmentManager().beginTransaction();
         tras.replace(R.id.frame, fragment_search);
         tras.commit();
+
+        //검색 장소 클릭 후
+        if(isSearch){
+            Toast.makeText(this, "X : " + searchX + ",Y : " + searchY,Toast.LENGTH_SHORT).show();
+            //카메라 이동
+            CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(searchY, searchX));
+            naverMap.moveCamera(cameraUpdate);
+            // 마커
+            marker.setMap(null);
+            marker.setPosition(new LatLng(searchY, searchX));
+            marker.setMap(naverMap);
+
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            if (fragment_search2.get().isAdded()) {
+                transaction.remove(fragment_search2.get());
+                fragment_search2.set(new fragment_search2());
+            }
+
+            transaction.add(R.id.frame, fragment_search2.get());
+            transaction.commit();
+
+            Bundle bundle = new Bundle();
+            bundle.putString("buildAddress", buildAddress);
+            bundle.putString("placeName", placeName);
+            bundle.putBoolean("isSearch",isSearch);
+            fragment_search2.get().setArguments(bundle);
+
+            isSearch = false;
+            searchX = 0;
+            searchY = 0;
+
+        }
 
         //심벌 클릭
         naverMap.setOnSymbolClickListener(symbol -> {
@@ -194,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 transaction.commit();
 
                 Bundle bundle = new Bundle();
+                bundle.putSerializable("isSearch", isSearch);
                 bundle.putSerializable("Gc", gc);
                 fragment_search2.get().setArguments(bundle);
 

@@ -51,12 +51,14 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:src="@mipmap/menu_1"></ImageView><!--출발-->
+                android:src="@mipmap/menu_1"
+                android:id="@+id/start"></ImageView><!--출발-->
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:src="@mipmap/menu_1"></ImageView><!--도착-->
+                android:src="@mipmap/menu_1"
+                android:id="@+id/end"></ImageView><!--도착-->
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

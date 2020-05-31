@@ -75,7 +75,7 @@
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
                 android:src="@mipmap/search_1"/>
-                <!--강찾기-->
+                <!--길찾기-->
             <ImageView
                 android:id="@+id/subway"
                 android:layout_width="82dp"

@@ -101,6 +101,8 @@ public class SearchActivity extends AppCompatActivity {
                 intent.putExtra("isSearch",true);
                 intent.putExtra("X",searchList.get(position).getLongitude_X());
                 intent.putExtra("Y",searchList.get(position).getLatitude_Y());
+                intent.putExtra("PlaceName",searchList.get(position).getPlaceName());
+                intent.putExtra("BuildAddress",searchList.get(position).getBulidAddress());
                 startActivity(intent);
             }
         });
