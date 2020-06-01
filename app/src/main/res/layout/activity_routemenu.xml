@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Activity.MainActivity"
     android:background="#FBF9ED">
 
     <RelativeLayout
@@ -34,7 +34,7 @@
             android:background="@drawable/round_rayout" />
 
         <ImageButton
-            android:id="@+id/rotation"
+            android:id="@+id/startBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginVertical="10dp"
@@ -42,11 +42,11 @@
             android:src="@drawable/ic_launcher_foreground"/>
 
         <ImageButton
-            android:id="@+id/noName_1"
+            android:id="@+id/endBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginVertical="10dp"
-            android:layout_below="@id/rotation"
+            android:layout_below="@id/startBtn"
             android:layout_toRightOf="@id/searchEnd"
             android:src="@drawable/ic_launcher_foreground"/>
     </RelativeLayout>
@@ -56,7 +56,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/searching"
-        android:layout_above="@id/menuBar">
+        android:layout_above="@id/menuBar"
+        android:visibility="gone"
+        android:id="@+id/route">
         <RelativeLayout
             android:id="@+id/result_1"
             android:layout_width="match_parent"

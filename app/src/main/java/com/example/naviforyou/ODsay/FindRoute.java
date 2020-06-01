@@ -3,8 +3,7 @@ package com.example.naviforyou.ODsay;
 import android.content.Context;
 import android.content.Intent;
 
-import com.example.naviforyou.RouteActivity;
-import com.example.naviforyou.SearchActivity;
+import com.example.naviforyou.Activity.RouteActivity;
 import com.odsay.odsayandroidsdk.API;
 import com.odsay.odsayandroidsdk.ODsayData;
 import com.odsay.odsayandroidsdk.ODsayService;

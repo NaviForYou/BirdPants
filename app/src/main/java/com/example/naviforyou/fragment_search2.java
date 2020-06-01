@@ -1,5 +1,6 @@
 package com.example.naviforyou;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +13,31 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.naviforyou.API.Gc;
+import com.example.naviforyou.Activity.RouteMenuActivity;
+import com.example.naviforyou.Activity.SearchActivity;
 import com.example.naviforyou.ODsay.FindRoute;
 
 
 public class fragment_search2 extends Fragment {
 
     ImageView route;
-    TextView place_name;
-    TextView place_address;
     ImageView start;
     ImageView end;
-    Gc gc;
+
+    TextView place_name;
+    TextView place_address;
+
+    // True = 검색 False = 심벌클릭
     Boolean isSearch = false;
+
+    // 심벌
+    Gc gc;
+
+    // 검색
     String placeName;
     String buildAddress;
+    double X;
+    double Y;
 
     @NonNull
     @Override
@@ -36,13 +48,14 @@ public class fragment_search2 extends Fragment {
 
         place_name = (TextView) layout.findViewById(R.id.place_name);
         place_address = (TextView) layout.findViewById(R.id.place_address);
-        route = (ImageView) layout.findViewById(R.id.route);
 
         Bundle bundle = getArguments();
         isSearch = bundle.getBoolean("isSearch");
         if(isSearch) {
             placeName = bundle.getString("placeName");
             buildAddress= bundle.getString("buildAddress");
+            X = bundle.getDouble("X");
+            Y = bundle.getDouble("Y");
 
             place_name.setText(placeName);
             place_address.setText(buildAddress);
@@ -58,21 +71,42 @@ public class fragment_search2 extends Fragment {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle1 = new Bundle();
-                bundle1.putString("start",gc.getBulidAdress());
+                Intent intent = new Intent(getActivity(), RouteMenuActivity.class);
+                intent.putExtra("type","start");
+                if(isSearch) {
+                    intent.putExtra("start", placeName);
+                    intent.putExtra("startX", X);
+                    intent.putExtra("startY", Y);
+                }else {
+                    intent.putExtra("start", gc.getBuildName());
+                    intent.putExtra("startX", gc.getX());
+                    intent.putExtra("startY", gc.getY());
+                }
+                startActivity(intent);
             }
         });
 
         // 도착 버튼 클릭
         end = (ImageView)layout.findViewById(R.id.end);
-
-        route.setOnClickListener(new View.OnClickListener() {
+        end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FindRoute findRoute = new FindRoute();
-                findRoute.execution(getActivity());
+                Intent intent = new Intent(getActivity(), RouteMenuActivity.class);
+                intent.putExtra("type","end");
+                if(isSearch) {
+                    intent.putExtra("end", placeName);
+                    intent.putExtra("endX", X);
+                    intent.putExtra("endY", Y);
+                }else {
+                    intent.putExtra("end", gc.getBuildName());
+                    intent.putExtra("endX", gc.getX());
+                    intent.putExtra("endY", gc.getY());
+                }
+                startActivity(intent);
             }
         });
+
+
         //괄호안이 데이터 값
         return layout;
     }

@@ -20,7 +20,7 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="shgy3jthid" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,10 +28,14 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SearchActivity" >
+        <activity android:name=".Activity.SearchActivity"
+            android:noHistory="true">
         </activity>
 
-        <activity android:name=".RouteActivity" >
+        <activity android:name=".Activity.RouteActivity" >
+        </activity>
+
+        <activity android:name=".Activity.RouteMenuActivity">
         </activity>
 
     </application>

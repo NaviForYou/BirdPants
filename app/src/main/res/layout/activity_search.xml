@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/fragment"
-    tools:context=".SearchActivity"><!--검색창 부분이 프래그먼트를 하는게 맞는거 같은데... 이게 왜 메인화면 뒤로 가는지 찾아보고 없으면 그냥 각자의 액티비티로 해야할듯 하다-->
+    tools:context=".Activity.SearchActivity"><!--검색창 부분이 프래그먼트를 하는게 맞는거 같은데... 이게 왜 메인화면 뒤로 가는지 찾아보고 없으면 그냥 각자의 액티비티로 해야할듯 하다-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,10 +1,12 @@
-package com.example.naviforyou;
+package com.example.naviforyou.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.naviforyou.R;
 
 import java.util.ArrayList;
 

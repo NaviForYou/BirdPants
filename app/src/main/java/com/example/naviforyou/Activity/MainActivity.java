@@ -1,4 +1,4 @@
-package com.example.naviforyou;
+package com.example.naviforyou.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +23,9 @@ import com.example.naviforyou.API.LowbusStop;
 import com.example.naviforyou.API.LowbusStop_Parser;
 import com.example.naviforyou.API.Search_Parser;
 import com.example.naviforyou.ODsay.FindRoute;
+import com.example.naviforyou.R;
+import com.example.naviforyou.fragment_search;
+import com.example.naviforyou.fragment_search2;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
@@ -44,6 +48,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    public static Activity activity;
     // 위치를 반환하는 FusedLocationSource 선언
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
@@ -74,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        activity = MainActivity.this;
         // 검색 기능 추가되면 넣기
         /*
         String tempX ="127.06283102249932";
@@ -182,6 +188,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             Bundle bundle = new Bundle();
             bundle.putString("buildAddress", buildAddress);
             bundle.putString("placeName", placeName);
+            bundle.putDouble("X", searchX);
+            bundle.putDouble("Y", searchY);
             bundle.putBoolean("isSearch",isSearch);
             fragment_search2.get().setArguments(bundle);
 

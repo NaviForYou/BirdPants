@@ -36,8 +36,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/menu_1"
-                android:id="@+id/route"></ImageView><!--전화하기-->
+                android:src="@mipmap/menu_1"></ImageView><!--전화하기-->
             <LinearLayout
                 android:layout_width="10dp"
                 android:layout_height="match_parent"></LinearLayout>

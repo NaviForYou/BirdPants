@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
-    tools:context=".MainActivity"><!--드로워레이아웃인데 콩부하고 하려는데 자료가 없엉레이아웃도 다 뜯어고쳐야하는게 분명한데 자료가 없으니까 아직 안하는중-->
+    tools:context=".Activity.MainActivity"><!--드로워레이아웃인데 콩부하고 하려는데 자료가 없엉레이아웃도 다 뜯어고쳐야하는게 분명한데 자료가 없으니까 아직 안하는중-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

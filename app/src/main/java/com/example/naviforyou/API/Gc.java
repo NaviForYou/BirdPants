@@ -11,7 +11,14 @@ public class Gc implements Serializable {
     private String admCode; //행정동
     private String zipCode; //우편번호
 
-    public Gc( String roadAdress, String bulidAdress, String legalCode, String admCode, String zipCode) {
+
+
+    private String X;
+    private String Y;
+
+
+
+    public Gc(String roadAdress, String bulidAdress, String legalCode, String admCode, String zipCode) {
         this.roadAdress = roadAdress;
         this.bulidAdress = bulidAdress;
         this.legalCode = legalCode;
@@ -38,4 +45,12 @@ public class Gc implements Serializable {
     public String getRoadAdress() {
         return roadAdress;
     }
+
+    public String getX() { return X; }
+
+    public void setX(String x) { X = x; }
+
+    public String getY() { return Y; }
+
+    public void setY(String y) {  Y = y; }
 }

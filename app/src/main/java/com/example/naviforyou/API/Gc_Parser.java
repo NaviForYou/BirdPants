@@ -58,7 +58,11 @@ public class Gc_Parser {
             br.close();
             json = response.toString();
             Log.d("TEST2", "json => " + json);
-            return paserNaver(json);
+            String[] XY = coords[0].split(",");
+            Gc gc = paserNaver(json);
+            gc.setX(XY[0]);
+            gc.setY(XY[1]);
+            return gc;
 
 
         }catch (Exception e){
