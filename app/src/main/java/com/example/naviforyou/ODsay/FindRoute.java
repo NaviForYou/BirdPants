@@ -61,9 +61,6 @@ public class FindRoute implements Serializable {
                             String  subwaybusCount = json.getJSONObject("result").getString("subwayBusCount");
                             LIST.add(i, list);
 
-                            Intent intent = new Intent(context, RouteActivity.class);
-                            intent.putExtra("LIST",LIST);
-                            context.startActivity(intent);
                         }
 
                     }
