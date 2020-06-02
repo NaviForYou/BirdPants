@@ -80,12 +80,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_main);
 
         activity = MainActivity.this;
-        // 검색 기능 추가되면 넣기
-        /*
-        String tempX ="127.06283102249932";
-        String tempY ="37.514322572335935";
-        new KakaoAsync_Search().execute(tempX,tempY);
-        */
 
         // 버스 정류소 저상버스 도착
         /*

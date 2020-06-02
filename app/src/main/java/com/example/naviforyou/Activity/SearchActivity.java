@@ -153,21 +153,25 @@ public class SearchActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else if (type.equals("searchStart")){
                     Intent intent = new Intent(getApplicationContext(), RouteMenuActivity.class);
-                    intent.putExtra("type", "start");
-                    intent.putExtra("PlaceName", searchList.get(position).getPlaceName());
-                    intent.putExtra("X", searchList.get(position).getLongitude_X());
-                    intent.putExtra("Y", searchList.get(position).getLatitude_Y());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    RouteMenuActivity activity = (RouteMenuActivity)RouteMenuActivity.activity;
+                    activity.setStartData(
+                            searchList.get(position).getPlaceName(),
+                            searchList.get(position).getLongitude_X(),
+                            searchList.get(position).getLatitude_Y()
+                    );
                     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }else if (type.equals("searchEnd")){
                     Intent intent = new Intent(getApplicationContext(), RouteMenuActivity.class);
-                    intent.putExtra("type", "end");
-                    intent.putExtra("PlaceName", searchList.get(position).getPlaceName());
-                    intent.putExtra("X", searchList.get(position).getLongitude_X());
-                    intent.putExtra("Y", searchList.get(position).getLatitude_Y());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    RouteMenuActivity activity = (RouteMenuActivity)RouteMenuActivity.activity;
+                    activity.setEndData(
+                            searchList.get(position).getPlaceName(),
+                            searchList.get(position).getLongitude_X(),
+                            searchList.get(position).getLatitude_Y()
+                    );
                     intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }
             }
