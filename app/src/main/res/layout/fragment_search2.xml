@@ -4,6 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"><!--이 프래그먼트도 마찬가지 이게 화면 아래창에 뜨는 건물 정보 같은 느낌인데 프래그먼트 1번이 안되니까 그냥 얘도 안함ㅋ-->
 
+    <ImageView
+        android:id="@+id/toilt_1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/setting_1"
+        android:visibility="gone"></ImageView>
+    <ImageView
+        android:id="@+id/tolit_2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/setting_1"
+        android:visibility="gone"></ImageView>
+    <ImageView
+        android:id="@+id/elevator_1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/setting_1"
+        android:visibility="gone"></ImageView>
+    <ImageView
+        android:id="@+id/elevator_2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/setting_1"
+        android:visibility="gone"></ImageView>
+    <ImageView
+        android:id="@+id/accessible_1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/setting_1"
+        android:visibility="gone"></ImageView>
+    <ImageView
+        android:id="@+id/accessible_2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@mipmap/setting_1"
+        android:visibility="gone"></ImageView>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -20,6 +58,7 @@
                 android:id="@+id/place_name"
                 android:textSize="35dp"
                 android:text="안드로이드"></TextView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
