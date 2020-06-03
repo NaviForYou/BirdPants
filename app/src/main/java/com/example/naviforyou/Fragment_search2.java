@@ -61,7 +61,7 @@ public class Fragment_search2 extends Fragment {
             gc = (Gc) bundle.getSerializable("Gc");
 
             place_name.setText(gc.getBuildName());
-            place_address.setText(gc.getBulidAdress());
+            place_address.setText(gc.getBuildAddress());
         }
 
         // 출발 버튼 클릭

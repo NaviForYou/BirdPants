@@ -5,8 +5,8 @@ import java.io.Serializable;
 //심벌 클릭시 해당 주소값 저장
 public class Gc implements Serializable {
     private String buildName;
-    private String roadAdress;
-    private String bulidAdress;
+    private String roadAddress;
+    private String buildAddress;
     private String legalCode; // 법정동
     private String admCode; //행정동
     private String zipCode; //우편번호
@@ -18,9 +18,9 @@ public class Gc implements Serializable {
 
 
 
-    public Gc(String roadAdress, String bulidAdress, String legalCode, String admCode, String zipCode) {
-        this.roadAdress = roadAdress;
-        this.bulidAdress = bulidAdress;
+    public Gc(String roadAddress, String bulidAddress, String legalCode, String admCode, String zipCode) {
+        this.roadAddress = roadAddress;
+        this.buildAddress = bulidAddress;
         this.legalCode = legalCode;
         this.admCode = admCode;
         this.zipCode = zipCode;
@@ -38,12 +38,12 @@ public class Gc implements Serializable {
 
     public String getAdmCode() { return admCode;  }
 
-    public String getBulidAdress() {
-        return bulidAdress;
+    public String getBuildAddress() {
+        return buildAddress;
     }
 
-    public String getRoadAdress() {
-        return roadAdress;
+    public String getRoadAddress() {
+        return roadAddress;
     }
 
     public String getX() { return X; }

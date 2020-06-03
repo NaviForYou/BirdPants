@@ -296,8 +296,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             //doinBackground를 통해 완료된 작업 결과 처리
             super.onPostExecute(s);
             //로그 기록
-            Log.d("address", "roadAdress : " + s.getRoadAdress());
-            Log.d("address", "bulidAdress : " + s.getBulidAdress());
+            Log.d("address", "roadAdress : " + s.getRoadAddress());
+            Log.d("address", "bulidAdress : " + s.getBuildAddress());
             Log.d("address", "legalCode : " + s.getLegalCode());
             Log.d("address", "admCode : " + s.getAdmCode());
 

@@ -2,13 +2,13 @@ package com.example.naviforyou.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,14 +35,15 @@ public class RouteMenuActivity  extends AppCompatActivity {
     public static Activity activity;
 
     RelativeLayout relativeLayout;
-    EditText searchStart;
-    EditText searchEnd;
-    ImageView startBtn;
-    ImageView endBtn;
+    TextView searchStart;
+    TextView searchEnd;
+    ImageView rotation;
+    ImageView clear;
 
     String type; // start = 출발지 정해짐, end = 도착지 정해짐, none = 둘다 정해지지 않음.
     SearchData startData;
     SearchData endData;
+    ArrayList<ArrayList<Object>> routeList;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,13 +54,45 @@ public class RouteMenuActivity  extends AppCompatActivity {
         //layout 객체
         searchStart = findViewById(R.id.searchStart);
         searchEnd = findViewById(R.id.searchEnd);
-        startBtn = findViewById(R.id.startBtn);
-        endBtn = findViewById(R.id.endBtn);
+        rotation = findViewById(R.id.rotation);
+        clear = findViewById(R.id.clear);
         relativeLayout = findViewById(R.id.route);
 
-        //기타
+        //데이터 저장
         startData = new SearchData("start");
         endData = new SearchData("end");
+
+        //clear
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startData.clear();
+                endData.clear();
+                relativeLayout.setVisibility(View.GONE);
+                routeList = null;
+                searchStart.setText(null);
+                searchEnd.setText(null);
+            }
+        });
+
+        rotation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchData temp = endData;
+                endData.setSearchData(
+                        startData.getPlaceName(),
+                        startData.getX(),
+                        startData.getX()
+                );
+                startData.setSearchData(
+                        temp.getPlaceName(),
+                        temp.getX(),
+                        temp.getY()
+                );
+                searchStart.setText(startData.getPlaceName());
+                searchEnd.setText(endData.getPlaceName());
+            }
+        });
 
         //첫 intent 생성시
         Intent intent = getIntent();
@@ -69,14 +102,14 @@ public class RouteMenuActivity  extends AppCompatActivity {
         }
 
         if(type.equals("start")) {
-            startData.searchData(
+            startData.setSearchData(
                     intent.getStringExtra("start"),
-                    intent.getExtras().getDouble("startX"),
-                    intent.getExtras().getDouble("startY")
+                    intent.getStringExtra("startX"),
+                    intent.getStringExtra("startY")
                     );
             searchStart.setText(startData.getPlaceName());
         }else if(type.equals("end")) {
-            endData.searchData(
+            endData.setSearchData(
                     intent.getStringExtra("end"),
                     intent.getExtras().getDouble("endX"),
                     intent.getExtras().getDouble("endY")
@@ -85,14 +118,17 @@ public class RouteMenuActivity  extends AppCompatActivity {
         }
 
 
+
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        //출발지 도착지 검색 버튼
-        startBtn.setOnClickListener(new View.OnClickListener() {
+        //출발지 도착지 검색
+        searchStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(), SearchActivity.class);
@@ -105,7 +141,7 @@ public class RouteMenuActivity  extends AppCompatActivity {
             }
         });
 
-        endBtn.setOnClickListener(new View.OnClickListener() {
+        searchEnd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(), SearchActivity.class);
@@ -118,6 +154,9 @@ public class RouteMenuActivity  extends AppCompatActivity {
             }
         });
 
+        searchStart.setText(startData.getPlaceName());
+        searchEnd.setText(endData.getPlaceName());
+
         // 길찾기 표시 여부, ODsay Api
         ODsayService odsayService = ODsayService.init(this, "3BeWEymToCezTng4oHpttVpNpcq+3Qdn0WoQc/S9R+c");
         odsayService.setReadTimeout(5000);
@@ -129,13 +168,14 @@ public class RouteMenuActivity  extends AppCompatActivity {
                 {
                     try {if (api == API.SEARCH_PUB_TRANS_PATH) {
                         JSONObject json = oDsayData.getJson();
-                        ArrayList<ArrayList<Object>> LIST = new ArrayList<>();
-                        ODsay_TransPath_Parser(json, LIST);
+
+                        routeList = ODsay_TransPath_Parser(json);
 
                         String busCount= json.getJSONObject("result").getString("busCount");
                         String subwayCount = json.getJSONObject("result").getString("subwayCount");
                         String subwaybusCount = json.getJSONObject("result").getString("subwayBusCount");
-
+                        Log.d("COUNT","BUScount : " + busCount + ", SubwayCount : " + subwayCount + ", SubWayBusCount : " + subwaybusCount);
+                        relativeLayout.setVisibility(View.VISIBLE);
                     }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -147,27 +187,31 @@ public class RouteMenuActivity  extends AppCompatActivity {
             @Override
             public void onError(int i, String s, API api) {
                 if (api == API.SEARCH_PUB_TRANS_PATH) {
+                    Log.e("ERROR","ODSAY ERROR");
                 }
             }
         };
-        if(startData.isData() && endData.isData()){
-            odsayService.requestSearchPubTransPath("126.97839260101318","37.56660635021524","127.05842971801758","37.61979786831449","1","0","0",onResultCallbackListener);
-            relativeLayout.setVisibility(View.VISIBLE);
 
+        if(startData.isData() && endData.isData()){
+            Log.d("Coords","SX : " + startData.getX_toString() + ", SY : " + startData.getY_toString() + ", EX :" + endData.getX_toString() +", EY : " + endData.getY_toString());
+            odsayService.requestSearchPubTransPath(startData.getX_toString(),startData.getY_toString(),endData.getX_toString(),endData.getY_toString(),"1","0","0",onResultCallbackListener);
+            //odsayService.requestSearchPubTransPath("126.97839260101318","37.56660635021524","127.05842971801758","37.61979786831449","1","0","0",onResultCallbackListener);
         }else{
             relativeLayout.setVisibility(View.GONE);
         }
     }
 
     public void setStartData(String placeName, double x, double y) {
-        this.startData.searchData(placeName,x,y);
+        this.startData.setSearchData(placeName,x,y);
     }
 
     public void setEndData(String placeName, double x, double y) {
-        this.endData.searchData(placeName,x,y);
+        this.endData.setSearchData(placeName,x,y);
     }
 
-    void ODsay_TransPath_Parser(JSONObject json,ArrayList<ArrayList<Object>> LIST){
+    ArrayList<ArrayList<Object>> ODsay_TransPath_Parser(JSONObject json){
+
+        ArrayList<ArrayList<Object>> LIST = new ArrayList<>();
 
         try {
             JSONArray path = json.getJSONObject("result").getJSONArray("path");
@@ -198,8 +242,11 @@ public class RouteMenuActivity  extends AppCompatActivity {
                 LIST.add(i, list);
             }
 
-        }catch (Exception e){}
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+        return LIST;
     }
 }
 
