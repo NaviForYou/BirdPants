@@ -2,7 +2,8 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/search">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -49,12 +50,18 @@
             android:id="@+id/categoty_gps"
             android:layout_width="match_parent"
             android:layout_height="50dp">
+
             <ImageView
                 android:id="@+id/gps"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:src="@mipmap/search_1"/>
+                android:layout_width="35dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:src="@mipmap/search_1" />
             <ImageView
                 android:id="@+id/category"
                 android:layout_width="40dp"

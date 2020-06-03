@@ -12,7 +12,7 @@ public class Walk implements Serializable {
     private int I;
     private int J;
 
-    Walk(int i,int j){
+    public Walk(int i, int j){
         I=i;
         J=j;
     }

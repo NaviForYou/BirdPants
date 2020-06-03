@@ -19,7 +19,7 @@ public class Bus implements Serializable {
     private int I;
     private int J;
 
-    Bus(int i,int j){
+    public Bus(int i, int j){
         I=i;
         J=j;
     }

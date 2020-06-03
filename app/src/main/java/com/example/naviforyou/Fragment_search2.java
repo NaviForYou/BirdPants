@@ -14,11 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.naviforyou.API.Gc;
 import com.example.naviforyou.Activity.RouteMenuActivity;
-import com.example.naviforyou.Activity.SearchActivity;
-import com.example.naviforyou.ODsay.FindRoute;
 
 
-public class fragment_search2 extends Fragment {
+public class Fragment_search2 extends Fragment {
 
     ImageView route;
     ImageView start;

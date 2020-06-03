@@ -15,13 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
-                android:id="@+id/me"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="end|bottom"
-                android:text="Hi" /><!--드로워 레이아웃에 넣는거 여기 있음 안돼-->
-
 
             <FrameLayout
                 android:id="@+id/map"

@@ -22,7 +22,7 @@ public class Subway implements Serializable {//지하철 1 :구간
     private int I;
     private int J;
 
-    Subway(int i,int j){
+    public Subway(int i, int j){
         I=i;
         J=j;
     }

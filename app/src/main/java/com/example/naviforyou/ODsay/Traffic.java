@@ -12,7 +12,7 @@ public class Traffic {
 
     private int I;
 
-    Traffic(int i) {
+    public Traffic(int i) {
         I = i;
     }
 
