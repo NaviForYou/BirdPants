@@ -7,10 +7,12 @@ import androidx.fragment.app.FragmentManager;
 
 
 import androidx.fragment.app.FragmentTransaction;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +27,10 @@ import com.example.naviforyou.API.Gc_Parser;
 import com.example.naviforyou.API.LowbusStop;
 import com.example.naviforyou.API.LowbusStop_Parser;
 import com.example.naviforyou.API.Search_Parser;
+import com.example.naviforyou.DB.AppDatebase;
+import com.example.naviforyou.DB.Facility;
+import com.example.naviforyou.DB.FacilityDao;
+import com.example.naviforyou.DB.Facility_Parser;
 import com.example.naviforyou.R;
 import com.example.naviforyou.Fragment_search;
 import com.example.naviforyou.Fragment_search2;
@@ -47,8 +53,13 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    public SharedPreferences prefs; // 최초 실행 여부 확인
     public static Activity activity;
     public static NaverMap naverMap;
+
+    //시설 데이터 베이스 생성
+   public static AppDatebase db;
+
     // 위치를 반환하는 FusedLocationSource 선언
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
@@ -66,12 +77,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
 
+
     //2번째
     boolean isSearch = false;
     double searchX = 0;
     double searchY = 0;
     String placeName;
-    String buildAddress;
+    String roadAddress;
 
 
     @Override
@@ -79,7 +91,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activity = MainActivity.this;
+        prefs = getSharedPreferences("Pref", MODE_PRIVATE);
 
+        db = Room.databaseBuilder(this,AppDatebase.class,
+                "facility-db").build();
+
+        //첫실행시 json Parser 및 데이터베이스에 추가
+        checkFirstRun(db);
+        new GetAsyncTask(db.facilityDao()).execute();
         // 버스 정류소 저상버스 도착
         /*
         SeoulAsync_LowbusStop seoulAsync_lowbusStop = new SeoulAsync_LowbusStop();
@@ -113,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             isSearch = intent.getExtras().getBoolean("isSearch");
             searchX = intent.getExtras().getDouble("X");
             searchY = intent.getExtras().getDouble("Y");
-            buildAddress = intent.getExtras().getString("BuildAddress");
+            roadAddress = intent.getExtras().getString("RoadAddress");
             placeName = intent.getExtras().getString("PlaceName");
         }
     }
@@ -167,7 +186,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
          */
 
-
         //검색 장소 클릭 후
         if(isSearch){
             Toast.makeText(this, "X : " + searchX + ",Y : " + searchY,Toast.LENGTH_SHORT).show();
@@ -191,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             transaction.commit();
 
             Bundle bundle = new Bundle();
-            bundle.putString("buildAddress", buildAddress);
+            bundle.putString("roadAddress", roadAddress);
             bundle.putString("placeName", placeName);
             bundle.putDouble("X", searchX);
             bundle.putDouble("Y", searchY);
@@ -282,6 +300,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    //앱 첫 실행시
+    public void checkFirstRun(AppDatebase db){
+        boolean isFirstRun = prefs.getBoolean("isFirstRun",true);
+        if(isFirstRun)
+        {
+            Facility_Parser facility_parser = new Facility_Parser();
+            String json = facility_parser.getJsonString(this);
+            ArrayList<Facility> facilityArrayList = facility_parser.Parser(json);
+            for(int i = 0; i < facilityArrayList.size(); i++){
+                new InsetAsyncTask(db.facilityDao()).execute(facilityArrayList);
+            }
+            prefs.edit().putBoolean("isFirstRun",false).apply();
+            //처음만 true 그다음부터는 false 바꾸는 동작
+        }
+    }
+
     //통신을 위한 백그라운드 작업 설정 - 심벌 정보
     class NaverAsync_Gc extends AsyncTask<String, String, Gc> {
 
@@ -327,5 +361,44 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
     }
+
+    //데이터 베이스에 추가
+    private static class InsetAsyncTask extends AsyncTask<ArrayList<Facility>, Void, Void>{
+        private FacilityDao facilityDao;
+
+        public InsetAsyncTask(FacilityDao facilityDao){
+            this.facilityDao = facilityDao;
+        }
+
+        @Override
+        protected Void doInBackground(ArrayList<Facility>... arrayLists) {
+            for(int i =0; i< arrayLists[0].size(); i++){
+                facilityDao.insert(arrayLists[0].get(i));
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.d("TEXT", "facility : " + facilityDao.getAll().toString());
+        }
+    }
+
+    //데이터 베이스 모든 데이터 읽기
+    private static class GetAsyncTask extends AsyncTask<Void,Void,Void>{
+        private FacilityDao facilityDao;
+
+        public GetAsyncTask(FacilityDao facilityDao){
+            this.facilityDao = facilityDao;
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d("TEXT" ,"facility : " +facilityDao.getAll().toString());
+            return null;
+        }
+    }
+
+
 }
 

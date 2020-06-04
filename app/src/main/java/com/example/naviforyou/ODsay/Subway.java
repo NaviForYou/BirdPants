@@ -48,8 +48,13 @@ public class Subway implements Serializable {//지하철 1 :구간
             SubwayInfo_1[4]=subPath.getJSONObject(J).getString("endName");//하차정류장역명
             SubwayInfo_1[5]=subPath.getJSONObject(J).getString("way");//방면정보
             SubwayInfo_1[6]=subPath.getJSONObject(J).getString("door");//지하철빠른환승위치
-            SubwayInfo_1[7]=subPath.getJSONObject(J).getString("startExitNo");//지하철들어가는출구번호(없을 수도 있음)
-            SubwayInfo_1[8]=subPath.getJSONObject(J).getString("endExitNo");//지하철나가는출구번호(없을 수도 있음)
+
+            if(subPath.getJSONObject(J).has("startExitNo")) {
+                SubwayInfo_1[7] = subPath.getJSONObject(J).getString("startExitNo");//지하철들어가는출구번호(없을 수도 있음)
+            }
+            if(subPath.getJSONObject(J).has("endExitNo")) {
+                SubwayInfo_1[8] = subPath.getJSONObject(J).getString("endExitNo");//지하철나가는출구번호(없을 수도 있음)
+            }
 
             JSONObject passStopList= subPath.getJSONObject(J).getJSONObject("passStopList");
             JSONArray stations=passStopList.getJSONArray("stations");

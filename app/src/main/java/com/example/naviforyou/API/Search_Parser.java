@@ -23,7 +23,7 @@ public class Search_Parser {
     private String search = "";
 
     private String radius = "20000";
-    private String sort = "distance"; //정렬 기준 : distance or accuracy
+    private String sort = "accuracy"; //정렬 기준 : distance or accuracy
     private String restApi = "719ec8dad17c5585c9e25ff8a79fcd96";
 
 

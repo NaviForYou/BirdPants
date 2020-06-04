@@ -1,7 +1,9 @@
 package com.example.naviforyou;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.naviforyou.API.Gc;
+import com.example.naviforyou.Activity.MainActivity;
 import com.example.naviforyou.Activity.RouteMenuActivity;
+import com.example.naviforyou.DB.AppDatebase;
+import com.example.naviforyou.DB.Facility;
+import com.example.naviforyou.DB.FacilityDao;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class Fragment_search2 extends Fragment {
@@ -30,10 +39,12 @@ public class Fragment_search2 extends Fragment {
 
     // 심벌
     Gc gc;
+    List<Facility> facility;
+
 
     // 검색
     String placeName;
-    String buildAddress;
+    String roadAddress;
     double X;
     double Y;
 
@@ -41,28 +52,48 @@ public class Fragment_search2 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 
+        AppDatebase db = MainActivity.db;
+
         // 텍스트 추가
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_search2, container, false);
 
         place_name = (TextView) layout.findViewById(R.id.place_name);
         place_address = (TextView) layout.findViewById(R.id.place_address);
 
+        //데이터 받기
         Bundle bundle = getArguments();
         isSearch = bundle.getBoolean("isSearch");
+
+        //true : 검색, false : 심벌 클릭
         if(isSearch) {
             placeName = bundle.getString("placeName");
-            buildAddress= bundle.getString("buildAddress");
+            roadAddress = bundle.getString("roadAddress");
             X = bundle.getDouble("X");
             Y = bundle.getDouble("Y");
 
             place_name.setText(placeName);
-            place_address.setText(buildAddress);
+            place_address.setText(roadAddress);
         }else {
             gc = (Gc) bundle.getSerializable("Gc");
-
             place_name.setText(gc.getBuildName());
-            place_address.setText(gc.getBuildAddress());
+            place_address.setText(gc.getRoadAddress());
         }
+
+        /*try {
+
+        }
+        catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+        if(isSearch) {
+            new SearchAsyncTask(db.facilityDao()).execute(roadAddress);
+        }
+        else {
+            new SearchAsyncTask(db.facilityDao()).execute(gc.getRoadAddress());
+        }
+
 
         // 출발 버튼 클릭
         start = (ImageView)layout.findViewById(R.id.start);
@@ -109,5 +140,27 @@ public class Fragment_search2 extends Fragment {
         return layout;
     }
 
+    //데이터 베이스 검색
+    private static class SearchAsyncTask extends AsyncTask<String,Void,List<Facility>> {
+        private FacilityDao facilityDao;
+
+        public SearchAsyncTask(FacilityDao facilityDao){
+            this.facilityDao = facilityDao;
+        }
+        @Override
+        protected List<Facility> doInBackground(String... strings) {
+            Log.d("TEXT","fragment2 : " + strings[0]);
+            List<Facility> facility = facilityDao.findBuildWithAddress(strings[0]);
+            Log.d("TEXT","fragment2 : " + facility.size());
+            return facility;
+        }
+
+        @Override
+        protected void onPostExecute(List<Facility> facility) {
+            super.onPostExecute(facility);
+            if(facility != null)
+                Log.d("TEXT", "fragment_search2 : " + facility.toString());
+        }
+    }
 
 }

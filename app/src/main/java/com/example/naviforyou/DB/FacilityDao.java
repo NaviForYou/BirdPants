@@ -1,5 +1,6 @@
 package com.example.naviforyou.DB;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -14,7 +15,7 @@ public interface FacilityDao {
     List<Facility> getAll();
 
     @Query("SELECT * FROM Facility WHERE address LIKE :search")
-    public Facility findBuildWithAddress(String search);
+    List<Facility> findBuildWithAddress(String search);
 
     @Insert
     void insert(Facility facility);
