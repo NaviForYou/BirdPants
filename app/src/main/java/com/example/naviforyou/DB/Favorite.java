@@ -9,18 +9,18 @@ public class Favorite {
     @PrimaryKey
     @NonNull
     String title;
-
+    
     String buildName;
     String address;
     double X;
     double Y;
 
-    public Favorite(@NonNull String title, String buildName, String address, double x, double y) {
+    public Favorite(@NonNull String title, String buildName, String address, double X, double Y) {
         this.title = title;
         this.buildName = buildName;
         this.address = address;
-        X = x;
-        Y = y;
+        this.X = X;
+        this.Y = Y;
     }
 
     @NonNull

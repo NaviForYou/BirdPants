@@ -8,8 +8,11 @@ import java.io.Serializable;
 
 @Entity
 public class Facility implements Serializable {
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    int id;
+
+
+
     String address;
 
     int toilet;
@@ -18,7 +21,7 @@ public class Facility implements Serializable {
     int height;
     int elevator;
 
-    public Facility(@NonNull String address, int toilet, int parking_lot, int entrance, int height, int elevator) {
+    public Facility(String address, int toilet, int parking_lot, int entrance, int height, int elevator) {
         this.address = address;
         this.toilet = toilet;
         this.parking_lot = parking_lot;
@@ -26,6 +29,10 @@ public class Facility implements Serializable {
         this.height = height;
         this.elevator = elevator;
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public int getHeight() { return height; }
 
@@ -70,7 +77,8 @@ public class Facility implements Serializable {
     @Override
     public String toString() {
         return "Facility{" +
-                "address='" + address + '\'' +
+                "id=" + id +
+                ", address='" + address + '\'' +
                 ", toilet=" + toilet +
                 ", parking_lot=" + parking_lot +
                 ", entrance=" + entrance +

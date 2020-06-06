@@ -1,5 +1,6 @@
 package com.example.naviforyou.DB;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,10 +12,13 @@ import java.util.List;
 @Dao
 public interface FavoriteDao {
     @Query("SELECT * FROM Favorite")
-    List<Favorite> getAll();
+    LiveData<List<Favorite>> getAll();
 
     @Query("SELECT * FROM favorite WHERE title LIKE :search")
-    List<Favorite> findWithName(String search);
+    List<Favorite> findWithTitle(String search);
+
+    @Query("SELECT * FROM favorite WHERE X LIKE :X AND Y LIKE :Y")
+    List<Favorite> findWithXY(double X, double Y);
 
     @Insert
     void insert(Favorite favorite);

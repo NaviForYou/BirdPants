@@ -32,9 +32,6 @@
             android:noHistory="true">
         </activity>
 
-        <activity android:name=".Activity.RouteActivity" >
-        </activity>
-
         <activity android:name=".Activity.RouteMenuActivity">
         </activity>
 
