@@ -1,18 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="390dp"
+        android:layout_height="390dp"
+        android:layout_centerInParent="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/subway_1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            android:background="#0d3692"
+            android:gravity="center"
+            android:text="1호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/subway_2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            android:layout_toRightOf="@id/subway_1"
+            android:background="#33a23d"
+            android:gravity="center"
+            android:text="2호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/subway_3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="15dp"
+            android:layout_toRightOf="@id/subway_2"
+            android:background="#fe5d10"
+            android:gravity="center"
+            android:text="3호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/subway_4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/subway_1"
+            android:layout_margin="15dp"
+            android:background="#00a2d1"
+            android:gravity="center"
+            android:text="4호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/subway_5"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/subway_2"
+            android:layout_margin="15dp"
+            android:layout_toRightOf="@id/subway_4"
+            android:background="#8b50a4"
+            android:gravity="center"
+            android:text="5호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/subway_6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/subway_3"
+            android:layout_margin="15dp"
+            android:layout_toRightOf="@id/subway_5"
+            android:background="#c55c1d"
+            android:gravity="center"
+            android:text="6호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/subway_7"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/subway_4"
+            android:layout_margin="15dp"
+            android:background="#54640d"
+            android:gravity="center"
+            android:text="7호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/subway_8"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/subway_5"
+            android:layout_margin="15dp"
+            android:layout_toRightOf="@id/subway_7"
+            android:background="#f14c82"
+            android:gravity="center"
+            android:text="8호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+
+        <TextView
+            android:id="@+id/subway_9"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/subway_6"
+            android:layout_margin="15dp"
+            android:layout_toRightOf="@id/subway_8"
+            android:background="#aa9872"
+            android:gravity="center"
+            android:text="9호선"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"></TextView>
+    </RelativeLayout>
+</RelativeLayout>

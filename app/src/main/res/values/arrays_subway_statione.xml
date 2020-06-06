@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="line1">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+
+    <string-array name="line2">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+
+    <string-array name="line3">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+
+    <string-array name="line4">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+
+    <string-array name="line5">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+
+    <string-array name="line6">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+
+    <string-array name="line7">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+
+    <string-array name="line8">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+
+    <string-array name="line9">
+        <item>도봉산역</item>
+
+        <item>석수역</item>
+    </string-array>
+</resources>
