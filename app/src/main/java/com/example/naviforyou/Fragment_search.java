@@ -60,7 +60,7 @@ public class Fragment_search extends Fragment {
             public void onClick(View v) {
                 Log.d("TEXT","HI");
                 if (naverMap.getLocationTrackingMode() == LocationTrackingMode.NoFollow) {
-                    naverMap.setLocationTrackingMode(LocationTrackingMode.Face);
+                    naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
                 }
                 else {
                     naverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);

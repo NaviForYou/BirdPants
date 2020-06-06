@@ -17,9 +17,12 @@ import androidx.fragment.app.Fragment;
 import com.example.naviforyou.API.Gc;
 import com.example.naviforyou.Activity.MainActivity;
 import com.example.naviforyou.Activity.RouteMenuActivity;
-import com.example.naviforyou.DB.AppDatebase;
+import com.example.naviforyou.DB.AppDatabase_Facility;
+import com.example.naviforyou.DB.AppDatabase_Favorite;
 import com.example.naviforyou.DB.Facility;
 import com.example.naviforyou.DB.FacilityDao;
+import com.example.naviforyou.DB.Favorite;
+import com.example.naviforyou.DB.FavoriteDao;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -27,7 +30,7 @@ import java.util.concurrent.ExecutionException;
 
 public class Fragment_search2 extends Fragment {
 
-    ImageView route;
+    ImageView favorite;
     ImageView start;
     ImageView end;
 
@@ -39,7 +42,7 @@ public class Fragment_search2 extends Fragment {
 
     // 심벌
     Gc gc;
-    List<Facility> facility;
+    List<Facility> facilities;
 
 
     // 검색
@@ -52,7 +55,9 @@ public class Fragment_search2 extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 
-        AppDatebase db = MainActivity.db;
+        AppDatabase_Facility db_facility = MainActivity.db_facility;
+        AppDatabase_Favorite db_fFavorite = MainActivity.db_favorite;
+        facilities = null;
 
         // 텍스트 추가
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_search2, container, false);
@@ -79,20 +84,20 @@ public class Fragment_search2 extends Fragment {
             place_address.setText(gc.getRoadAddress());
         }
 
-        /*try {
-
+        try {
+            if(isSearch) {
+                facilities = new FacilitySearch(db_facility.facilityDao()).execute(roadAddress).get();
+            }
+            else {
+                facilities = new FacilitySearch(db_facility.facilityDao()).execute(gc.getRoadAddress()).get();
+            }
         }
         catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
-        if(isSearch) {
-            new SearchAsyncTask(db.facilityDao()).execute(roadAddress);
         }
-        else {
-            new SearchAsyncTask(db.facilityDao()).execute(gc.getRoadAddress());
-        }
+
 
 
         // 출발 버튼 클릭
@@ -135,23 +140,31 @@ public class Fragment_search2 extends Fragment {
             }
         });
 
+        //즐겨찾기 버튼 클릭
+        favorite = (ImageView)layout.findViewById(R.id.favorite);
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Favorite favorite = null;// = new Favorite();
+                new FavoriteInsert(db_fFavorite.favoriteDao()).execute(favorite);
+            }
+        });
+
 
         //괄호안이 데이터 값
         return layout;
     }
 
-    //데이터 베이스 검색
-    private static class SearchAsyncTask extends AsyncTask<String,Void,List<Facility>> {
+    //Facility 데이터 베이스 검색
+    private static class FacilitySearch extends AsyncTask<String,Void,List<Facility>> {
         private FacilityDao facilityDao;
 
-        public SearchAsyncTask(FacilityDao facilityDao){
+        public FacilitySearch(FacilityDao facilityDao){
             this.facilityDao = facilityDao;
         }
         @Override
         protected List<Facility> doInBackground(String... strings) {
-            Log.d("TEXT","fragment2 : " + strings[0]);
             List<Facility> facility = facilityDao.findBuildWithAddress(strings[0]);
-            Log.d("TEXT","fragment2 : " + facility.size());
             return facility;
         }
 
@@ -160,6 +173,18 @@ public class Fragment_search2 extends Fragment {
             super.onPostExecute(facility);
             if(facility != null)
                 Log.d("TEXT", "fragment_search2 : " + facility.toString());
+        }
+    }
+
+    //Favorite 데이터 베이스 추가
+    private static class FavoriteInsert extends AsyncTask<Favorite,Void,Void>{
+        private FavoriteDao favoriteDao;
+
+        public FavoriteInsert(FavoriteDao favoriteDao){ this.favoriteDao = favoriteDao; }
+        @Override
+        protected Void doInBackground(Favorite... favorites) {
+            favoriteDao.insert(favorites[0]);
+            return null;
         }
     }
 
