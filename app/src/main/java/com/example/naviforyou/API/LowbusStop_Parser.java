@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 /*
 정류소 id를 통한 저상버스 도착 시간
+https://data.seoul.go.kr/dataList/OA-15347/L/1/datasetView.do#
  */
 
 public class LowbusStop_Parser {

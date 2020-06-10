@@ -2,7 +2,10 @@ package com.example.naviforyou.API;
 
 import java.io.Serializable;
 
-//심벌 클릭시 해당 주소값 저장
+/*
+심벌 클릭시 해당 주소값 저장
+https://apidocs.ncloud.com/ko/ai-naver/maps_geocoding/
+ */
 public class Gc implements Serializable {
     private String buildName;
     private String roadAddress;

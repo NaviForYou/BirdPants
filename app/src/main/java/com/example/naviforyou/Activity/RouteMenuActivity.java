@@ -194,7 +194,10 @@ public class RouteMenuActivity  extends AppCompatActivity {
 
         if(startData.isData() && endData.isData()){
             Log.d("Coords","SX : " + startData.getX_toString() + ", SY : " + startData.getY_toString() + ", EX :" + endData.getX_toString() +", EY : " + endData.getY_toString());
-            odsayService.requestSearchPubTransPath(startData.getX_toString(),startData.getY_toString(),endData.getX_toString(),endData.getY_toString(),"1","0","0",onResultCallbackListener);
+            odsayService.requestSearchPubTransPath(
+                    startData.getX_toString(),startData.getY_toString(),
+                    endData.getX_toString(),endData.getY_toString(),
+                    "1","0","0",onResultCallbackListener);
             //odsayService.requestSearchPubTransPath("126.97839260101318","37.56660635021524","127.05842971801758","37.61979786831449","1","0","0",onResultCallbackListener);
         }else{
             relativeLayout.setVisibility(View.GONE);

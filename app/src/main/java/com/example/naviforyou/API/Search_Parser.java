@@ -14,7 +14,10 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 
-//키워드를 통한 검색
+/*
+키워드를 통한 검색
+https://developers.kakao.com/docs/latest/ko/local/dev-guide
+ */
 public class Search_Parser {
     String json = null;
 
