@@ -2,7 +2,41 @@
 <resources>
     <string-array name="line1">
         <item>도봉산역</item>
-
+        <item>도봉역</item>
+        <item>방학역</item>
+        <item>창동역</item>
+        <item>녹천역</item>
+        <item>월계역</item>
+        <item>광운대역</item>
+        <item>석계역</item>
+        <item>신이문역</item>
+        <item>외대앞역</item>
+        <item>회기역</item>
+        <item>청량리역</item>
+        <item>제기동역</item>
+        <item>신설동역</item>
+        <item>동묘앞역</item>
+        <item>동대문역</item>
+        <item>종로5가역</item>
+        <item>종로3가역</item>
+        <item>종각역</item>
+        <item>시청역</item>
+        <item>서울역</item>
+        <item>남영역</item>
+        <item>용산역</item>
+        <item>노량진역</item>
+        <item>대방역</item>
+        <item>신길역</item>
+        <item>영등포역</item>
+        <item>신도림역</item>
+        <item>구로역</item>
+        <item>구일역</item>
+        <item>개봉역</item>
+        <item>오류동역</item>
+        <item>온수역</item>
+        <item>가산디지털단지역</item>
+        <item>독산역</item>
+        <item>금천구청역</item>
         <item>석수역</item>
     </string-array>
 

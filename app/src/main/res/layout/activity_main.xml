@@ -123,4 +123,48 @@
             android:textColor="#FFFFFF"
             android:textSize="30dp"></TextView>
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#095CD7"
+            android:id="@+id/menu">
+            <ImageView
+                android:id="@+id/find"
+                android:layout_width="82dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/ic_launcher"/>
+            <!--길찾기-->
+            <ImageView
+                android:id="@+id/subway"
+                android:layout_width="82dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_toRightOf="@id/find"/>
+            <!--지하철 지도-->
+            <ImageView
+                android:id="@+id/bookmark"
+                android:layout_width="82dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_toRightOf="@id/subway"/>
+            <!--즐겨찾기-->
+            <ImageView
+                android:id="@+id/setting"
+                android:layout_width="82dp"
+                android:layout_height="40dp"
+                android:layout_margin="10dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_toRightOf="@id/bookmark"/>
+            <!--설정-->
+        </RelativeLayout>
+    </RelativeLayout>
+
 </RelativeLayout>
