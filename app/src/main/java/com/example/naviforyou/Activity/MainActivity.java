@@ -10,14 +10,11 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -27,13 +24,14 @@ import com.example.naviforyou.API.Gc_Parser;
 import com.example.naviforyou.API.LowbusStop;
 import com.example.naviforyou.API.LowbusStop_Parser;
 import com.example.naviforyou.API.Search_Parser;
-import com.example.naviforyou.DB.AppDatebase;
+import com.example.naviforyou.DB.AppDatabase_Facility;
+import com.example.naviforyou.DB.AppDatabase_Favorite;
 import com.example.naviforyou.DB.Facility;
 import com.example.naviforyou.DB.FacilityDao;
 import com.example.naviforyou.DB.Facility_Parser;
 import com.example.naviforyou.R;
-import com.example.naviforyou.Fragment_search;
-import com.example.naviforyou.Fragment_search2;
+import com.example.naviforyou.Fragment.Fragment_search;
+import com.example.naviforyou.Fragment.Fragment_search2;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
@@ -58,7 +56,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static NaverMap naverMap;
 
     //시설 데이터 베이스 생성
-   public static AppDatebase db;
+   public static AppDatabase_Facility db_facility;
+   public static AppDatabase_Favorite db_favorite;
 
     // 위치를 반환하는 FusedLocationSource 선언
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
@@ -75,9 +74,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
     Gc gc;
 
-
-
-
+    //1번째
+    static boolean isfirst = true;
     //2번째
     boolean isSearch = false;
     double searchX = 0;
@@ -93,12 +91,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         activity = MainActivity.this;
         prefs = getSharedPreferences("Pref", MODE_PRIVATE);
 
-        db = Room.databaseBuilder(this,AppDatebase.class,
+        db_facility = Room.databaseBuilder(this, AppDatabase_Facility.class,
                 "facility-db").build();
 
+        db_favorite = Room.databaseBuilder(this,AppDatabase_Favorite.class,
+                "favorite-db").build();
+
         //첫실행시 json Parser 및 데이터베이스에 추가
-        checkFirstRun(db);
-        new GetAsyncTask(db.facilityDao()).execute();
+        checkFirstRun(db_facility);
+        new GetAsyncTask(db_facility.facilityDao()).execute();
         // 버스 정류소 저상버스 도착
         /*
         SeoulAsync_LowbusStop seoulAsync_lowbusStop = new SeoulAsync_LowbusStop();
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         this.naverMap = naverMap;
+
         //버스 정류장 표시
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
 
@@ -150,7 +152,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // FusedLocationSource을 NaverMap에 지정
         naverMap.setLocationSource(locationSource);
-        naverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
+        //처음 카메라 위치 조정
+        if(isfirst) {
+            naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+            isfirst = false;
+        }
 
         //위치 오버레이 객체 추가
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();
@@ -164,27 +170,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         tras.replace(R.id.frame, fragment_search);
         tras.commit();
 
-
-        //자기 위치로 돌아가는 버튼 데모
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.fragment_search, null);
-
-        gps = (ImageView)view.findViewById(R.id.gps);
-        /*
-        gps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (naverMap.getLocationTrackingMode() == LocationTrackingMode.NoFollow) {
-                    naverMap.setLocationTrackingMode(LocationTrackingMode.Face);
-                }
-                else {
-                    naverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
-                }
-
-            }
-        });
-
-         */
 
         //검색 장소 클릭 후
         if(isSearch){
@@ -301,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     //앱 첫 실행시
-    public void checkFirstRun(AppDatebase db){
+    public void checkFirstRun(AppDatabase_Facility db){
         boolean isFirstRun = prefs.getBoolean("isFirstRun",true);
         if(isFirstRun)
         {

@@ -23,6 +23,13 @@ public class SearchData {
         this.isData = true;
     }
 
+    public void setSearchData(String placeName, double x, double y, boolean isData) {
+        this.placeName = placeName;
+        X = x;
+        Y = y;
+        this.isData = isData;
+    }
+
     public void setSearchData(String placeName, String x, String y) {
         this.placeName = placeName;
         X = Double.parseDouble(x);
@@ -65,4 +72,14 @@ public class SearchData {
         Y = 0;
     }
 
+    @Override
+    public String toString() {
+        return "SearchData{" +
+                "type='" + type + '\'' +
+                ", placeName='" + placeName + '\'' +
+                ", X=" + X +
+                ", Y=" + Y +
+                ", isData=" + isData +
+                '}';
+    }
 }

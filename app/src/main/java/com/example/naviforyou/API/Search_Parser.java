@@ -41,7 +41,8 @@ public class Search_Parser {
             //검색정보
             search = URLEncoder.encode(temp[2],"UTF-8");
 
-            String apiURL = "https://dapi.kakao.com/v2/local/search/keyword.json?query="+ search +"&x="+coordsX +"&y="+ coordsY +"&radius=" + radius + "&sort="+sort;
+            //String apiURL = "https://dapi.kakao.com/v2/local/search/keyword.json?query="+ search +"&x="+coordsX +"&y="+ coordsY +"&radius=" + radius + "&sort="+sort;
+            String apiURL = "https://dapi.kakao.com/v2/local/search/keyword.json?query="+ search +"&x="+coordsX +"&y="+ coordsY +"&sort="+sort;
 
             URL url = new URL(apiURL); // URL클래스를 생성하여 접근할 경로
             HttpURLConnection con = (HttpURLConnection)url.openConnection(); //url 클래스의 연결 정보를 connectiopn에 전달

@@ -2,7 +2,6 @@ package com.example.naviforyou.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +36,8 @@ public class RouteMenuActivity  extends AppCompatActivity {
     RelativeLayout relativeLayout;
     TextView searchStart;
     TextView searchEnd;
+    TextView hour;
+    TextView min;
     ImageView rotation;
     ImageView clear;
 
@@ -44,6 +45,7 @@ public class RouteMenuActivity  extends AppCompatActivity {
     SearchData startData;
     SearchData endData;
     ArrayList<ArrayList<Object>> routeList;
+    ArrayList<Traffic> routecontent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,44 +59,72 @@ public class RouteMenuActivity  extends AppCompatActivity {
         rotation = findViewById(R.id.rotation);
         clear = findViewById(R.id.clear);
         relativeLayout = findViewById(R.id.route);
+        hour = findViewById(R.id.hour);
+        min = findViewById(R.id.min);
 
         //데이터 저장
         startData = new SearchData("start");
         endData = new SearchData("end");
 
+        //출발지 도착지 검색
+        searchStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(getApplicationContext(), SearchActivity.class);
+                intent1.putExtra("type","searchStart");
+                String text = searchStart.getText().toString();
+                if(text.length() != 0){
+                    intent1.putExtra("text",text);
+                }
+                startActivity(intent1);
+            }
+        });
+
+        searchEnd.setOnClickListener(v -> {
+            Intent intent1 = new Intent(getApplicationContext(), SearchActivity.class);
+            intent1.putExtra("type","searchEnd");
+            String text = searchEnd.getText().toString();
+            if(text.length() != 0){
+                intent1.putExtra("text",text);
+            }
+            startActivity(intent1);
+        });
+
         //clear
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startData.clear();
-                endData.clear();
-                relativeLayout.setVisibility(View.GONE);
-                routeList = null;
-                searchStart.setText(null);
-                searchEnd.setText(null);
-            }
+        clear.setOnClickListener(v -> {
+            startData.clear();
+            endData.clear();
+            relativeLayout.setVisibility(View.GONE);
+            routeList = null;
+            searchStart.setText(null);
+            searchEnd.setText(null);
         });
 
-        rotation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SearchData temp = endData;
-                endData.setSearchData(
-                        startData.getPlaceName(),
-                        startData.getX(),
-                        startData.getX()
-                );
-                startData.setSearchData(
-                        temp.getPlaceName(),
-                        temp.getX(),
-                        temp.getY()
-                );
-                searchStart.setText(startData.getPlaceName());
-                searchEnd.setText(endData.getPlaceName());
-            }
+        //출발지 도착지 교환
+        rotation.setOnClickListener(v -> {
+            String tempPlaceName = endData.getPlaceName();
+            Double tempX = endData.getX();
+            Double tempY = endData.getY();
+            boolean tempIsData = endData.isData();
+
+            endData.setSearchData(
+                    startData.getPlaceName(),
+                    startData.getX(),
+                    startData.getY()
+            );
+
+            startData.setSearchData(
+                    tempPlaceName,
+                    tempX,
+                    tempY,
+                    tempIsData
+            );
+
+            searchStart.setText(startData.getPlaceName());
+            searchEnd.setText(endData.getPlaceName());
         });
 
-        //첫 intent 생성시
+        //첫 intent 생성시 데이터 받기
         Intent intent = getIntent();
         type = "none";
         if(intent.hasExtra("type")) {
@@ -117,42 +147,11 @@ public class RouteMenuActivity  extends AppCompatActivity {
             searchEnd.setText(endData.getPlaceName());
         }
 
-
-
-
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        //출발지 도착지 검색
-        searchStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(getApplicationContext(), SearchActivity.class);
-                intent1.putExtra("type","searchStart");
-                String text = searchStart.getText().toString();
-                if(text.length() != 0){
-                    intent1.putExtra("text",text);
-                }
-                startActivity(intent1);
-            }
-        });
-
-        searchEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(getApplicationContext(), SearchActivity.class);
-                intent1.putExtra("type","searchEnd");
-                String text = searchEnd.getText().toString();
-                if(text.length() != 0){
-                    intent1.putExtra("text",text);
-                }
-                startActivity(intent1);
-            }
-        });
 
         searchStart.setText(startData.getPlaceName());
         searchEnd.setText(endData.getPlaceName());
@@ -169,13 +168,16 @@ public class RouteMenuActivity  extends AppCompatActivity {
                     try {if (api == API.SEARCH_PUB_TRANS_PATH) {
                         JSONObject json = oDsayData.getJson();
 
-                        routeList = ODsay_TransPath_Parser(json);
+                        ODsay_TransPath_Parser(json);
 
                         String busCount= json.getJSONObject("result").getString("busCount");
                         String subwayCount = json.getJSONObject("result").getString("subwayCount");
                         String subwaybusCount = json.getJSONObject("result").getString("subwayBusCount");
                         Log.d("COUNT","BUScount : " + busCount + ", SubwayCount : " + subwayCount + ", SubWayBusCount : " + subwaybusCount);
+                        min.setText(routecontent.get(0).getMin());
+                        hour.setText(routecontent.get(0).getHour());
                         relativeLayout.setVisibility(View.VISIBLE);
+
                     }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -192,6 +194,7 @@ public class RouteMenuActivity  extends AppCompatActivity {
             }
         };
 
+        Log.d("TEXT", "isData : " + endData.toString() + startData.toString());
         if(startData.isData() && endData.isData()){
             Log.d("Coords","SX : " + startData.getX_toString() + ", SY : " + startData.getY_toString() + ", EX :" + endData.getX_toString() +", EY : " + endData.getY_toString());
             odsayService.requestSearchPubTransPath(
@@ -212,17 +215,19 @@ public class RouteMenuActivity  extends AppCompatActivity {
         this.endData.setSearchData(placeName,x,y);
     }
 
-    ArrayList<ArrayList<Object>> ODsay_TransPath_Parser(JSONObject json){
+    void ODsay_TransPath_Parser(JSONObject json){
 
         ArrayList<ArrayList<Object>> LIST = new ArrayList<>();
+        ArrayList<Traffic> content = new ArrayList<>();
 
         try {
             JSONArray path = json.getJSONObject("result").getJSONArray("path");
-            ArrayList<Object> content = new ArrayList<>();
+
             for (int i = 0; i < path.length(); i++) {
                 Traffic traffic = new Traffic(i);
                 traffic.what(json);
                 content.add(i, traffic);
+
                 JSONArray subPath = path.getJSONObject(i).getJSONArray("subPath");
                 ArrayList<Object> list = new ArrayList<>();
                 for (int j = 0; j < subPath.length(); j++) {
@@ -249,7 +254,8 @@ public class RouteMenuActivity  extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        return LIST;
+        routeList = LIST;
+        routecontent = content;
     }
 }
 
