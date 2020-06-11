@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import com.example.naviforyou.Activity.MainActivity;
 import com.example.naviforyou.Activity.RouteMenuActivity;
 import com.example.naviforyou.Activity.SearchActivity;
+import com.example.naviforyou.Activity.SubwayActivity;
+import com.example.naviforyou.ODsay.Subway;
 import com.example.naviforyou.R;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.NaverMap;
@@ -25,6 +27,7 @@ public class Fragment_search extends Fragment {
     RelativeLayout search_layout;
     ImageView find;
     ImageView gps;
+    ImageView subway;
     ViewGroup layout;
 
     @NonNull
@@ -56,6 +59,12 @@ public class Fragment_search extends Fragment {
             else {
                 naverMap.setLocationTrackingMode(LocationTrackingMode.NoFollow);
             }
+        });
+
+        subway = layout.findViewById(R.id.subway);
+        subway.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SubwayActivity.class);
+            startActivity(intent);
         });
 
         return layout;

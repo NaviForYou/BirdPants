@@ -35,6 +35,12 @@
         <activity android:name=".Activity.RouteMenuActivity">
         </activity>
 
+        <activity android:name=".Activity.SubwayActivity">
+        </activity>
+
+        <activity android:name=".Activity.LineActivity">
+        </activity>
+
     </application>
 
 </manifest>

@@ -134,42 +134,39 @@ public class SearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(type.equals("main")) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("isSearch", true);
-                    intent.putExtra("X", searchList.get(position).getLongitude_X());
-                    intent.putExtra("Y", searchList.get(position).getLatitude_Y());
-                    intent.putExtra("PlaceName", searchList.get(position).getPlaceName());
-                    intent.putExtra("RoadAddress", searchList.get(position).getRoadAddress());
-                    MainActivity activity = (MainActivity)MainActivity.activity;
-                    activity.finish();
-                    startActivity(intent);
-                }else if (type.equals("searchStart")){
-                    Intent intent = new Intent(getApplicationContext(), RouteMenuActivity.class);
-                    RouteMenuActivity activity = (RouteMenuActivity)RouteMenuActivity.activity;
-                    activity.setStartData(
-                            searchList.get(position).getPlaceName(),
-                            searchList.get(position).getLongitude_X(),
-                            searchList.get(position).getLatitude_Y()
-                    );
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }else if (type.equals("searchEnd")){
-                    Intent intent = new Intent(getApplicationContext(), RouteMenuActivity.class);
-                    RouteMenuActivity activity = (RouteMenuActivity)RouteMenuActivity.activity;
-                    activity.setEndData(
-                            searchList.get(position).getPlaceName(),
-                            searchList.get(position).getLongitude_X(),
-                            searchList.get(position).getLatitude_Y()
-                    );
-                    intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
+        myListView.setOnItemClickListener((parent, view, position, id) -> {
+            if(type.equals("main")) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("isSearch", true);
+                intent.putExtra("X", searchList.get(position).getLongitude_X());
+                intent.putExtra("Y", searchList.get(position).getLatitude_Y());
+                intent.putExtra("PlaceName", searchList.get(position).getPlaceName());
+                intent.putExtra("RoadAddress", searchList.get(position).getRoadAddress());
+                MainActivity activity = (MainActivity)MainActivity.activity;
+                activity.finish();
+                startActivity(intent);
+            }else if (type.equals("searchStart")){
+                Intent intent = new Intent(getApplicationContext(), RouteMenuActivity.class);
+                RouteMenuActivity activity = (RouteMenuActivity)RouteMenuActivity.activity;
+                activity.setStartData(
+                        searchList.get(position).getPlaceName(),
+                        searchList.get(position).getLongitude_X(),
+                        searchList.get(position).getLatitude_Y()
+                );
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }else if (type.equals("searchEnd")){
+                Intent intent = new Intent(getApplicationContext(), RouteMenuActivity.class);
+                RouteMenuActivity activity = (RouteMenuActivity)RouteMenuActivity.activity;
+                activity.setEndData(
+                        searchList.get(position).getPlaceName(),
+                        searchList.get(position).getLongitude_X(),
+                        searchList.get(position).getLatitude_Y()
+                );
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
     }

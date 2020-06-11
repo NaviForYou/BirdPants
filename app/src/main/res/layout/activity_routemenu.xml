@@ -292,6 +292,7 @@
             android:layout_marginVertical="7dp"
             android:layout_marginHorizontal="15dp"
             android:src="@drawable/ic_launcher_foreground" />
+            <!--길찾기--><!--id/find_find--><!--노란 아이콘-->
         <ImageButton
             android:id="@+id/btn_subway"
             android:layout_weight="1"
@@ -300,6 +301,7 @@
             android:layout_marginVertical="7dp"
             android:layout_marginHorizontal="15dp"
             android:src="@drawable/ic_launcher_foreground"/>
+            <!--지하철--><!--id/subway_find-->
         <ImageButton
             android:id="@+id/btn_taxi"
             android:layout_weight="1"
@@ -308,6 +310,7 @@
             android:layout_marginVertical="7dp"
             android:layout_marginHorizontal="15dp"
             android:src="@drawable/ic_launcher_foreground"/>
+            <!--즐겨찾기--><!--id/bookmark_find-->
         <ImageButton
             android:id="@+id/btn_bookMark"
             android:layout_weight="1"
@@ -316,6 +319,7 @@
             android:layout_marginVertical="7dp"
             android:layout_marginHorizontal="15dp"
             android:src="@drawable/ic_launcher_foreground"/>
+            <!--설정--><!--id/setting_find-->
     </LinearLayout>
     <!-- 가장 아래의 버튼 바 -->
 </RelativeLayout>
