@@ -1,0 +1,259 @@
+00:58:44.063 [INFO] [org.gradle.internal.nativeintegration.services.NativeServices] Initialized native services in: C:\Users\admin\.gradle\native
+00:58:44.159 [DEBUG] [org.gradle.internal.nativeintegration.services.NativeServices] Native-platform posix files integration is not available. Continuing with fallback.
+00:58:44.222 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClient] Executing build 8612fdbd-d406-49d5-83b5-d49aa06690e9 in daemon client {pid=29512}
+00:58:44.234 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Software Loopback Interface 1
+00:58:44.236 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? true
+00:58:44.236 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding loopback address /127.0.0.1
+00:58:44.236 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding loopback address /0:0:0:0:0:0:0:1
+00:58:44.236 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Microsoft 6to4 Adapter
+00:58:44.238 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.238 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Intel(R) Ethernet Connection (7) I219-V
+00:58:44.239 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.239 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding remote address /192.168.25.33
+00:58:44.239 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding remote address /fe80:0:0:0:6da0:bddc:b209:219f%eth0
+00:58:44.240 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (L2TP)
+00:58:44.242 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.242 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Microsoft IP-HTTPS Platform Adapter
+00:58:44.243 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.243 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (Network Monitor)
+00:58:44.245 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.245 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Microsoft Kernel Debug Network Adapter
+00:58:44.246 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.246 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface RAS Async Adapter
+00:58:44.248 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.248 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IP)
+00:58:44.249 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.249 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface VMware Virtual Ethernet Adapter for VMnet1
+00:58:44.250 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.251 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding remote address /192.168.62.1
+00:58:44.251 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding remote address /fe80:0:0:0:bc8c:4540:28aa:cf66%eth4
+00:58:44.251 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (PPPOE)
+00:58:44.252 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.252 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Realtek USB GbE Family Controller
+00:58:44.253 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.253 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Microsoft Teredo Tunneling Adapter
+00:58:44.255 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.255 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface VMware Virtual Ethernet Adapter for VMnet8
+00:58:44.256 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.256 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding remote address /192.168.100.1
+00:58:44.256 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding remote address /fe80:0:0:0:8de4:1f28:eaf8:613%eth6
+00:58:44.256 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IPv6)
+00:58:44.257 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.257 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IKEv2)
+00:58:44.259 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.259 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (SSTP)
+00:58:44.260 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.260 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (PPTP)
+00:58:44.262 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.262 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Intel(R) Ethernet Connection (7) I219-V-WFP Native MAC Layer LightWeight Filter-0000
+00:58:44.263 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.263 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Intel(R) Ethernet Connection (7) I219-V-Nprotect Firewall Core Driver-0000
+00:58:44.265 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.265 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Intel(R) Ethernet Connection (7) I219-V-QoS Packet Scheduler-0000
+00:58:44.266 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.266 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface Intel(R) Ethernet Connection (7) I219-V-WFP 802.3 MAC Layer LightWeight Filter-0000
+00:58:44.267 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.267 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IP)-WFP Native MAC Layer LightWeight Filter-0000
+00:58:44.269 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.269 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IP)-Nprotect Firewall Core Driver-0000
+00:58:44.270 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.270 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IP)-QoS Packet Scheduler-0000
+00:58:44.271 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.271 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IPv6)-WFP Native MAC Layer LightWeight Filter-0000
+00:58:44.273 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.273 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IPv6)-Nprotect Firewall Core Driver-0000
+00:58:44.274 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.274 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (IPv6)-QoS Packet Scheduler-0000
+00:58:44.276 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.276 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (Network Monitor)-WFP Native MAC Layer LightWeight Filter-0000
+00:58:44.277 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.277 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (Network Monitor)-Nprotect Firewall Core Driver-0000
+00:58:44.278 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.278 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Adding IP addresses for network interface WAN Miniport (Network Monitor)-QoS Packet Scheduler-0000
+00:58:44.280 [DEBUG] [org.gradle.internal.remote.internal.inet.InetAddresses] Is this a loopback interface? false
+00:58:44.286 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire shared lock on daemon addresses registry.
+00:58:44.287 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired on daemon addresses registry.
+00:58:44.290 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+00:58:44.293 [INFO] [org.gradle.launcher.daemon.client.DefaultDaemonConnector] Found daemon DaemonInfo{pid=25860, address=[66f3c1cc-131e-4d17-924c-75919c659152 port:51578, addresses:[/127.0.0.1, /0:0:0:0:0:0:0:1]], state=Idle, lastBusy=1592063655708, context=DefaultDaemonContext[uid=ccfd0bd4-09c1-40e6-8a69-6fff825ea6ea,javaHome=C:\Program Files\Android\Android Studio\jre,daemonRegistryDir=C:\Users\admin\.gradle\daemon,pid=25860,idleTimeout=10800000,priority=NORMAL,daemonOpts=-Xmx1536m,-Dfile.encoding=x-windows-949,-Duser.country=KR,-Duser.language=ko,-Duser.variant]} however its context does not match the desired criteria.
+Java home is different.
+Wanted: DefaultDaemonContext[uid=null,javaHome=D:\jdk-14,daemonRegistryDir=C:\Users\admin\.gradle\daemon,pid=29512,idleTimeout=null,priority=NORMAL,daemonOpts=--add-opens,java.base/java.util=ALL-UNNAMED,--add-opens,java.base/java.lang=ALL-UNNAMED,--add-opens,java.base/java.lang.invoke=ALL-UNNAMED,--add-opens,java.prefs/java.util.prefs=ALL-UNNAMED,-Xmx1536m,-Dfile.encoding=x-windows-949,-Duser.country=KR,-Duser.language=ko,-Duser.variant]
+Actual: DefaultDaemonContext[uid=ccfd0bd4-09c1-40e6-8a69-6fff825ea6ea,javaHome=C:\Program Files\Android\Android Studio\jre,daemonRegistryDir=C:\Users\admin\.gradle\daemon,pid=25860,idleTimeout=10800000,priority=NORMAL,daemonOpts=-Xmx1536m,-Dfile.encoding=x-windows-949,-Duser.country=KR,-Duser.language=ko,-Duser.variant]
+
+  Looking for a different daemon...
+00:58:44.307 [DEBUG] [org.gradle.internal.remote.internal.inet.TcpOutgoingConnector] Attempting to connect to [61533809-db02-4d50-8672-eff50d75e760 port:52140, addresses:[/127.0.0.1, /0:0:0:0:0:0:0:1]].
+00:58:44.307 [DEBUG] [org.gradle.internal.remote.internal.inet.TcpOutgoingConnector] Trying to connect to address /127.0.0.1.
+00:58:44.311 [DEBUG] [org.gradle.internal.remote.internal.inet.TcpOutgoingConnector] Connected to address /127.0.0.1:52140.
+00:58:44.325 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClient] Connected to daemon DaemonInfo{pid=12960, address=[61533809-db02-4d50-8672-eff50d75e760 port:52140, addresses:[/127.0.0.1, /0:0:0:0:0:0:0:1]], state=Idle, lastBusy=1592063847566, context=DefaultDaemonContext[uid=220dcf30-59d0-4559-a6c4-425557543728,javaHome=D:\jdk-14,daemonRegistryDir=C:\Users\admin\.gradle\daemon,pid=12960,idleTimeout=10800000,priority=NORMAL,daemonOpts=--add-opens,java.base/java.util=ALL-UNNAMED,--add-opens,java.base/java.lang=ALL-UNNAMED,--add-opens,java.base/java.lang.invoke=ALL-UNNAMED,--add-opens,java.prefs/java.util.prefs=ALL-UNNAMED,-Xmx1536m,-Dfile.encoding=x-windows-949,-Duser.country=KR,-Duser.language=ko,-Duser.variant]}. Dispatching request Build{id=8612fdbd-d406-49d5-83b5-d49aa06690e9, currentDir=C:\Users\admin\AndroidStudioProjects\NaviForYou}.
+00:58:44.325 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClientConnection] thread 1: dispatching class org.gradle.launcher.daemon.protocol.Build
+00:58:44.335 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClient] Received result org.gradle.launcher.daemon.protocol.BuildStarted@1787f2a0 from daemon DaemonInfo{pid=12960, address=[61533809-db02-4d50-8672-eff50d75e760 port:52140, addresses:[/127.0.0.1, /0:0:0:0:0:0:0:1]], state=Idle, lastBusy=1592063847566, context=DefaultDaemonContext[uid=220dcf30-59d0-4559-a6c4-425557543728,javaHome=D:\jdk-14,daemonRegistryDir=C:\Users\admin\.gradle\daemon,pid=12960,idleTimeout=10800000,priority=NORMAL,daemonOpts=--add-opens,java.base/java.util=ALL-UNNAMED,--add-opens,java.base/java.lang=ALL-UNNAMED,--add-opens,java.base/java.lang.invoke=ALL-UNNAMED,--add-opens,java.prefs/java.util.prefs=ALL-UNNAMED,-Xmx1536m,-Dfile.encoding=x-windows-949,-Duser.country=KR,-Duser.language=ko,-Duser.variant]} (build should be starting).
+00:58:44.337 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 12960). The daemon log file: C:\Users\admin\.gradle\daemon\5.6.4\daemon-12960.out.log
+00:58:44.338 [INFO] [org.gradle.launcher.daemon.server.exec.LogAndCheckHealth] Starting 4th build in daemon [uptime: 2 mins 40.714 secs, performance: 100%]
+00:58:44.338 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+00:58:44.338 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=220dcf30-59d0-4559-a6c4-425557543728,javaHome=D:\jdk-14,daemonRegistryDir=C:\Users\admin\.gradle\daemon,pid=12960,idleTimeout=10800000,priority=NORMAL,daemonOpts=--add-opens,java.base/java.util=ALL-UNNAMED,--add-opens,java.base/java.lang=ALL-UNNAMED,--add-opens,java.base/java.lang.invoke=ALL-UNNAMED,--add-opens,java.prefs/java.util.prefs=ALL-UNNAMED,-Xmx1536m,-Dfile.encoding=x-windows-949,-Duser.country=KR,-Duser.language=ko,-Duser.variant]
+00:58:44.339 [INFO] [org.gradle.internal.work.DefaultWorkerLeaseService] Using 6 worker leases.
+00:58:44.342 [DEBUG] [org.gradle.cache.internal.DefaultCacheAccess] Creating new cache for fileHashes, path C:\Users\admin\AndroidStudioProjects\NaviForYou\.gradle\5.6.4\fileHashes\fileHashes.bin, access org.gradle.cache.internal.DefaultCacheAccess@bc1cc4
+00:58:44.342 [DEBUG] [org.gradle.cache.internal.LockOnDemandCrossProcessCacheAccess] Acquiring file lock for file hash cache (C:\Users\admin\AndroidStudioProjects\NaviForYou\.gradle\5.6.4\fileHashes)
+00:58:44.344 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on file hash cache (C:\Users\admin\AndroidStudioProjects\NaviForYou\.gradle\5.6.4\fileHashes).
+00:58:44.344 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired on file hash cache (C:\Users\admin\AndroidStudioProjects\NaviForYou\.gradle\5.6.4\fileHashes).
+00:58:44.347 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Build operation 'Run build' started
+00:58:44.348 [DEBUG] [org.gradle.internal.work.DefaultWorkerLeaseService] Worker lease root.1 started (1 worker(s) in use).
+00:58:44.348 [DEBUG] [org.gradle.internal.resources.AbstractTrackedResourceLock] Daemon worker Thread 2: acquired lock on root.1
+00:58:44.348 [INFO] [org.gradle.internal.buildevents.BuildLogger] Starting Build
+00:58:44.348 [DEBUG] [org.gradle.internal.buildevents.BuildLogger] Gradle user home: C:\Users\admin\.gradle
+00:58:44.348 [DEBUG] [org.gradle.internal.buildevents.BuildLogger] Current dir: C:\Users\admin\AndroidStudioProjects\NaviForYou
+00:58:44.348 [DEBUG] [org.gradle.internal.buildevents.BuildLogger] Settings file: null
+00:58:44.348 [DEBUG] [org.gradle.internal.buildevents.BuildLogger] Build file: null
+00:58:44.349 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Build operation 'Load build' started
+00:58:44.350 [DEBUG] [org.gradle.initialization.buildsrc.BuildSourceBuilder] Gradle source dir does not exist. We leave.
+00:58:44.350 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Build operation 'Evaluate settings' started
+00:58:44.351 [DEBUG] [org.gradle.initialization.DefaultGradlePropertiesLoader] Found env project properties: []
+00:58:44.351 [DEBUG] [org.gradle.initialization.DefaultGradlePropertiesLoader] Found system project properties: []
+00:58:44.352 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Completing Build operation 'Evaluate settings'
+00:58:44.352 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Build operation 'Evaluate settings' completed
+00:58:44.352 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Completing Build operation 'Load build'
+00:58:44.352 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Build operation 'Load build' completed
+00:58:44.353 [DEBUG] [org.gradle.internal.work.DefaultWorkerLeaseService] Worker lease root.1 completed (0 worker(s) in use)
+00:58:44.353 [DEBUG] [org.gradle.internal.resources.AbstractTrackedResourceLock] Daemon worker Thread 2: released lock on root.1
+00:58:44.353 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 
+00:58:44.353 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] FAILURE: Build failed with an exception.
+00:58:44.353 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 
+00:58:44.354 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] * What went wrong:
+00:58:44.354 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] Could not initialize class org.codehaus.groovy.runtime.InvokerHelper
+00:58:44.354 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 
+00:58:44.354 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] * Try:
+00:58:44.354 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter]  Run with --scan to get full insights.
+00:58:44.354 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 
+00:58:44.354 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] * Exception is:
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] java.lang.NoClassDefFoundError: Could not initialize class org.codehaus.groovy.runtime.InvokerHelper
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.extensibility.DefaultExtraPropertiesExtension.<init>(DefaultExtraPropertiesExtension.java:29)
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.extensibility.DefaultConvention.<init>(DefaultConvention.java:48)
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.api.internal.plugins.DefaultConvention.<init>(DefaultConvention.java:28)
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.extensibility.ExtensibleDynamicObject.<init>(ExtensibleDynamicObject.java:60)
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.instantiation.MixInExtensibleDynamicObject.<init>(MixInExtensibleDynamicObject.java:34)
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.DefaultSettings_Decorated.getAsDynamicObject(Unknown Source)
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.SettingsFactory.createSettings(SettingsFactory.java:58)
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.ScriptEvaluatingSettingsProcessor.process(ScriptEvaluatingSettingsProcessor.java:61)
+00:58:44.355 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.PropertiesLoadingSettingsProcessor.process(PropertiesLoadingSettingsProcessor.java:38)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.SettingsEvaluatedCallbackFiringSettingsProcessor.process(SettingsEvaluatedCallbackFiringSettingsProcessor.java:34)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.RootBuildCacheControllerSettingsProcessor.process(RootBuildCacheControllerSettingsProcessor.java:36)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.BuildOperationSettingsProcessor$2.call(BuildOperationSettingsProcessor.java:50)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.BuildOperationSettingsProcessor$2.call(BuildOperationSettingsProcessor.java:47)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$CallableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:416)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$CallableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:406)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$1.execute(DefaultBuildOperationExecutor.java:165)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.execute(DefaultBuildOperationExecutor.java:250)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.execute(DefaultBuildOperationExecutor.java:158)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:102)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DelegatingBuildOperationExecutor.call(DelegatingBuildOperationExecutor.java:36)
+00:58:44.356 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.BuildOperationSettingsProcessor.process(BuildOperationSettingsProcessor.java:47)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.DefaultSettingsLoader.findSettingsAndLoadIfAppropriate(DefaultSettingsLoader.java:104)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.DefaultSettingsLoader.findAndLoadSettings(DefaultSettingsLoader.java:45)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.SettingsAttachingSettingsLoader.findAndLoadSettings(SettingsAttachingSettingsLoader.java:35)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.composite.CommandLineIncludedBuildSettingsLoader.findAndLoadSettings(CommandLineIncludedBuildSettingsLoader.java:34)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.composite.ChildBuildRegisteringSettingsLoader.findAndLoadSettings(ChildBuildRegisteringSettingsLoader.java:47)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.composite.CompositeBuildSettingsLoader.findAndLoadSettings(CompositeBuildSettingsLoader.java:35)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.DefaultSettingsPreparer.prepareSettings(DefaultSettingsPreparer.java:36)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.BuildOperatingFiringSettingsPreparer$LoadBuild.doLoadBuild(BuildOperatingFiringSettingsPreparer.java:59)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.BuildOperatingFiringSettingsPreparer$LoadBuild.run(BuildOperatingFiringSettingsPreparer.java:54)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$RunnableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:402)
+00:58:44.357 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$RunnableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:394)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$1.execute(DefaultBuildOperationExecutor.java:165)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.execute(DefaultBuildOperationExecutor.java:250)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.execute(DefaultBuildOperationExecutor.java:158)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.run(DefaultBuildOperationExecutor.java:92)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DelegatingBuildOperationExecutor.run(DelegatingBuildOperationExecutor.java:31)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.BuildOperatingFiringSettingsPreparer.prepareSettings(BuildOperatingFiringSettingsPreparer.java:42)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.DefaultGradleLauncher.prepareSettings(DefaultGradleLauncher.java:190)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.DefaultGradleLauncher.doClassicBuildStages(DefaultGradleLauncher.java:134)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.DefaultGradleLauncher.doBuildStages(DefaultGradleLauncher.java:126)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.initialization.DefaultGradleLauncher.executeTasks(DefaultGradleLauncher.java:106)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.invocation.GradleBuildController$1.execute(GradleBuildController.java:60)
+00:58:44.358 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.invocation.GradleBuildController$1.execute(GradleBuildController.java:57)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.invocation.GradleBuildController$3.create(GradleBuildController.java:85)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.invocation.GradleBuildController$3.create(GradleBuildController.java:78)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.work.DefaultWorkerLeaseService.withLocks(DefaultWorkerLeaseService.java:189)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.work.StopShieldingWorkerLeaseService.withLocks(StopShieldingWorkerLeaseService.java:40)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.invocation.GradleBuildController.doBuild(GradleBuildController.java:78)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.invocation.GradleBuildController.run(GradleBuildController.java:57)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.ExecuteBuildActionRunner.run(ExecuteBuildActionRunner.java:31)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.ChainingBuildActionRunner.run(ChainingBuildActionRunner.java:35)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.BuildOutcomeReportingBuildActionRunner.run(BuildOutcomeReportingBuildActionRunner.java:63)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.ValidatingBuildActionRunner.run(ValidatingBuildActionRunner.java:32)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.BuildCompletionNotifyingBuildActionRunner.run(BuildCompletionNotifyingBuildActionRunner.java:39)
+00:58:44.359 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionRunner$3.call(RunAsBuildOperationBuildActionRunner.java:51)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionRunner$3.call(RunAsBuildOperationBuildActionRunner.java:45)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$CallableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:416)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$CallableBuildOperationWorker.execute(DefaultBuildOperationExecutor.java:406)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor$1.execute(DefaultBuildOperationExecutor.java:165)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.execute(DefaultBuildOperationExecutor.java:250)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.execute(DefaultBuildOperationExecutor.java:158)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DefaultBuildOperationExecutor.call(DefaultBuildOperationExecutor.java:102)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.operations.DelegatingBuildOperationExecutor.call(DelegatingBuildOperationExecutor.java:36)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.RunAsBuildOperationBuildActionRunner.run(RunAsBuildOperationBuildActionRunner.java:45)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.InProcessBuildActionExecuter$1.transform(InProcessBuildActionExecuter.java:50)
+00:58:44.360 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.InProcessBuildActionExecuter$1.transform(InProcessBuildActionExecuter.java:47)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.composite.internal.DefaultRootBuildState.run(DefaultRootBuildState.java:78)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:47)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.InProcessBuildActionExecuter.execute(InProcessBuildActionExecuter.java:31)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.BuildTreeScopeBuildActionExecuter.execute(BuildTreeScopeBuildActionExecuter.java:42)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.exec.BuildTreeScopeBuildActionExecuter.execute(BuildTreeScopeBuildActionExecuter.java:28)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:78)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.ContinuousBuildActionExecuter.execute(ContinuousBuildActionExecuter.java:52)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.SubscribableBuildActionExecuter.execute(SubscribableBuildActionExecuter.java:59)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.SubscribableBuildActionExecuter.execute(SubscribableBuildActionExecuter.java:36)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.SessionScopeBuildActionExecuter.execute(SessionScopeBuildActionExecuter.java:68)
+00:58:44.361 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.SessionScopeBuildActionExecuter.execute(SessionScopeBuildActionExecuter.java:38)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.GradleThreadBuildActionExecuter.execute(GradleThreadBuildActionExecuter.java:37)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.GradleThreadBuildActionExecuter.execute(GradleThreadBuildActionExecuter.java:26)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.ParallelismConfigurationBuildActionExecuter.execute(ParallelismConfigurationBuildActionExecuter.java:43)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.ParallelismConfigurationBuildActionExecuter.execute(ParallelismConfigurationBuildActionExecuter.java:29)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.StartParamsValidatingActionExecuter.execute(StartParamsValidatingActionExecuter.java:60)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.StartParamsValidatingActionExecuter.execute(StartParamsValidatingActionExecuter.java:32)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.SessionFailureReportingActionExecuter.execute(SessionFailureReportingActionExecuter.java:55)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.SessionFailureReportingActionExecuter.execute(SessionFailureReportingActionExecuter.java:41)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.SetupLoggingActionExecuter.execute(SetupLoggingActionExecuter.java:48)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.tooling.internal.provider.SetupLoggingActionExecuter.execute(SetupLoggingActionExecuter.java:32)
+00:58:44.362 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.ExecuteBuild.doBuild(ExecuteBuild.java:68)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.WatchForDisconnection.execute(WatchForDisconnection.java:39)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.ResetDeprecationLogger.execute(ResetDeprecationLogger.java:27)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon.execute(RequestStopIfSingleUsedDaemon.java:35)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.ForwardClientInput$2.create(ForwardClientInput.java:78)
+00:58:44.363 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.ForwardClientInput$2.create(ForwardClientInput.java:75)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.util.Swapper.swap(Swapper.java:38)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.ForwardClientInput.execute(ForwardClientInput.java:75)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.LogAndCheckHealth.execute(LogAndCheckHealth.java:55)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.LogToClient.doBuild(LogToClient.java:63)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment.doBuild(EstablishBuildEnvironment.java:82)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.BuildCommandOnly.execute(BuildCommandOnly.java:37)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.api.DaemonCommandExecution.proceed(DaemonCommandExecution.java:104)
+00:58:44.364 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy$1.run(StartBuildOrRespondWithBusy.java:52)
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.launcher.daemon.server.DaemonStateCoordinator$1.run(DaemonStateCoordinator.java:297)
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] 
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildExceptionReporter] * Get more help at https://help.gradle.org
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildResultLogger] 
+00:58:44.365 [ERROR] [org.gradle.internal.buildevents.BuildResultLogger] BUILD FAILED in 663ms
+00:58:44.366 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Completing Build operation 'Run build'
+00:58:44.366 [DEBUG] [org.gradle.internal.operations.DefaultBuildOperationExecutor] Build operation 'Run build' completed
+00:58:44.369 [DEBUG] [org.gradle.deployment.internal.DefaultDeploymentRegistry] Stopping 0 deployment handles
+00:58:44.370 [DEBUG] [org.gradle.deployment.internal.DefaultDeploymentRegistry] Stopped deployment handles
+00:58:44.370 [DEBUG] [org.gradle.cache.internal.LockOnDemandCrossProcessCacheAccess] Releasing file lock for file hash cache (C:\Users\admin\AndroidStudioProjects\NaviForYou\.gradle\5.6.4\fileHashes)
+00:58:44.370 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on file hash cache (C:\Users\admin\AndroidStudioProjects\NaviForYou\.gradle\5.6.4\fileHashes).
+00:58:44.371 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has finished executing the build.
+00:58:44.412 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClientInputForwarder] Dispatching close input message: org.gradle.launcher.daemon.protocol.CloseInput@57932949
+00:58:44.414 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClientConnection] thread 16: dispatching class org.gradle.launcher.daemon.protocol.CloseInput
+00:58:44.415 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClient] Received result Success[value=org.gradle.launcher.exec.BuildActionResult@1f81aa00] from daemon DaemonInfo{pid=12960, address=[61533809-db02-4d50-8672-eff50d75e760 port:52140, addresses:[/127.0.0.1, /0:0:0:0:0:0:0:1]], state=Idle, lastBusy=1592063847566, context=DefaultDaemonContext[uid=220dcf30-59d0-4559-a6c4-425557543728,javaHome=D:\jdk-14,daemonRegistryDir=C:\Users\admin\.gradle\daemon,pid=12960,idleTimeout=10800000,priority=NORMAL,daemonOpts=--add-opens,java.base/java.util=ALL-UNNAMED,--add-opens,java.base/java.lang=ALL-UNNAMED,--add-opens,java.base/java.lang.invoke=ALL-UNNAMED,--add-opens,java.prefs/java.util.prefs=ALL-UNNAMED,-Xmx1536m,-Dfile.encoding=x-windows-949,-Duser.country=KR,-Duser.language=ko,-Duser.variant]} (build should be done).
+00:58:44.415 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClientConnection] thread 1: dispatching class org.gradle.launcher.daemon.protocol.Finished
+00:58:44.415 [DEBUG] [org.gradle.launcher.daemon.client.DaemonClientConnection] thread 1: connection stop
