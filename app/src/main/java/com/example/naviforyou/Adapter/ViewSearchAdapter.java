@@ -1,4 +1,4 @@
-package com.example.naviforyou;
+package com.example.naviforyou.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

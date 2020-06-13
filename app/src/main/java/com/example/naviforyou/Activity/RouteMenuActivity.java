@@ -8,10 +8,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.naviforyou.Adapter.MyRecyclerViewAdapter;
 import com.example.naviforyou.ODsay.Bus;
 import com.example.naviforyou.ODsay.Subway;
 import com.example.naviforyou.ODsay.Traffic;
@@ -29,9 +33,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class RouteMenuActivity  extends AppCompatActivity {
+public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener{
 
     public static Activity activity;
+    private MyRecyclerViewAdapter adapter;
 
     RelativeLayout relativeLayout;
     TextView searchStart;
@@ -61,6 +66,23 @@ public class RouteMenuActivity  extends AppCompatActivity {
         relativeLayout = findViewById(R.id.route);
         hour = findViewById(R.id.hour);
         min = findViewById(R.id.min);
+
+        //data to populate the RecyclerView with
+        ArrayList<String> choose_main = new ArrayList<>();
+        choose_main.add("전체");
+        choose_main.add("도보");
+        choose_main.add("버스");
+        choose_main.add("지하철");
+        choose_main.add("버스+지하철");
+
+        // set up the RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.way);
+        LinearLayoutManager horizontalLayoutManager
+                = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(horizontalLayoutManager);
+        adapter = new MyRecyclerViewAdapter(this, choose_main);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
 
         //데이터 저장
         startData = new SearchData("start");
@@ -256,6 +278,11 @@ public class RouteMenuActivity  extends AppCompatActivity {
 
         routeList = LIST;
         routecontent = content;
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
     }
 }
 

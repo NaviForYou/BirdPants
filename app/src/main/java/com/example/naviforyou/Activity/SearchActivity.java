@@ -9,8 +9,6 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -22,7 +20,7 @@ import androidx.core.content.ContextCompat;
 import com.example.naviforyou.API.Search;
 import com.example.naviforyou.API.Search_Parser;
 import com.example.naviforyou.R;
-import com.example.naviforyou.ViewSearchAdapter;
+import com.example.naviforyou.Adapter.ViewSearchAdapter;
 
 import java.util.ArrayList;
 

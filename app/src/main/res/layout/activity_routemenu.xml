@@ -59,7 +59,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/searching"
         android:layout_above="@id/menuBar"
-        android:visibility="gone"
+        android:visibility=""
         android:id="@+id/route">
         <RelativeLayout
             android:id="@+id/result_1"
@@ -67,59 +67,12 @@
             android:layout_height="wrap_content"
             android:visibility="visible">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/way"
                 android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/all"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="전체"
-                    android:textSize="20dp"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:id="@+id/walking"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="도보"
-                    android:textSize="20dp"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:id="@+id/bus"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="버스"
-                    android:textSize="20dp"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:id="@+id/subway_result"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="지하철"
-                    android:textSize="20dp"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:id="@+id/busnsubway"
-                    android:layout_weight="1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="버스+지하철"
-                    android:textSize="20dp"
-                    android:textColor="#000000"/>
-            </LinearLayout>
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
 
             <ImageButton
                 android:id="@+id/lift"

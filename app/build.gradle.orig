@@ -1,4 +1,4 @@
-﻿apply plugin: 'com.android.application'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 29
@@ -38,7 +38,19 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+<<<<<<< HEAD
+    // 네이버 지도 SDK
+    implementation 'com.naver.maps:map-sdk:3.7.1'
+
+    //ODsay SDK
+    implementation 'com.google.code.findbugs:jsr305:2.0.1'
+
+    implementation 'com.google.android.gms:play-services-location:16.0.0'
+
+=======
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+>>>>>>> bang
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.room:room-runtime:2.2.2'
