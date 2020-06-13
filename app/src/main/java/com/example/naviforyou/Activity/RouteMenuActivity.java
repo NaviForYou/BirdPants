@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.naviforyou.Adapter.MyRecyclerViewAdapter;
+import com.example.naviforyou.Adapter.listViewAdapter;
 import com.example.naviforyou.ODsay.Bus;
 import com.example.naviforyou.ODsay.Subway;
 import com.example.naviforyou.ODsay.Traffic;
@@ -36,21 +38,21 @@ import java.util.ArrayList;
 public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener{
 
     public static Activity activity;
-    private MyRecyclerViewAdapter adapter;
+    private MyRecyclerViewAdapter myRecyclerViewAdapter;
+    listViewAdapter listViewAdapter;
 
     RelativeLayout relativeLayout;
     TextView searchStart;
     TextView searchEnd;
-    TextView hour;
-    TextView min;
     ImageView rotation;
     ImageView clear;
+    ListView result;
 
     String type; // start = 출발지 정해짐, end = 도착지 정해짐, none = 둘다 정해지지 않음.
     SearchData startData;
     SearchData endData;
     ArrayList<ArrayList<Object>> routeList;
-    ArrayList<Traffic> routecontent;
+    ArrayList<Traffic> routeContent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,8 +66,7 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         rotation = findViewById(R.id.rotation);
         clear = findViewById(R.id.clear);
         relativeLayout = findViewById(R.id.route);
-        hour = findViewById(R.id.hour);
-        min = findViewById(R.id.min);
+        result = findViewById(R.id.result);
 
         //data to populate the RecyclerView with
         ArrayList<String> choose_main = new ArrayList<>();
@@ -80,9 +81,9 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         LinearLayoutManager horizontalLayoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(horizontalLayoutManager);
-        adapter = new MyRecyclerViewAdapter(this, choose_main);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
+        myRecyclerViewAdapter = new MyRecyclerViewAdapter(this, choose_main);
+        myRecyclerViewAdapter.setClickListener(this);
+        recyclerView.setAdapter(myRecyclerViewAdapter);
 
         //데이터 저장
         startData = new SearchData("start");
@@ -196,8 +197,9 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
                         String subwayCount = json.getJSONObject("result").getString("subwayCount");
                         String subwaybusCount = json.getJSONObject("result").getString("subwayBusCount");
                         Log.d("COUNT","BUScount : " + busCount + ", SubwayCount : " + subwayCount + ", SubWayBusCount : " + subwaybusCount);
-                        min.setText(routecontent.get(0).getMin());
-                        hour.setText(routecontent.get(0).getHour());
+                        //list view
+                        listViewAdapter = new listViewAdapter(RouteMenuActivity.this, R.layout.listview_item, routeList, routeContent);
+                        result.setAdapter(listViewAdapter);
                         relativeLayout.setVisibility(View.VISIBLE);
 
                     }
@@ -277,12 +279,12 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         }
 
         routeList = LIST;
-        routecontent = content;
+        routeContent = content;
     }
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "You clicked " + myRecyclerViewAdapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
     }
 }
 

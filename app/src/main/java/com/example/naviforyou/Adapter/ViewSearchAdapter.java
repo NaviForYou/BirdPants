@@ -42,7 +42,8 @@ public class ViewSearchAdapter extends ArrayAdapter<Search> {
         search = list.get(position);
 
         double X = search.getLongitude_X();
-        double Y = search.getLatitude_Y();        TextView placeName = convertView.findViewById(R.id.search_placeName);
+        double Y = search.getLatitude_Y();
+        TextView placeName = convertView.findViewById(R.id.search_placeName);
         TextView Address = convertView.findViewById(R.id.search_roadAddress);
         TextView phoneNumber = convertView.findViewById(R.id.search_phoneNumber);
 
