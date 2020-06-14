@@ -23,15 +23,7 @@
         android:text="전체"
         android:textSize="20dp"
         android:textColor="#000000"/>
-    <TextView
-        android:id="@+id/walking"
-        android:layout_weight="1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="도보"
-        android:textSize="20dp"
-        android:textColor="#000000"/>
+
     <TextView
         android:id="@+id/bus"
         android:layout_weight="1"

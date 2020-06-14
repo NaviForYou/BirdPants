@@ -29,7 +29,8 @@
                     android:layout_height="wrap_content"
                     android:text="시간 "
                     android:textSize="35dp"
-                    android:textColor="#000000"/>
+                    android:textColor="#000000"
+                    android:id="@+id/hourText"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/box_min"
@@ -133,17 +134,6 @@
         android:orientation="horizontal"
         android:background="#E3E9ED">
 
-        <TextView
-            android:id="@+id/object"
-            android:layout_width="0dp"
-            android:layout_height="18dp"
-            android:layout_weight="20"
-            android:background="#FF0000"
-            android:text="20분"
-            android:textColor="#E3E9ED"
-            android:textAlignment="center"
-            android:drawableLeft="@drawable/customise_wheelchair"
-            android:gravity="center_horizontal" />
 
     </LinearLayout>
 </LinearLayout>

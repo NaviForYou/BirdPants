@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.naviforyou.Adapter.MyRecyclerViewAdapter;
-import com.example.naviforyou.Adapter.listViewAdapter;
+import com.example.naviforyou.Adapter.ViewRouteAdapter;
 import com.example.naviforyou.ODsay.Bus;
 import com.example.naviforyou.ODsay.Subway;
 import com.example.naviforyou.ODsay.Traffic;
@@ -39,7 +39,7 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
 
     public static Activity activity;
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
-    listViewAdapter listViewAdapter;
+    ViewRouteAdapter ViewRouteAdapter;
 
     RelativeLayout relativeLayout;
     TextView searchStart;
@@ -71,7 +71,6 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         //data to populate the RecyclerView with
         ArrayList<String> choose_main = new ArrayList<>();
         choose_main.add("전체");
-        choose_main.add("도보");
         choose_main.add("버스");
         choose_main.add("지하철");
         choose_main.add("버스+지하철");
@@ -198,8 +197,8 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
                         String subwaybusCount = json.getJSONObject("result").getString("subwayBusCount");
                         Log.d("COUNT","BUScount : " + busCount + ", SubwayCount : " + subwayCount + ", SubWayBusCount : " + subwaybusCount);
                         //list view
-                        listViewAdapter = new listViewAdapter(RouteMenuActivity.this, R.layout.listview_item, routeList, routeContent);
-                        result.setAdapter(listViewAdapter);
+                        ViewRouteAdapter = new ViewRouteAdapter(RouteMenuActivity.this, R.layout.item_route, routeList, routeContent);
+                        result.setAdapter(ViewRouteAdapter);
                         relativeLayout.setVisibility(View.VISIBLE);
 
                     }
