@@ -24,7 +24,7 @@ public class Traffic {
         try {
             JSONArray path = jsonObject.getJSONObject("result").getJSONArray("path");
             JSONObject info = path.getJSONObject(I).getJSONObject("info");
-            content[0]= path.getJSONObject(I).getString("pathType");
+            content[0]= path.getJSONObject(I).getString("pathType"); //1-지하철, 2-버스, 3-버스+지하철#
             content[1] = info.getString("totalTime");
             content[2] = info.getString("payment");
 

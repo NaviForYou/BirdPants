@@ -1,4 +1,4 @@
-package com.example.naviforyou;
+package com.example.naviforyou.Data;
 
 public class SearchData {
     //검색 데이터

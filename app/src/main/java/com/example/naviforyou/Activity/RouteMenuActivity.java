@@ -2,6 +2,7 @@ package com.example.naviforyou.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,21 +10,23 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.naviforyou.API.Gc;
+import com.example.naviforyou.API.Gc_Parser;
 import com.example.naviforyou.Adapter.MyRecyclerViewAdapter;
 import com.example.naviforyou.Adapter.ViewRouteAdapter;
+import com.example.naviforyou.Data.GpsTracker;
 import com.example.naviforyou.ODsay.Bus;
 import com.example.naviforyou.ODsay.Subway;
 import com.example.naviforyou.ODsay.Traffic;
 import com.example.naviforyou.ODsay.Walk;
 import com.example.naviforyou.R;
-import com.example.naviforyou.SearchData;
+import com.example.naviforyou.Data.SearchData;
 import com.odsay.odsayandroidsdk.API;
 import com.odsay.odsayandroidsdk.ODsayData;
 import com.odsay.odsayandroidsdk.ODsayService;
@@ -34,12 +37,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerViewAdapter.ItemClickListener{
 
     public static Activity activity;
     private MyRecyclerViewAdapter myRecyclerViewAdapter;
     ViewRouteAdapter ViewRouteAdapter;
+    private GpsTracker gpsTracker;
+    Gc_Parser gc_parser = new Gc_Parser();
+    Gc tracking;
 
     RelativeLayout relativeLayout;
     TextView searchStart;
@@ -163,10 +170,31 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         }else if(type.equals("end")) {
             endData.setSearchData(
                     intent.getStringExtra("end"),
-                    intent.getExtras().getDouble("endX"),
-                    intent.getExtras().getDouble("endY")
+                    intent.getStringExtra("endX"),
+                    intent.getStringExtra("endY")
                     );
             searchEnd.setText(endData.getPlaceName());
+        }
+
+        if (type.equals("end") || type.equals("none")){
+
+            gpsTracker = new GpsTracker(this);
+            String latitude = String.valueOf(gpsTracker.getLatitude());
+            String longitude = String.valueOf(gpsTracker.getLongitude());
+            try {
+
+                tracking = new NaverAsync_Gc().execute(longitude + "," + latitude).get();
+                startData.setSearchData(
+                        tracking.getBuildAddress(),
+                        longitude,
+                        latitude);
+
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         }
 
     }
@@ -177,6 +205,7 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
 
         searchStart.setText(startData.getPlaceName());
         searchEnd.setText(endData.getPlaceName());
+
 
         // 길찾기 표시 여부, ODsay Api
         ODsayService odsayService = ODsayService.init(this, "3BeWEymToCezTng4oHpttVpNpcq+3Qdn0WoQc/S9R+c");
@@ -196,6 +225,7 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
                         String subwayCount = json.getJSONObject("result").getString("subwayCount");
                         String subwaybusCount = json.getJSONObject("result").getString("subwayBusCount");
                         Log.d("COUNT","BUScount : " + busCount + ", SubwayCount : " + subwayCount + ", SubWayBusCount : " + subwaybusCount);
+
                         //list view
                         ViewRouteAdapter = new ViewRouteAdapter(RouteMenuActivity.this, R.layout.item_route, routeList, routeContent);
                         result.setAdapter(ViewRouteAdapter);
@@ -212,12 +242,13 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
             @Override
             public void onError(int i, String s, API api) {
                 if (api == API.SEARCH_PUB_TRANS_PATH) {
-                    Log.e("ERROR","ODSAY ERROR");
+                    Log.e("ERROR","ODSAY ERROR" + s);
                 }
             }
         };
 
         Log.d("TEXT", "isData : " + endData.toString() + startData.toString());
+
         if(startData.isData() && endData.isData()){
             Log.d("Coords","SX : " + startData.getX_toString() + ", SY : " + startData.getY_toString() + ", EX :" + endData.getX_toString() +", EY : " + endData.getY_toString());
             odsayService.requestSearchPubTransPath(
@@ -228,6 +259,43 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         }else{
             relativeLayout.setVisibility(View.GONE);
         }
+
+
+        OnResultCallbackListener searchStation = new OnResultCallbackListener() {
+            @Override
+            public void onSuccess(ODsayData oDsayData, API api) {
+                try {if (api == API.SEARCH_STATION) {
+                    JSONObject json = oDsayData.getJson();
+                    JSONArray jsonArray = json.getJSONObject("result").getJSONArray("station");
+
+                    String x = jsonArray.getJSONObject(0).getString("x");
+                    String y = jsonArray.getJSONObject(0).getString("y");
+
+                }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(int i, String s, API api) {
+
+            }
+        };
+
+        result.setOnItemClickListener((parent, view, position, id) -> {
+            ArrayList<Object> route = routeList.get(position);
+
+            for(int i=0; i < route.size(); i++) {
+                if (route.get(i) instanceof Bus) {
+                    Bus bus = (Bus) route.get(i);
+                    odsayService.requestSearchStation(bus.getBusInfo_1()[3],"1000","1","10","1","127.0363583:37.5113295",searchStation);
+                } else if (route.get(i) instanceof Subway){
+                    Subway subway = (Subway) route.get(i);
+                    odsayService.requestSearchStation(subway.getSubwayInfo_1()[3],"1000","2","10","1","127.0363583:37.5113295",searchStation);
+                }
+            }
+        });
     }
 
     public void setStartData(String placeName, double x, double y) {
@@ -283,7 +351,75 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
 
     @Override
     public void onItemClick(View view, int position) {
-        Toast.makeText(this, "You clicked " + myRecyclerViewAdapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
+        String item =  myRecyclerViewAdapter.getItem(position);
+
+        ArrayList<ArrayList<Object>> list = new ArrayList<>();
+        ArrayList<Traffic> content = new ArrayList<>();
+        int length = routeContent.size();
+
+        if(item.equals("전체")){
+            ViewRouteAdapter = new ViewRouteAdapter(RouteMenuActivity.this, R.layout.item_route, routeList, routeContent);
+            result.setAdapter(ViewRouteAdapter);
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
+        else if(item.equals("지하철")){
+            for(int i=0; i<length; i++){
+                if (Integer.parseInt(routeContent.get(i).getContent()[0]) == 1){
+                    list.add(routeList.get(i));
+                    content.add(routeContent.get(i));
+                }
+            }
+            ViewRouteAdapter = new ViewRouteAdapter(RouteMenuActivity.this, R.layout.item_route, list, content);
+            result.setAdapter(ViewRouteAdapter);
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
+        else if(item.equals("버스")){
+            for(int i=0; i<length; i++){
+                if (Integer.parseInt(routeContent.get(i).getContent()[0]) == 2){
+                    list.add(routeList.get(i));
+                    content.add(routeContent.get(i));
+                }
+            };
+            ViewRouteAdapter = new ViewRouteAdapter(RouteMenuActivity.this, R.layout.item_route, list, content);
+            result.setAdapter(ViewRouteAdapter);
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
+        else if(item.equals("버스+지하철")){
+            for(int i=0; i<length; i++){
+                if (Integer.parseInt(routeContent.get(i).getContent()[0]) == 3){
+                    list.add(routeList.get(i));
+                    content.add(routeContent.get(i));
+                }
+            }
+            ViewRouteAdapter = new ViewRouteAdapter(RouteMenuActivity.this, R.layout.item_route, list, content);
+            result.setAdapter(ViewRouteAdapter);
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
     }
+
+    class NaverAsync_Gc extends AsyncTask<String, String, Gc> {
+
+        @Override
+        protected Gc doInBackground(String... strings) {
+            //각종 반복이나 제어 등 주요 로직을 담당
+            return gc_parser.connectNaver(strings);
+        }
+
+        @Override
+        protected void onPostExecute(Gc s) {
+            //doinBackground를 통해 완료된 작업 결과 처리
+            super.onPostExecute(s);
+            //로그 기록
+            Log.d("address", "roadAdress : " + s.getRoadAddress());
+            Log.d("address", "bulidAdress : " + s.getBuildAddress());
+            Log.d("address", "legalCode : " + s.getLegalCode());
+            Log.d("address", "admCode : " + s.getAdmCode());
+
+            tracking =s;
+
+        }
+    }
+
 }
+
 

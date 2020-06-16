@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         activity = MainActivity.this;
@@ -383,6 +385,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return null;
         }
     }
+
 
 
 }

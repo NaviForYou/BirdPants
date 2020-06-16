@@ -1,30 +1,28 @@
 package com.example.naviforyou.Activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.naviforyou.API.Search;
 import com.example.naviforyou.API.Search_Parser;
+import com.example.naviforyou.Data.GpsTracker;
 import com.example.naviforyou.R;
 import com.example.naviforyou.Adapter.ViewSearchAdapter;
 
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity {
+
+    private GpsTracker gpsTracker;
 
     static EditText searchText;
     ListView myListView;
@@ -57,33 +55,14 @@ public class SearchActivity extends AppCompatActivity {
             adapter = null;
 
             // 현위치 리스너
-            if ( Build.VERSION.SDK_INT >= 23 &&
-                    ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-                ActivityCompat.requestPermissions( SearchActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
-                        0 );
-            }
-            else{
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                String provider = location.getProvider();
-                double longitude = location.getLongitude();
-                double latitude = location.getLatitude();
+            gpsTracker = new GpsTracker(this);
 
-                /*
-                위치 정보 업데이트
-                lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                        1000,
-                        1,
-                        gpsLocationListener);
-                lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                        1000,
-                        1,
-                        gpsLocationListener);
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
 
-                 */
+            if(searchText.getText().toString().length() != 0)
+                new KakaoAsync_Search().execute(String.valueOf(longitude), String.valueOf(latitude),searchText.getText().toString());
 
-                if(searchText.getText().toString().length() != 0)
-                    new KakaoAsync_Search().execute(String.valueOf(longitude), String.valueOf(latitude),searchText.getText().toString());
-            }
         });
 
         // 길찾기에서 검색
@@ -94,35 +73,14 @@ public class SearchActivity extends AppCompatActivity {
 
             searchList = new ArrayList<>();
             adapter = null;
+            gpsTracker = new GpsTracker(this);
 
-            // 현위치 리스너
-            if ( Build.VERSION.SDK_INT >= 23 &&
-                    ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-                ActivityCompat.requestPermissions( SearchActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
-                        0 );
-            }
-            else{
-                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                String provider = location.getProvider();
-                double longitude = location.getLongitude();
-                double latitude = location.getLatitude();
+            double latitude = gpsTracker.getLatitude();
+            double longitude = gpsTracker.getLongitude();
 
-                    /*
-                    위치 정보 업데이트
-                    lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                            1000,
-                            1,
-                            gpsLocationListener);
-                    lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-                            1000,
-                            1,
-                            gpsLocationListener);
+            if(searchText.getText().toString().length() != 0)
+                new KakaoAsync_Search().execute(String.valueOf(longitude), String.valueOf(latitude),searchText.getText().toString());
 
-                     */
-
-                if(searchText.getText().toString().length() != 0)
-                    new KakaoAsync_Search().execute(String.valueOf(longitude), String.valueOf(latitude),searchText.getText().toString());
-            }
         }
 
 
@@ -175,26 +133,6 @@ public class SearchActivity extends AppCompatActivity {
         finish();
     }
 
-    //위치 리스너 구현
-    final LocationListener gpsLocationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-
-            String provider = location.getProvider();
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
-            //double altitude = location.getAltitude();
-
-        }
-
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
-
-        public void onProviderEnabled(String provider) {
-        }
-
-        public void onProviderDisabled(String provider) {
-        }
-    };
 
     //통신을 위한 백그라운드 작업 설정 - 검색
     class KakaoAsync_Search extends AsyncTask<String, String, ArrayList<Search>> {

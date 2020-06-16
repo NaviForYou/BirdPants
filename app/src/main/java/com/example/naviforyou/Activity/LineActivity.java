@@ -7,12 +7,11 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.naviforyou.R;
-
-import java.util.ArrayList;
 
 public class LineActivity extends AppCompatActivity {
     String line;
@@ -103,7 +102,8 @@ public class LineActivity extends AppCompatActivity {
         }
 
         line_list.setOnItemClickListener((parent, view, position, id) -> {
-            station = String.valueOf(parent.getItemIdAtPosition(position));
+            station = String.valueOf(parent.getItemAtPosition(position));
+
         });
     }
 }
