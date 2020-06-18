@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp">
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="32분"
+                android:textSize="50dp"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_toRightOf="@id/time"
+                android:gravity="bottom"
+                android:text="오후 8:49 ~ 9:21"
+                android:textSize="25dp"></TextView>
+            <TextView
+                android:layout_width="800dp"
+                android:layout_height="25dp"
+                android:layout_below="@id/time"
+                android:layout_margin="5dp"
+                android:background="#53d56d"></TextView>
+        </RelativeLayout>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <TextView
+            android:id="@+id/left_line"
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:background="#456789"></TextView>
+        <TextView
+            android:id="@+id/how_1"
+            android:layout_toRightOf="@id/left_line"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="#456789">
+        </TextView>
+        <ImageView
+            android:layout_toRightOf="@id/left_line"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:src="@mipmap/ic_launcher_round"></ImageView>
+        <TextView
+            android:id="@+id/spacing_1"
+            android:layout_toRightOf="@id/how_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  "
+            android:textSize="20dp"></TextView>
+        <TextView
+            android:layout_toRightOf="@id/spacing_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="노원역9번출구 정류장(11210)승차"
+            android:textSize="20dp"></TextView>
+        <TextView
+            android:id="@+id/_1"
+            android:layout_below="@id/spacing_1"
+            android:layout_toRightOf="@id/how_1"
+            android:layout_margin="7dp"
+            android:layout_width="27dp"
+            android:layout_height="18dp"
+            android:text="간선"
+            android:background="#AAAAAA"
+            ></TextView>
+        <TextView
+            android:layout_toRightOf="@id/_1"
+            android:layout_below="@id/how_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="102"
+            android:textSize="18dp"></TextView>
+
+    </RelativeLayout>
+
+</LinearLayout>
