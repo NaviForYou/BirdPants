@@ -8,17 +8,18 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class BusStop_Parser {
     private String serviceKey = "0yQdWiRaG7nL%2F5nzw48SVBhy3N3YdLiD%2Bfm2YeCwzHPJLr013WaNHcRQk4i2clUzsr4VbIAkROY%2FNl60Fi2JXg%3D%3D";
-    private String X,Y;
 
-    public BusStop connectSeoul(String[] coords){
+    private String stid = "22007";//정류장 id
+
+    public ArrayList<BusStop> connectSeoul(String[] stids){
         try {
-            this.X = URLEncoder.encode(coords[1],"UTF-8");
-            this.Y = URLEncoder.encode(coords[0],"UTF-8");
-            Log.d("TEXT2", "X : " + coords[0] + "Y : " + coords[1]);
-            String apiURL = "http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?ServiceKey="+serviceKey+"&tmX="+ X +"&tmY=" + Y +"&radius=10";
+            this.stid = URLEncoder.encode(stids[0],"UTF-8");
+
+            String apiURL = "http://ws.bus.go.kr/api/rest/stationinfo/getStationByUid?ServiceKey="+serviceKey+"&arsId="+stid;
 
             URL url = new URL(apiURL);
 
@@ -31,8 +32,9 @@ public class BusStop_Parser {
         return null;
     }
 
-    public BusStop parser(InputStream xml) {
-        BusStop busStop = null;
+    public ArrayList<BusStop> parser(InputStream xml) {
+        BusStop lo = null;
+        ArrayList<BusStop> list = new ArrayList<>();
 
         try {
             //자원을 파싱할 객체 준비
@@ -53,27 +55,35 @@ public class BusStop_Parser {
                         String tagName = parser.getName();
 
                         if(tagName.equalsIgnoreCase("itemList") ){
-                            busStop = new BusStop();
-                        }else if(tagName.equalsIgnoreCase("arsId") ){
-                            String id = parser.nextText(); // 값
-                            busStop.setId(id);
-                        }else if (tagName.equalsIgnoreCase("stationNm")) {
-                            String name = parser.nextText(); // 값
-                            busStop.setName(name);
+                            lo = new BusStop();
+                        }else if(tagName.equalsIgnoreCase("arrmsg1") ){
+                            String time1 = parser.nextText(); // 값
+                            lo.setTime1(time1);
+                        }else if(tagName.equalsIgnoreCase("rtNm")){
+                            String rtName = parser.nextText();
+                            lo.setRtName(rtName);
+                        }else if(tagName.equalsIgnoreCase("nxtStn")){
+                            String nxtStn = parser.nextText();
+                            lo.setNextStn(nxtStn);
+                        }else if(tagName.equalsIgnoreCase("routeType")){
+                            String routeType = parser.nextText();
+                            lo.setRouteType(routeType);
+                        }else if(tagName.equalsIgnoreCase("busType1")){
+                            String busType = parser.nextText();
+                            lo.setBusType(busType);
                         }
                         break;
                     case XmlPullParser.END_TAG:
                         String lasttagName = parser.getName();
                         if(lasttagName.equalsIgnoreCase("itemList")){
-                            break;
+                            list.add(lo);
                         }
                         break;
-
                 }
                 parserEvent = parser.next(); //parser가 다음을 가르키게 하기
             }
 
-            return busStop;
+            return list;
         }
         catch (Exception e){
             e.printStackTrace();

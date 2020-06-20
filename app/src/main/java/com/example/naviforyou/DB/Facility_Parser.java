@@ -16,7 +16,7 @@ public class Facility_Parser {
         String json = "";
 
         try {
-            InputStream is = context.getAssets().open("Wolgye1.json");
+            InputStream is = context.getAssets().open("wolgye0621.json");
             int fileSize = is.available();
 
             byte[] buffer = new byte[fileSize];
@@ -40,6 +40,8 @@ public class Facility_Parser {
             for(int i=0;i<jsonArray.length();i++){
                 Facility facility;
                 String address;
+                String X;
+                String Y;
                 int toilet;
                 int parking_lot;
                 int entrance;
@@ -47,6 +49,8 @@ public class Facility_Parser {
                 int elevator;
 
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
+                X = jsonObject.getString("x");
+                Y = jsonObject.getString("y");
                 address = jsonObject.getString("Address");
                 toilet = jsonObject.getInt("Hwajang");
                 parking_lot = jsonObject.getInt("Joocha");
@@ -54,7 +58,15 @@ public class Facility_Parser {
                 height = jsonObject.getInt("Nopi");
                 elevator = jsonObject.getInt("Elevator");
 
-                facility = new Facility(address,toilet,parking_lot,entrance,height,elevator);
+                facility = new Facility(
+                        address,
+                        Double.parseDouble(X),
+                        Double.parseDouble(Y),
+                        toilet,
+                        parking_lot,
+                        entrance,
+                        height,
+                        elevator);
                 facilityArrayList.add(facility);
             }
         } catch (JSONException e) {

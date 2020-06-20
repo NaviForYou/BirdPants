@@ -87,18 +87,13 @@ public class Fragment_search2 extends Fragment {
         }
 
         // 시설 여부 확인
-        try {
-            if(isSearch) {
-                facilities = new FacilitySearch(db_facility.facilityDao()).execute(roadAddress).get();
-            }
-            else {
-                facilities = new FacilitySearch(db_facility.facilityDao()).execute(gc.getRoadAddress()).get();
-            }
+        if(isSearch) {
+            Log.d("XY","XY : " + X +","+Y);
+            new FacilitySearch(db_facility.facilityDao()).execute(X,Y);
         }
-        catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        else {
+            Log.d("XY","XY : " + gc.getX() +","+gc.getY());
+            new FacilitySearch(db_facility.facilityDao()).execute(Double.parseDouble(gc.getX()),Double.parseDouble(gc.getY()));
         }
 
 
@@ -160,23 +155,24 @@ public class Fragment_search2 extends Fragment {
     }
 
     //Facility 데이터 베이스 검색
-    private static class FacilitySearch extends AsyncTask<String,Void,List<Facility>> {
+    private static class FacilitySearch extends AsyncTask<Double,Void,List<Facility>> {
         private FacilityDao facilityDao;
 
         public FacilitySearch(FacilityDao facilityDao){
             this.facilityDao = facilityDao;
         }
         @Override
-        protected List<Facility> doInBackground(String... strings) {
-            List<Facility> facility = facilityDao.findBuildWithAddress(strings[0]);
+        protected List<Facility> doInBackground(Double... doubles) {
+            List<Facility> facility = facilityDao.findWithXY(doubles[0],doubles[1]);
             return facility;
         }
 
         @Override
         protected void onPostExecute(List<Facility> facility) {
             super.onPostExecute(facility);
-            if(facility != null)
-                Log.d("TEXT", "fragment_search2 : " + facility.toString());
+            if(!facility.isEmpty()) {
+                Log.d("TEXT", "fragment_search2 : " + facility.get(0).toString());
+            }
         }
     }
 

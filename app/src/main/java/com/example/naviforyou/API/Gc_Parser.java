@@ -115,8 +115,9 @@ public class Gc_Parser {
                     case 3:
                         roadAdress = jsonObject.getJSONObject("region").getJSONObject("area1").getString("name") + " "
                                 +jsonObject.getJSONObject("region").getJSONObject("area2").getString("name") + " "
-                                +jsonObject.getJSONObject("region").getJSONObject("area3").getString("name") + " "
-                                +jsonObject.getJSONObject("land").getString("number1");
+                                +jsonObject.getJSONObject("land").getString("name") + " "
+                                +jsonObject.getJSONObject("land").getString("number1") +"("
+                                +jsonObject.getJSONObject("region").getJSONObject("area3").getString("name") +")";
 
                         if( !(jsonObject.getJSONObject("land").getString("number2").equals("")) ){ // 토지 부번호가 존재할 경우
                             roadAdress += "-" + jsonObject.getJSONObject("land").getString("number2");

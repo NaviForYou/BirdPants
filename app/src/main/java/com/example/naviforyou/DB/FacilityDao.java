@@ -17,6 +17,9 @@ public interface FacilityDao {
     @Query("SELECT * FROM Facility WHERE address LIKE :search")
     List<Facility> findBuildWithAddress(String search);
 
+    @Query("SELECT * FROM Facility WHERE X LIKE :X AND Y LIKE :Y")
+    List<Facility> findWithXY(double X, double Y);
+
     @Insert
     void insert(Facility facility);
 

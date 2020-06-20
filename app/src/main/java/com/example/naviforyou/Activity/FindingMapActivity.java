@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.naviforyou.Adapter.Utility;
 import com.example.naviforyou.Adapter.ViewFindingMapAdapter;
 import com.example.naviforyou.ODsay.Bus;
 import com.example.naviforyou.ODsay.Subway;

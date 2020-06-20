@@ -1,22 +1,50 @@
 package com.example.naviforyou.API;
 
 public class BusStop {
-    String id;
-    String name;
+    String time1;
+    String rtName;
+    String nextStn;
+    String routeType;
+    String busType;
 
-    public String getId() {
-        return id;
+    public String getTime1() {
+        return time1;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTime1(String time1) {
+        this.time1 = time1;
     }
 
-    public String getName() {
-        return name;
+
+    public String getRtName() {
+        return rtName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRtName(String rtName) {
+        this.rtName = rtName;
+    }
+
+    public String getNextStn() {
+        return nextStn;
+    }
+
+    public void setNextStn(String nextStn) {
+        this.nextStn = nextStn;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(String routeType) {
+        this.routeType = routeType;
+    }
+
+    public String getBusType() {
+        return busType;
+    }
+
+    public void setBusType(String busType) {
+        this.busType = busType;
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="40dp"
+        android:background="#FBF9ED">
+        <!--3개 쯤 나오고 더 많으면 스크롤로 하는게 좋을듯...-->
+        <!--힘들면 제일 빠른거 1~3개만 나오게 하고-->
+    <!--
+        <ImageView
+            android:id="@+id/bus_bookmark_1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/customise_bus"/>
+            -->
+        <TextView
+            android:id="@+id/bus_type"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:background="#1E90FF"
+            android:textColor="#000000"
+            android:text="간선"/><!--간선, 지선-->
+            <!--
+            android:layout_toRightOf="@id/bus_bookmark_1"
+            -->
+        <TextView
+            android:id="@+id/bus_no"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/bus_type"
+            android:layout_margin="5dp"
+            android:textSize="23dp"
+            android:textColor="#000000"
+            android:text="0000"></TextView>
+        <TextView
+            android:id="@+id/bus_time"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:textSize="15dp"
+            android:textColor="#FF0000"
+            android:text="7분 51초 (9번쨰 전, 여유)"></TextView>
+    </RelativeLayout>

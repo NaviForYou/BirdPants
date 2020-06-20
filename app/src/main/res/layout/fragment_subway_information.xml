@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"><!--이 프래그먼트도 마찬가지 이게 화면 아래창에 뜨는 건물 정보 같은 느낌인데 프래그먼트 1번이 안되니까 그냥 얘도 안함ㅋ-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FBF9ED">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/place_name"
+                android:textSize="33dp"
+                android:gravity="left|center"
+                android:text="광운대역 1호선"></TextView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/up_subway_name_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textSize="20dp"
+                            android:text="소요산행"></TextView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  "></TextView>
+                        <TextView
+                            android:id="@+id/up_subway_time_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textSize="20dp"
+                            android:text="9분 49초"></TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/up_subway_name_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textSize="20dp"
+                            android:text="양주행"></TextView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  "></TextView>
+                        <TextView
+                            android:id="@+id/up_subway_time_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textSize="20dp"
+                            android:text="37분"></TextView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="15dp"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="|"
+                        android:textSize="40dp"
+                        ></TextView>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/down_subway_name_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textSize="20dp"
+                            android:text="인천행"></TextView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  "></TextView>
+                        <TextView
+                            android:id="@+id/down_subway_time_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textSize="20dp"
+                            android:text="1분 30초"></TextView>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/down_subway_name_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textSize="20dp"
+                            android:text="인천행"></TextView>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  "></TextView>
+                        <TextView
+                            android:id="@+id/down_subway_time_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:textSize="20dp"
+                            android:text="9분 47초"></TextView>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:background="#095CD7">
+            <ImageView
+                android:id="@+id/call_subway"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:src="@mipmap/ic_launcher"></ImageView><!--전화하기-->
+            <ImageView
+                android:id="@+id/bookmark_subway"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@id/call_subway"
+                android:src="@mipmap/ic_launcher"></ImageView><!--즐겨찾기에 추가하기-->
+            <ImageView
+                android:layout_toLeftOf="@id/end_subway"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/start_subway"></ImageView><!--출발-->
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/end_subway"></ImageView><!--도착-->
+        </RelativeLayout>
+    </LinearLayout>
+</FrameLayout>

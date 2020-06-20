@@ -19,18 +19,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.example.naviforyou.API.BusStop;
-import com.example.naviforyou.API.BusStop_Parser;
+import com.example.naviforyou.API.IsBusStop;
+import com.example.naviforyou.API.IsBusStop_Parser;
 import com.example.naviforyou.API.Gc;
 import com.example.naviforyou.API.Gc_Parser;
-import com.example.naviforyou.API.LowbusStop;
-import com.example.naviforyou.API.LowbusStop_Parser;
-import com.example.naviforyou.API.Search_Parser;
 import com.example.naviforyou.DB.AppDatabase_Facility;
 import com.example.naviforyou.DB.AppDatabase_Favorite;
 import com.example.naviforyou.DB.Facility;
 import com.example.naviforyou.DB.FacilityDao;
 import com.example.naviforyou.DB.Facility_Parser;
+import com.example.naviforyou.Fragment.Fragment_Bus_Information;
 import com.example.naviforyou.R;
 import com.example.naviforyou.Fragment.Fragment_search;
 import com.example.naviforyou.Fragment.Fragment_search2;
@@ -47,6 +45,7 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -68,15 +67,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     //마커 객체 생성
     Marker marker = new Marker();
     InfoWindow infoWindow = new InfoWindow();
-    ImageView gps;
 
     //파서 객체
     Gc_Parser gc_parser = new Gc_Parser();
-    Search_Parser search_parser = new Search_Parser();
-    LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
-    BusStop_Parser busStop_parser = new BusStop_Parser();
+    IsBusStop_Parser isBusStop_parser = new IsBusStop_Parser();
     Gc gc;
-    BusStop busStop;
+    IsBusStop isBusStop;
 
     //1번째
     static boolean isfirst = true;
@@ -98,19 +94,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         prefs = getSharedPreferences("Pref", MODE_PRIVATE);
 
         db_facility = Room.databaseBuilder(this, AppDatabase_Facility.class,
-                "facility-db").build();
+                "facility-db")
+                .fallbackToDestructiveMigration()
+                .build();
 
         db_favorite = Room.databaseBuilder(this,AppDatabase_Favorite.class,
-                "favorite-db").build();
+                "favorite-db")
+                .fallbackToDestructiveMigration()
+                .build();
 
         //첫실행시 json Parser 및 데이터베이스에 추가
         checkFirstRun(db_facility);
         new GetAsyncTask(db_facility.facilityDao()).execute();
-        // 버스 정류소 저상버스 도착
-        /*
-        SeoulAsync_LowbusStop seoulAsync_lowbusStop = new SeoulAsync_LowbusStop();
-        seoulAsync_lowbusStop.execute("22167");
-         */
 
         //NaverMap 객체 얻어오기 - api 호출하는 인터페이스 역할을 함
         FragmentManager fm = getSupportFragmentManager();
@@ -152,12 +147,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         naverMap.setLayerGroupEnabled(NaverMap.LAYER_GROUP_TRANSIT, true);
 
         // UI 설정
-        UiSettings uiSettings = naverMap.getUiSettings();
+        //UiSettings uiSettings = naverMap.getUiSettings();
         //uiSettings.setCompassEnabled(false);
         //uiSettings.setZoomControlEnabled(false);
 
         // FusedLocationSource을 NaverMap에 지정
         naverMap.setLocationSource(locationSource);
+
         //처음 카메라 위치 조정
         if(isfirst) {
             naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
@@ -170,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //오버레이 추가
         Fragment_search fragment_search = new Fragment_search();
         AtomicReference<Fragment_search2> fragment_search2 = new AtomicReference<>(new Fragment_search2());
+        AtomicReference<Fragment_Bus_Information> fragment_Bus= new AtomicReference<>(new Fragment_Bus_Information());
         AtomicBoolean frag = new AtomicBoolean(true); //fragment_Search 추가 여부
 
         FragmentTransaction tras = getSupportFragmentManager().beginTransaction();
@@ -179,6 +176,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //검색 장소 클릭 후
         if(isSearch){
+
             Toast.makeText(this, "X : " + searchX + ",Y : " + searchY,Toast.LENGTH_SHORT).show();
             //카메라 이동
             CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(searchY, searchX));
@@ -217,35 +215,58 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         naverMap.setOnSymbolClickListener(symbol -> {
            //Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
             try {
-                busStop=null;
-                busStop = new SeoulAsync_BusStop().execute(String.valueOf(symbol.getPosition().latitude),String.valueOf(symbol.getPosition().longitude)).get();
-
-                gc = new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude).get(); //doInBackground메서드 호출
-                gc.setBuildName(symbol.getCaption());
-
+                isBusStop =null;
+                isBusStop = new SeoulAsync_IsBusStop().execute(String.valueOf(symbol.getPosition().latitude),String.valueOf(symbol.getPosition().longitude)).get();
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+                if(isBusStop != null){
+
+                    if (fragment_Bus.get().isAdded()) {
+                        transaction.remove(fragment_Bus.get());
+                        fragment_Bus.set(new Fragment_Bus_Information());
+                    }
+
+                    if (fragment_search2.get().isAdded()){
+                        transaction.remove(fragment_search2.get());
+                    }
+
+                    transaction.add(R.id.frame, fragment_Bus.get());
+                    transaction.commit();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("bus",isBusStop);
+                    fragment_Bus.get().setArguments(bundle);
+
+
+                }else {
+                    gc = new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude).get(); //doInBackground메서드 호출
+                    gc.setBuildName(symbol.getCaption());
+
+                    if (fragment_Bus.get().isAdded()) {
+                        transaction.remove(fragment_Bus.get());
+                    }
+
+                    if (fragment_search2.get().isAdded()) {
+                        transaction.remove(fragment_search2.get());
+                        fragment_search2.set(new Fragment_search2());
+                    }
+
+                    transaction.add(R.id.frame, fragment_search2.get());
+                    transaction.commit();
+
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("isSearch", isSearch);
+                    bundle.putSerializable("Gc", gc);
+                    fragment_search2.get().setArguments(bundle);
+
+                }
+
+
                 if (!fragment_search.isAdded()) {
                     transaction.replace(R.id.frame, fragment_search);
                 }
                 frag.set(false);
-
-
-                if (fragment_search2.get().isAdded()) {
-                    transaction.remove(fragment_search2.get());
-                    fragment_search2.set(new Fragment_search2());
-                }
-
-                transaction.add(R.id.frame, fragment_search2.get());
-                transaction.commit();
-
-                if(busStop != null){
-                    gc.setBuildName(busStop.getName());
-                }
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("isSearch", isSearch);
-                bundle.putSerializable("Gc", gc);
-                fragment_search2.get().setArguments(bundle);
 
                 marker.setMap(null);
                 marker.setPosition(new LatLng(symbol.getPosition().latitude, symbol.getPosition().longitude));
@@ -265,9 +286,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         //클릭
         naverMap.setOnMapClickListener((point, coord) -> {
-            //Toast.makeText(this, coord.latitude + ", " + coord.longitude,
-            //           Toast.LENGTH_SHORT).show();
-
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             if (!frag.get()) {
@@ -280,6 +298,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             if (fragment_search2.get().isAdded()){
                 transaction.remove(fragment_search2.get());
+            }
+
+            if (fragment_Bus.get().isAdded()){
+                transaction.remove(fragment_Bus.get());
             }
 
             transaction.commit();
@@ -338,43 +360,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-    //통신을 위한 백그라운드 작업 설정 - 버스 정류장 도착 정보
-    class SeoulAsync_BusStop extends AsyncTask<String, String, BusStop> {
+    //통신을 위한 백그라운드 작업 설정 - 버스 정류장 여부 확인
+    class SeoulAsync_IsBusStop extends AsyncTask<String, String, IsBusStop> {
 
         @Override
-        protected BusStop doInBackground(String... strings) {
-            return busStop_parser.connectSeoul(strings);
+        protected IsBusStop doInBackground(String... strings) {
+            return isBusStop_parser.connectSeoul(strings);
         }
 
         @Override
-        protected void onPostExecute(BusStop s) {
+        protected void onPostExecute(IsBusStop s) {
             //doinBackground를 통해 완료된 작업 결과 처리
             super.onPostExecute(s);
             //로그 기록
             if (s != null){
                 Log.d("BusStop",s.getId());
                 Log.d("BusStop",s.getName());
-            }
-        }
-
-    }
-
-    class SeoulAsync_LowBusStop extends AsyncTask<String, String, ArrayList<LowbusStop>> {
-
-        @Override
-        protected ArrayList<LowbusStop> doInBackground(String... strings) {
-            return lowbusStop_parser.connectSeoul(strings);
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<LowbusStop> s) {
-            //doinBackground를 통해 완료된 작업 결과 처리
-            super.onPostExecute(s);
-            //로그 기록
-            for (int i = 0; i < s.size(); i++) {
-                Log.d("Lowbus", "rtName : " + s.get(i).getRtName());
-                Log.d("Lowbus", "arrmsg1 : " + s.get(i).getTime1());
-                Log.d("Lowbus", "arrmsg2 : " + s.get(i).getTime2());
             }
         }
 

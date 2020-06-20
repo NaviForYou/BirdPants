@@ -14,8 +14,6 @@ public class Gc implements Serializable {
     private String admCode; //행정동
     private String zipCode; //우편번호
 
-
-
     private String X;
     private String Y;
 

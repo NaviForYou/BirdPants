@@ -11,9 +11,9 @@ public class Facility implements Serializable {
     @PrimaryKey(autoGenerate = true)
     int id;
 
-
-
     String address;
+    double X;
+    double Y;
 
     int toilet;
     int parking_lot;
@@ -21,8 +21,10 @@ public class Facility implements Serializable {
     int height;
     int elevator;
 
-    public Facility(String address, int toilet, int parking_lot, int entrance, int height, int elevator) {
+    public Facility(String address, double X, double Y, int toilet, int parking_lot, int entrance, int height, int elevator) {
         this.address = address;
+        this.X = X;
+        this.Y = Y;
         this.toilet = toilet;
         this.parking_lot = parking_lot;
         this.entrance = entrance;
@@ -74,11 +76,29 @@ public class Facility implements Serializable {
         this.entrance = entrance;
     }
 
+    public double getX() {
+        return X;
+    }
+
+    public void setX(double x) {
+        X = x;
+    }
+
+    public double getY() {
+        return Y;
+    }
+
+    public void setY(double y) {
+        Y = y;
+    }
+
     @Override
     public String toString() {
         return "Facility{" +
                 "id=" + id +
                 ", address='" + address + '\'' +
+                ", X=" + X +
+                ", Y=" + Y +
                 ", toilet=" + toilet +
                 ", parking_lot=" + parking_lot +
                 ", entrance=" + entrance +

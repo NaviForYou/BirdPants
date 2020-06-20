@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:background="#FBF9ED">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:id="@+id/bus_station_name"
+                android:gravity="center_vertical"
+                android:textSize="35dp"
+                android:textColor="#000000"
+                android:text="버루말교"></TextView>
+            <!--정류장 이름-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/bus_station_code"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="bottom"
+                    android:textSize="23dp"
+                    android:textColor="#000000"
+                    android:text="11465"></TextView>
+                <!--정류장 숫자 코드-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:textSize="23dp"
+                    android:text=" | "></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:id="@+id/bus_station_way"
+                    android:gravity="center_vertical"
+                    android:textSize="23dp"
+                    android:textColor="#000000"
+                    android:text="장위래미안아파트 방면"></TextView>
+                <!--버스 방향-->
+            </LinearLayout>
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#095CD7">
+            <Button
+                android:id="@+id/general_bus"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:textColor="#000000"
+                android:text="일반"></Button><!--일반버스-->
+            <Button
+                android:id="@+id/low_bus"
+                android:layout_toRightOf="@id/general_bus"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:textColor="#000000"
+                android:text="저상"></Button><!--저상버스-->
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/start_bus_station"
+                android:layout_toLeftOf="@id/end_bus_station"></ImageView><!--출발-->
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/end_bus_station"></ImageView><!--도착-->
+        </RelativeLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/bus_list">
+
+        </ListView>
+    </LinearLayout>
+</FrameLayout>
