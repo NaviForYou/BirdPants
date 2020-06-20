@@ -6,8 +6,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.io.SerializablePermission;
 
-public class Traffic {
+
+public class Traffic implements Serializable {
     private String[] content =new String[3];;
     private String hour;
     private String min;

@@ -41,6 +41,9 @@
         <activity android:name=".Activity.LineActivity">
         </activity>
 
+        <activity android:name=".Activity.FindingMapActivity">
+        </activity>
+
     </application>
 
 </manifest>

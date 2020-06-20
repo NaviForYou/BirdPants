@@ -176,7 +176,7 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
             searchEnd.setText(endData.getPlaceName());
         }
 
-        if (type.equals("end") || type.equals("none")){
+        if (!type.equals("start")){
 
             gpsTracker = new GpsTracker(this);
             String latitude = String.valueOf(gpsTracker.getLatitude());
@@ -206,7 +206,6 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         searchStart.setText(startData.getPlaceName());
         searchEnd.setText(endData.getPlaceName());
 
-
         // 길찾기 표시 여부, ODsay Api
         ODsayService odsayService = ODsayService.init(this, "3BeWEymToCezTng4oHpttVpNpcq+3Qdn0WoQc/S9R+c");
         odsayService.setReadTimeout(5000);
@@ -227,7 +226,8 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
                         Log.d("COUNT","BUScount : " + busCount + ", SubwayCount : " + subwayCount + ", SubWayBusCount : " + subwaybusCount);
 
                         //list view
-                        ViewRouteAdapter = new ViewRouteAdapter(RouteMenuActivity.this, R.layout.item_route, routeList, routeContent);
+                        ViewRouteAdapter = new ViewRouteAdapter(
+                                RouteMenuActivity.this, R.layout.item_route, routeList, routeContent);
                         result.setAdapter(ViewRouteAdapter);
                         relativeLayout.setVisibility(View.VISIBLE);
 
@@ -260,7 +260,6 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
             relativeLayout.setVisibility(View.GONE);
         }
 
-
         OnResultCallbackListener searchStation = new OnResultCallbackListener() {
             @Override
             public void onSuccess(ODsayData oDsayData, API api) {
@@ -285,17 +284,22 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
 
         result.setOnItemClickListener((parent, view, position, id) -> {
             ArrayList<Object> route = routeList.get(position);
+            Traffic traffic = routeContent.get(position);
 
-            for(int i=0; i < route.size(); i++) {
-                if (route.get(i) instanceof Bus) {
-                    Bus bus = (Bus) route.get(i);
-                    odsayService.requestSearchStation(bus.getBusInfo_1()[3],"1000","1","10","1","127.0363583:37.5113295",searchStation);
-                } else if (route.get(i) instanceof Subway){
-                    Subway subway = (Subway) route.get(i);
-                    odsayService.requestSearchStation(subway.getSubwayInfo_1()[3],"1000","2","10","1","127.0363583:37.5113295",searchStation);
-                }
-            }
+            Intent intent = new Intent(getApplicationContext(), FindingMapActivity.class);
+            intent.putExtra("route",route);
+            intent.putExtra("content",traffic);
+            intent.putExtra("start",startData.getPlaceName());
+            intent.putExtra("end",endData.getPlaceName());
+            startActivity(intent);
+
         });
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     public void setStartData(String placeName, double x, double y) {
@@ -348,7 +352,7 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         routeList = LIST;
         routeContent = content;
     }
-
+    
     @Override
     public void onItemClick(View view, int position) {
         String item =  myRecyclerViewAdapter.getItem(position);

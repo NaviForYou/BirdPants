@@ -73,54 +73,6 @@
                 android:text="원"/>
         </LinearLayout>
         <!-- 총 비용 -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/box_money"
-            android:layout_toRightOf="@id/box_time">
-            <TextView
-                android:id="@+id/startAMPM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="오후"/>
-            <TextView
-                android:id="@+id/startHour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=":"/>
-            <TextView
-                android:id="@+id/startMin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" ~ "/>
-            <TextView
-                android:id="@+id/endAMPM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="오후"/>
-            <TextView
-                android:id="@+id/endHour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=":"/>
-            <TextView
-                android:id="@+id/endMin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00"/>
-        </LinearLayout>
         <!-- 시작시간/도착시간 -->
         <!-- 가는 길 표기 -->
     </RelativeLayout>

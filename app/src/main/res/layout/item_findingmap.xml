@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/startInfo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="#456789"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical"/>
+
+        <ImageView
+            android:id="@+id/startIcon"
+            android:layout_width="20dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/spacing_1"
+            android:layout_toRightOf="@id/startInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  "
+            android:textSize="20dp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/spacing_1"
+                android:id="@+id/start">
+                <TextView
+                    android:id="@+id/startStation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="노원역9번출구 정류장(11210)승차"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/spacing_3"
+                    android:layout_toRightOf="@id/startStation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  "
+                    android:textSize="20dp"/>
+
+                <TextView
+                    android:id="@+id/way"
+                    android:layout_toRightOf="@id/spacing_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="20dp"
+                    android:visibility="gone"/>
+            </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/transport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/line"
+        android:layout_marginLeft="20dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+            <!--
+            <TextView
+                android:id="@+id/transportInfo"
+                android:layout_width="27dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="7dp"
+                android:background="#AAAAAA"
+                android:text="간선" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="102"
+                android:textSize="18dp" />
+                -->
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/line"
+        android:layout_width="14dp"
+        android:layout_height="match_parent"
+        android:background="#456789"
+        android:gravity="center_vertical"
+        android:textColor="#ffffff" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/endInfo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="#456789"
+            android:text="하차"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical">
+        </TextView>
+        <TextView
+            android:id="@+id/spacing_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/endInfo"
+            android:text="  "
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/endStation"
+            android:layout_toRightOf="@id/spacing_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="노원역9번출구 정류장(11210)승차"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+
+</LinearLayout>

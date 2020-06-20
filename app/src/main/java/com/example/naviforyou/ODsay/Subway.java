@@ -10,14 +10,17 @@ import java.io.Serializable;
 
 public class Subway implements Serializable {//지하철 1 :구간
 
-    //1번 {이동거리,이동소요시간,이동정거장수,승차정류장명,하차정류장명,방면정보,빠른환승위치,들어가는출구,나가는출구}
-    private String[] SubwayInfo_1=new String[9];
+    //1번 {이동거리,이동소요시간,이동정거장수,승차정류장명,승차정류장ID,하차정류장명,하차정류장ID,방면정보,빠른환승위치,들어가는출구,나가는출구}
+    private String[] SubwayInfo_1=new String[11];
 
     //2번 lane(교통수단정보)::이 경로를 갈때 탈 수 있는 종류들{지하철노선명,노선번호}
     private String[][] SubwayInfo_2;//=new String[10][2];
 
     //3번 stations(정류장정보그룹)::정류장 명 순서대로 A개
     private String[] SubwayInfo_3;//=new String[100];
+
+    // 승차지 하차지 XY
+    private double[][] XY = new double[2][2];
 
     private int I;
     private int J;
@@ -45,15 +48,22 @@ public class Subway implements Serializable {//지하철 1 :구간
                 SubwayInfo_2[j][1]=lane.getJSONObject(j).getString("subwayCode");//지하철 노선 번호
             }
             SubwayInfo_1[3]=subPath.getJSONObject(J).getString("startName");//승차정류장역명
-            SubwayInfo_1[4]=subPath.getJSONObject(J).getString("endName");//하차정류장역명
-            SubwayInfo_1[5]=subPath.getJSONObject(J).getString("way");//방면정보
-            SubwayInfo_1[6]=subPath.getJSONObject(J).getString("door");//지하철빠른환승위치
+            SubwayInfo_1[4]=subPath.getJSONObject(J).getString("startID");//승차정류장ID
+            SubwayInfo_1[5]=subPath.getJSONObject(J).getString("endName");//하차정류장역명
+            SubwayInfo_1[6]=subPath.getJSONObject(J).getString("endID");//하차정류장ID
+            SubwayInfo_1[7]=subPath.getJSONObject(J).getString("way");//방면정보
+            SubwayInfo_1[8]=subPath.getJSONObject(J).getString("door");//지하철빠른환승위치
+
+            XY[0][0] = subPath.getJSONObject(J).getDouble("startX"); //승차정류장 X
+            XY[0][1] = subPath.getJSONObject(J).getDouble("startY"); //승차정류장 Y
+            XY[1][0] = subPath.getJSONObject(J).getDouble("endX"); //하차정류장 X
+            XY[1][1] = subPath.getJSONObject(J).getDouble("endY"); //하차정류장 Y
 
             if(subPath.getJSONObject(J).has("startExitNo")) {
-                SubwayInfo_1[7] = subPath.getJSONObject(J).getString("startExitNo");//지하철들어가는출구번호(없을 수도 있음)
+                SubwayInfo_1[9] = subPath.getJSONObject(J).getString("startExitNo");//지하철들어가는출구번호(없을 수도 있음)
             }
             if(subPath.getJSONObject(J).has("endExitNo")) {
-                SubwayInfo_1[8] = subPath.getJSONObject(J).getString("endExitNo");//지하철나가는출구번호(없을 수도 있음)
+                SubwayInfo_1[10] = subPath.getJSONObject(J).getString("endExitNo");//지하철나가는출구번호(없을 수도 있음)
             }
 
             JSONObject passStopList= subPath.getJSONObject(J).getJSONObject("passStopList");
@@ -96,4 +106,6 @@ public class Subway implements Serializable {//지하철 1 :구간
     public void setSubwayInfo_3(String[] subwayInfo_3) {
         SubwayInfo_3 = subwayInfo_3;
     }
+
+    public double[][] getXY() { return XY; }
 }

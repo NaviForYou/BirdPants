@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.example.naviforyou.API.BusStop;
+import com.example.naviforyou.API.BusStop_Parser;
 import com.example.naviforyou.API.Gc;
 import com.example.naviforyou.API.Gc_Parser;
 import com.example.naviforyou.API.LowbusStop;
@@ -72,7 +74,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     Gc_Parser gc_parser = new Gc_Parser();
     Search_Parser search_parser = new Search_Parser();
     LowbusStop_Parser lowbusStop_parser = new LowbusStop_Parser();
+    BusStop_Parser busStop_parser = new BusStop_Parser();
     Gc gc;
+    BusStop busStop;
 
     //1번째
     static boolean isfirst = true;
@@ -213,6 +217,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         naverMap.setOnSymbolClickListener(symbol -> {
            //Toast.makeText(this, symbol.getCaption(), Toast.LENGTH_SHORT).show();
             try {
+                busStop=null;
+                busStop = new SeoulAsync_BusStop().execute(String.valueOf(symbol.getPosition().latitude),String.valueOf(symbol.getPosition().longitude)).get();
+
                 gc = new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude).get(); //doInBackground메서드 호출
                 gc.setBuildName(symbol.getCaption());
 
@@ -230,6 +237,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 transaction.add(R.id.frame, fragment_search2.get());
                 transaction.commit();
+
+                if(busStop != null){
+                    gc.setBuildName(busStop.getName());
+                }
 
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("isSearch", isSearch);
@@ -328,7 +339,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     //통신을 위한 백그라운드 작업 설정 - 버스 정류장 도착 정보
-    class SeoulAsync_LowbusStop extends AsyncTask<String, String, ArrayList<LowbusStop>> {
+    class SeoulAsync_BusStop extends AsyncTask<String, String, BusStop> {
+
+        @Override
+        protected BusStop doInBackground(String... strings) {
+            return busStop_parser.connectSeoul(strings);
+        }
+
+        @Override
+        protected void onPostExecute(BusStop s) {
+            //doinBackground를 통해 완료된 작업 결과 처리
+            super.onPostExecute(s);
+            //로그 기록
+            if (s != null){
+                Log.d("BusStop",s.getId());
+                Log.d("BusStop",s.getName());
+            }
+        }
+
+    }
+
+    class SeoulAsync_LowBusStop extends AsyncTask<String, String, ArrayList<LowbusStop>> {
 
         @Override
         protected ArrayList<LowbusStop> doInBackground(String... strings) {
