@@ -56,6 +56,19 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#095CD7">
+            <Button
+                android:id="@+id/low_bus"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="일반"></Button><!--일반버스-->
+            <Button
+                android:id="@+id/general_bus"
+                android:layout_toRightOf="@id/low_bus"
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:text="저상"></Button><!--저상버스-->
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
