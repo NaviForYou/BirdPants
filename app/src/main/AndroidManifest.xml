@@ -44,6 +44,9 @@
         <activity android:name=".Activity.FindingMapActivity">
         </activity>
 
+        <activity android:name=".Activity.SubwayMapActivity">
+        </activity>
+
     </application>
 
 </manifest>

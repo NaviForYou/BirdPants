@@ -1,7 +1,6 @@
 package com.example.naviforyou.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -10,7 +9,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,9 +18,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.example.naviforyou.Data.SearchRouteData;
 import com.example.naviforyou.ODsay.Bus;
 import com.example.naviforyou.ODsay.Subway;
-import com.example.naviforyou.ODsay.Traffic;
 import com.example.naviforyou.ODsay.Walk;
 import com.example.naviforyou.R;
 
@@ -63,8 +61,8 @@ public class ViewFindingMapAdapter extends ArrayAdapter<Object> {
         Drawable img=null;
         int time=0;
 
-        if (list.get(position) instanceof String){
-            String temp = (String)list.get(position);
+        if (list.get(position) instanceof SearchRouteData){
+            String temp = ((SearchRouteData) list.get(position)).getPlaceName();
             if (position == 0){
                 color="#ff0000";
                 line.setBackgroundColor(Color.parseColor(color));
@@ -96,7 +94,6 @@ public class ViewFindingMapAdapter extends ArrayAdapter<Object> {
             String endStationText = bus.getBusInfo_1()[5];
             String endIDText = bus.getBusInfo_1()[6];
             String[][] busInfo = bus.getBusInfo_2();
-            time=Integer.parseInt(bus.getBusInfo_1()[1]);
             color="#4b89dc";
             img = getContext().getResources().getDrawable(R.drawable.customise_bus);
 
@@ -128,53 +125,53 @@ public class ViewFindingMapAdapter extends ArrayAdapter<Object> {
                 String typeText="";
                 switch (typeInt){
                     case 1:
-                        noText="일반";
+                        typeText="일반";
                         break;
                     case 2:
-                        noText="좌석";
+                        typeText="좌석";
                         break;
                     case 3:
-                        noText="마을버스";
+                        typeText="마을버스";
                         break;
                     case 4:
-                        noText="직행좌석";
+                        typeText="직행좌석";
                         break;
                     case 5:
-                        noText="간선급향";
+                        typeText="간선급행";
                         break;
                     case 10:
-                        noText="외곽";
+                        typeText="외곽";
                         break;
                     case 11:
-                        noText="간선";
+                        typeText="간선";
                         break;
                     case 12:
-                        noText="지선";
+                        typeText="지선";
                         break;
                     case 13:
-                        noText="순환";
+                        typeText="순환";
                         break;
                     case 14:
-                        noText="광역";
+                        typeText="광역";
                         break;
                     case 15:
-                        noText="급행";
+                        typeText="급행";
                         break;
                     case 20:
-                        noText="농어촌버스";
+                        typeText="농어촌버스";
                         break;
                     case 21:
-                        noText="제주도 시외형버스";
+                        typeText="제주도 시외형버스";
                         break;
                     case 22:
-                        noText="경기도 시외형버스";
+                        typeText="경기도 시외형버스";
                         break;
                     case 26:
-                        noText="급행간선";
+                        typeText="급행간선";
                         break;
 
                 }
-                //type.setText(typeText);
+                type.setText(typeText);
 
                 no.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
                 no.setTextSize(18);
@@ -246,10 +243,20 @@ public class ViewFindingMapAdapter extends ArrayAdapter<Object> {
             img = getContext().getResources().getDrawable(R.drawable.customise_wheelchair);
             color="#d3d3d3";
 
+            String temp="";
+            Object dest = list.get(position + 1);
+            if ( dest instanceof SearchRouteData){
+                temp=((SearchRouteData)dest).getPlaceName();
+            }else if (dest instanceof Bus){
+                temp=((Bus)dest).getBusInfo_1()[3];
+            }else if (dest instanceof Subway){
+                temp=((Subway)dest).getSubwayInfo_1()[3];
+            }
+
             line.setBackgroundColor(Color.parseColor(color));
             startInfo.setBackgroundColor(Color.parseColor(color));
             startIcon.setImageDrawable(img);
-            startStation.setVisibility(View.GONE);
+            startStation.setText(temp+"까지 걷기");
             endInfo.setText("");
             endInfo.setBackgroundColor(Color.parseColor(color));
             endStation.setVisibility(View.GONE);

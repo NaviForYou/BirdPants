@@ -1,6 +1,8 @@
 package com.example.naviforyou.Data;
 
-public class SearchData {
+import java.io.Serializable;
+
+public class SearchRouteData implements Serializable {
     //검색 데이터
     String type;
     String placeName;
@@ -8,7 +10,7 @@ public class SearchData {
     double Y;
     boolean isData;
 
-    public SearchData(String type) {
+    public SearchRouteData(String type) {
         this.isData = false;
         this.type = type;
         placeName = "";

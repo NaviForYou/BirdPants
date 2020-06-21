@@ -15,8 +15,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 
 import com.example.naviforyou.API.IsBusStop;
@@ -28,24 +26,24 @@ import com.example.naviforyou.DB.AppDatabase_Favorite;
 import com.example.naviforyou.DB.Facility;
 import com.example.naviforyou.DB.FacilityDao;
 import com.example.naviforyou.DB.Facility_Parser;
-import com.example.naviforyou.Fragment.Fragment_Bus_Information;
+import com.example.naviforyou.Data.IsSubwayStop;
+import com.example.naviforyou.Fragment.BusInformationFragment;
+import com.example.naviforyou.Fragment.SubwayInformationFragment;
 import com.example.naviforyou.R;
-import com.example.naviforyou.Fragment.Fragment_search;
-import com.example.naviforyou.Fragment.Fragment_search2;
+import com.example.naviforyou.Fragment.SearchFragment;
+import com.example.naviforyou.Fragment.InformationFragment;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.LocationOverlay;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
@@ -73,15 +71,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     IsBusStop_Parser isBusStop_parser = new IsBusStop_Parser();
     Gc gc;
     IsBusStop isBusStop;
+    IsSubwayStop isSubwayStop;
 
     //1번째
     static boolean isfirst = true;
     //2번째
     boolean isSearch = false;
+    boolean isRoute = false;
     double searchX = 0;
     double searchY = 0;
     String placeName;
     String roadAddress;
+    String stationId;
+    String routeType;
 
 
     @Override
@@ -137,6 +139,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             roadAddress = intent.getExtras().getString("RoadAddress");
             placeName = intent.getExtras().getString("PlaceName");
         }
+
+        if(intent.hasExtra("isRoute")){
+            //FindMapActivity
+            isRoute = intent.getExtras().getBoolean("isRoute");
+            searchX = intent.getExtras().getDouble("X");
+            searchY = intent.getExtras().getDouble("Y");
+            placeName = intent.getExtras().getString("name");
+            stationId = intent.getExtras().getString("id");
+            routeType = intent.getExtras().getString("type");
+        }
     }
 
     @Override
@@ -157,6 +169,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         //처음 카메라 위치 조정
         if(isfirst) {
             naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+            CameraUpdate cameraUpdate = CameraUpdate.zoomTo(16.5);
+            naverMap.moveCamera(cameraUpdate);
             isfirst = false;
         }
 
@@ -164,22 +178,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();
 
         //오버레이 추가
-        Fragment_search fragment_search = new Fragment_search();
-        AtomicReference<Fragment_search2> fragment_search2 = new AtomicReference<>(new Fragment_search2());
-        AtomicReference<Fragment_Bus_Information> fragment_Bus= new AtomicReference<>(new Fragment_Bus_Information());
+        SearchFragment searchFragment_ = new SearchFragment();
+        AtomicReference<InformationFragment> fragment_imformation = new AtomicReference<>(new InformationFragment());
+        AtomicReference<BusInformationFragment> fragment_Bus= new AtomicReference<>(new BusInformationFragment());
+        AtomicReference<SubwayInformationFragment> fragment_subway= new AtomicReference<>(new SubwayInformationFragment());
         AtomicBoolean frag = new AtomicBoolean(true); //fragment_Search 추가 여부
 
         FragmentTransaction tras = getSupportFragmentManager().beginTransaction();
-        tras.replace(R.id.frame, fragment_search);
+        tras.replace(R.id.frame, searchFragment_);
         tras.commit();
 
 
         //검색 장소 클릭 후
         if(isSearch){
 
-            Toast.makeText(this, "X : " + searchX + ",Y : " + searchY,Toast.LENGTH_SHORT).show();
             //카메라 이동
-            CameraUpdate cameraUpdate = CameraUpdate.scrollTo(new LatLng(searchY, searchX));
+            CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(new LatLng(searchY, searchX),16.5);
             naverMap.moveCamera(cameraUpdate);
             // 마커
             marker.setMap(null);
@@ -189,12 +203,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-            if (fragment_search2.get().isAdded()) {
-                transaction.remove(fragment_search2.get());
-                fragment_search2.set(new Fragment_search2());
+            if (fragment_imformation.get().isAdded()) {
+                transaction.remove(fragment_imformation.get());
+                fragment_imformation.set(new InformationFragment());
             }
 
-            transaction.add(R.id.frame, fragment_search2.get());
+            transaction.add(R.id.frame, fragment_imformation.get());
             transaction.commit();
 
             Bundle bundle = new Bundle();
@@ -203,9 +217,112 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             bundle.putDouble("X", searchX);
             bundle.putDouble("Y", searchY);
             bundle.putBoolean("isSearch",isSearch);
-            fragment_search2.get().setArguments(bundle);
+            fragment_imformation.get().setArguments(bundle);
 
             isSearch = false;
+            searchX = 0;
+            searchY = 0;
+
+        }
+
+        Log.d("TEXT","isRoute" + isRoute);
+        //길찾기 후
+        if(isRoute){
+            //카메라 이동
+            CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(new LatLng(searchY, searchX),16.5);
+            naverMap.moveCamera(cameraUpdate);
+            // 마커
+            marker.setMap(null);
+            marker.setPosition(new LatLng(searchY, searchX));
+            marker.setMap(naverMap);
+
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            Bundle bundle = new Bundle();
+            try {
+                switch (routeType) {
+                    case "start":
+                    case "end":
+                        if (fragment_imformation.get().isAdded()) {
+                            transaction.remove(fragment_imformation.get());
+                            fragment_imformation.set(new InformationFragment());
+                        }
+
+                        if (fragment_Bus.get().isAdded()) {
+                            transaction.remove(fragment_Bus.get());
+                        }
+
+                        if (fragment_subway.get().isAdded()){
+                            transaction.remove(fragment_subway.get());
+                        }
+
+                        transaction.add(R.id.frame, fragment_imformation.get());
+
+                        gc = new NaverAsync_Gc().execute(searchX + "," + searchY).get(); //doInBackground메서드 호출
+                        gc.setBuildName(placeName);
+
+                        transaction.commit();
+
+                        bundle.putSerializable("isSearch", isSearch);
+                        bundle.putSerializable("Gc",gc);
+                        fragment_imformation.get().setArguments(bundle);
+
+                        break;
+                    case "bus":
+                        isBusStop = new SeoulAsync_IsBusStop().execute(String.valueOf(searchY),String.valueOf(searchX)).get();
+                        if (isBusStop != null) {
+                            if (fragment_imformation.get().isAdded()) {
+                                transaction.remove(fragment_imformation.get());
+                            }
+
+                            if (fragment_subway.get().isAdded()) {
+                                transaction.remove(fragment_subway.get());
+                            }
+
+                            if (fragment_Bus.get().isAdded()) {
+                                transaction.remove(fragment_Bus.get());
+                                fragment_Bus.set(new BusInformationFragment());
+                            }
+
+                            isBusStop.setX(searchX);
+                            isBusStop.setY(searchY);
+                            bundle.putSerializable("bus", isBusStop);
+                            transaction.add(R.id.frame, fragment_Bus.get());
+                            transaction.commit();
+                            fragment_Bus.get().setArguments(bundle);
+                        }
+                        break;
+                    case "subway":
+                        if (fragment_imformation.get().isAdded()){
+                            transaction.remove(fragment_imformation.get());
+                        }
+
+                        if (fragment_subway.get().isAdded()){
+                            transaction.remove(fragment_subway.get());
+                            fragment_subway.set(new SubwayInformationFragment());
+                        }
+
+                        if (fragment_Bus.get().isAdded()) {
+                            transaction.remove(fragment_Bus.get());
+                        }
+
+                        isSubwayStop = new IsSubwayStop();
+                        isSubwayStop.setX(searchX);
+                        isSubwayStop.setY(searchY);
+                        bundle.putSerializable("subway",isSubwayStop);
+                        transaction.add(R.id.frame, fragment_subway.get());
+                        transaction.commit();
+                        fragment_subway.get().setArguments(bundle);
+                        break;
+                }
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+            isRoute = false;
             searchX = 0;
             searchY = 0;
 
@@ -223,15 +340,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     if (fragment_Bus.get().isAdded()) {
                         transaction.remove(fragment_Bus.get());
-                        fragment_Bus.set(new Fragment_Bus_Information());
+                        fragment_Bus.set(new BusInformationFragment());
                     }
 
-                    if (fragment_search2.get().isAdded()){
-                        transaction.remove(fragment_search2.get());
+                    if (fragment_imformation.get().isAdded()){
+                        transaction.remove(fragment_imformation.get());
+                    }
+
+                    if (fragment_subway.get().isAdded()){
+                        transaction.remove(fragment_subway.get());
                     }
 
                     transaction.add(R.id.frame, fragment_Bus.get());
                     transaction.commit();
+
+                    isBusStop.setY(symbol.getPosition().latitude);
+                    isBusStop.setX(symbol.getPosition().longitude);
 
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("bus",isBusStop);
@@ -239,32 +363,66 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
                 }else {
-                    gc = new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude).get(); //doInBackground메서드 호출
-                    gc.setBuildName(symbol.getCaption());
+                    String temp = symbol.getCaption();
 
-                    if (fragment_Bus.get().isAdded()) {
-                        transaction.remove(fragment_Bus.get());
+                    if (temp.length() != 0) {
+                        if (temp.substring(temp.length() - 1).equals("역")) {
+                            if (fragment_Bus.get().isAdded()) {
+                                transaction.remove(fragment_Bus.get());
+                            }
+
+                            if (fragment_imformation.get().isAdded()) {
+                                transaction.remove(fragment_imformation.get());
+                            }
+
+                            if (fragment_subway.get().isAdded()){
+                                transaction.remove(fragment_subway.get());
+                                fragment_subway.set(new SubwayInformationFragment());
+                            }
+
+                            isSubwayStop = new IsSubwayStop();
+                            isSubwayStop.setStation(temp);
+                            isSubwayStop.setX(symbol.getPosition().longitude);
+                            isSubwayStop.setY(symbol.getPosition().latitude);
+                            transaction.add(R.id.frame, fragment_subway.get());
+                            transaction.commit();
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("subway",isSubwayStop);
+                            fragment_subway.get().setArguments(bundle);
+
+
+                        } else {
+                            gc = new NaverAsync_Gc().execute(symbol.getPosition().longitude + "," + symbol.getPosition().latitude).get(); //doInBackground메서드 호출
+                            gc.setBuildName(symbol.getCaption());
+
+                            if (fragment_Bus.get().isAdded()) {
+                                transaction.remove(fragment_Bus.get());
+                            }
+
+                            if (fragment_subway.get().isAdded()){
+                                transaction.remove(fragment_subway.get());
+                            }
+
+                            if (fragment_imformation.get().isAdded()) {
+                                transaction.remove(fragment_imformation.get());
+                                fragment_imformation.set(new InformationFragment());
+                            }
+
+                            transaction.add(R.id.frame, fragment_imformation.get());
+                            transaction.commit();
+
+
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("isSearch", isSearch);
+                            bundle.putSerializable("Gc", gc);
+                            fragment_imformation.get().setArguments(bundle);
+                        }
                     }
-
-                    if (fragment_search2.get().isAdded()) {
-                        transaction.remove(fragment_search2.get());
-                        fragment_search2.set(new Fragment_search2());
-                    }
-
-                    transaction.add(R.id.frame, fragment_search2.get());
-                    transaction.commit();
-
-
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("isSearch", isSearch);
-                    bundle.putSerializable("Gc", gc);
-                    fragment_search2.get().setArguments(bundle);
-
                 }
 
 
-                if (!fragment_search.isAdded()) {
-                    transaction.replace(R.id.frame, fragment_search);
+                if (!searchFragment_.isAdded()) {
+                    transaction.replace(R.id.frame, searchFragment_);
                 }
                 frag.set(false);
 
@@ -279,8 +437,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
 
 
-
-
             return true;
         });
 
@@ -289,15 +445,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
             if (!frag.get()) {
-                if(!fragment_search.isAdded()) transaction.replace(R.id.frame, fragment_search);
+                if(!searchFragment_.isAdded()) transaction.replace(R.id.frame, searchFragment_);
                 frag.set(true);
             } else {
-                transaction.remove(fragment_search);
+                transaction.remove(searchFragment_);
                 frag.set(false);
             }
 
-            if (fragment_search2.get().isAdded()){
-                transaction.remove(fragment_search2.get());
+            if (fragment_imformation.get().isAdded()){
+                transaction.remove(fragment_imformation.get());
             }
 
             if (fragment_Bus.get().isAdded()){

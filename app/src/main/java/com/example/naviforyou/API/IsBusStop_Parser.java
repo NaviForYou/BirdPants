@@ -18,7 +18,7 @@ public class IsBusStop_Parser {
             this.X = URLEncoder.encode(coords[1],"UTF-8");
             this.Y = URLEncoder.encode(coords[0],"UTF-8");
             Log.d("TEXT2", "X : " + coords[0] + "Y : " + coords[1]);
-            String apiURL = "http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?ServiceKey="+serviceKey+"&tmX="+ X +"&tmY=" + Y +"&radius=15";
+            String apiURL = "http://ws.bus.go.kr/api/rest/stationinfo/getStationByPos?ServiceKey="+serviceKey+"&tmX="+ X +"&tmY=" + Y +"&radius=10";
 
             URL url = new URL(apiURL);
 

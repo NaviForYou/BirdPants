@@ -22,7 +22,7 @@ import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.NaverMap;
 
 
-public class Fragment_search extends Fragment {
+public class SearchFragment extends Fragment {
 
     RelativeLayout search_layout;
     ImageView find;

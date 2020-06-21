@@ -10,11 +10,18 @@
         android:background="#0d3692"
         android:orientation="horizontal"
         android:id="@+id/title">
+
         <ImageView
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:src="@mipmap/ic_launcher"></ImageView>
+            android:src="@drawable/customise_bus"></ImageView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@dra">
+        </ImageView>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

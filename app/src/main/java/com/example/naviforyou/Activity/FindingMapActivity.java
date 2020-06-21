@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.naviforyou.Adapter.ViewFindingMapAdapter;
+import com.example.naviforyou.Data.SearchRouteData;
 import com.example.naviforyou.ODsay.Bus;
 import com.example.naviforyou.ODsay.Subway;
 import com.example.naviforyou.ODsay.Traffic;
@@ -27,8 +28,8 @@ import java.util.ArrayList;
 public class FindingMapActivity extends AppCompatActivity {
     Traffic content;
     ArrayList<Object> route;
-    String start;
-    String end;
+    SearchRouteData start;
+    SearchRouteData end;
     TextView time;
     LinearLayout bar;
     ListView list;
@@ -44,8 +45,8 @@ public class FindingMapActivity extends AppCompatActivity {
         Intent intent = getIntent();
         content = (Traffic)intent.getExtras().getSerializable("content");
         route = (ArrayList<Object>)intent.getExtras().getSerializable("route");
-        start = intent.getStringExtra("start");
-        end = intent.getStringExtra("end");
+        start = (SearchRouteData)intent.getSerializableExtra("start");
+        end = (SearchRouteData)intent.getSerializableExtra("end");
 
         time = findViewById(R.id.time);
         bar = findViewById(R.id.routebar);
@@ -140,6 +141,86 @@ public class FindingMapActivity extends AppCompatActivity {
                 FindingMapActivity.this,R.layout.item_findingmap,route);
         list.setAdapter(viewFindingMapAdapter);
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        list.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+
+            String type="";//start,end,bus,subway
+            String name = "";
+            String Id = "";
+            double X=0;
+            double Y=0;
+            Object dest = route.get(position);
+            if ( dest instanceof SearchRouteData){
+                if (position == 0){
+                    type="start";
+                }else{
+                    type="end";
+                }
+                SearchRouteData searchRouteData = (SearchRouteData)dest;
+                X = searchRouteData.getX();
+                Y = searchRouteData.getY();
+                name = searchRouteData.getPlaceName();
+            }else if (dest instanceof Bus){
+                type="bus";
+                Bus bus = (Bus)dest;
+                Id = bus.getBusInfo_1()[4];
+                X = bus.getXY()[0][0];
+                Y = bus.getXY()[0][1];
+                name = bus.getBusInfo_1()[3];
+            }
+            else if (dest instanceof Subway){
+                type="subway";
+                Subway subway = (Subway)dest;
+                name = subway.getSubwayInfo_1()[3];
+                X=subway.getXY()[0][0];
+                Y=subway.getXY()[0][1];
+            }
+            else if (dest instanceof Walk){
+
+                Object temp = route.get(position - 1);
+                if (temp instanceof SearchRouteData){
+                    if ((position - 1) == 0){
+                        type="start";
+                    }else{
+                        type="end";
+                    }
+                    SearchRouteData searchRouteData = (SearchRouteData)temp;
+                    X = searchRouteData.getX();
+                    Y = searchRouteData.getY();
+                    name = searchRouteData.getPlaceName();
+                }else if (temp instanceof Bus){
+                    type="bus";
+                    Bus bus = (Bus)temp;
+                    Id = bus.getBusInfo_1()[6];
+                    X = bus.getXY()[1][0];
+                    Y = bus.getXY()[1][1];
+                    name = bus.getBusInfo_1()[5];
+                }else if (temp instanceof Subway){
+                    type="subway";
+                    Subway subway = (Subway)temp;
+                    name = subway.getSubwayInfo_1()[3];
+                    X=subway.getXY()[1][0];
+                    Y=subway.getXY()[1][1];
+                }
+            }
+
+
+
+            intent.putExtra("isRoute",true);
+            intent.putExtra("type",type);
+            intent.putExtra("X",X);
+            intent.putExtra("Y",Y);
+            intent.putExtra("name",name);
+            intent.putExtra("id",Id);
+            MainActivity mainActivity = (MainActivity) MainActivity.activity;
+            mainActivity.finish();
+            startActivity(intent);
+
+        });
     }
 }

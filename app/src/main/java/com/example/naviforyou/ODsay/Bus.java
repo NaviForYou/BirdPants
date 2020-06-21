@@ -95,4 +95,12 @@ public class Bus implements Serializable {
     public void setBusInfo_3(String[][] busInfo_3) {
         BusInfo_3 = busInfo_3;
     }
+
+    public double[][] getXY() {
+        return XY;
+    }
+
+    public void setXY(double[][] XY) {
+        this.XY = XY;
+    }
 }

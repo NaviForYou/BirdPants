@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 
 import com.example.naviforyou.API.Gc;
 import com.example.naviforyou.Activity.MainActivity;
@@ -27,10 +26,9 @@ import com.example.naviforyou.DB.FavoriteDao;
 import com.example.naviforyou.R;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 
-public class Fragment_search2 extends Fragment {
+public class InformationFragment extends Fragment {
 
     ImageView favorite;
     ImageView start;
@@ -62,7 +60,7 @@ public class Fragment_search2 extends Fragment {
         facilities = null;
 
         // 텍스트 추가
-        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_search2, container, false);
+        ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_information, container, false);
 
         place_name = (TextView) layout.findViewById(R.id.place_name);
         place_address = (TextView) layout.findViewById(R.id.place_address);
@@ -171,7 +169,7 @@ public class Fragment_search2 extends Fragment {
         protected void onPostExecute(List<Facility> facility) {
             super.onPostExecute(facility);
             if(!facility.isEmpty()) {
-                Log.d("TEXT", "fragment_search2 : " + facility.get(0).toString());
+                Log.d("TEXT", "fragment_information : " + facility.get(0).toString());
             }
         }
     }

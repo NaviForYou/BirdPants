@@ -1,5 +1,6 @@
 package com.example.naviforyou.Fragment;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.example.naviforyou.API.BusStop;
 import com.example.naviforyou.API.BusStop_Parser;
 import com.example.naviforyou.API.IsBusStop;
 import com.example.naviforyou.API.LowbusStop_Parser;
+import com.example.naviforyou.Activity.RouteMenuActivity;
 import com.example.naviforyou.Adapter.ViewBusStopAdapter;
 import com.example.naviforyou.R;
 
@@ -28,7 +31,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class Fragment_Bus_Information extends Fragment {
+public class BusInformationFragment extends Fragment {
 
     ViewBusStopAdapter viewBusStopAdapter;
     LowbusStop_Parser lowbusStop_parser;
@@ -42,6 +45,8 @@ public class Fragment_Bus_Information extends Fragment {
     ListView busList;
     Button low_bus;
     Button general_bus;
+    ImageView start;
+    ImageView end;
 
     @Nullable
     @Override
@@ -66,6 +71,8 @@ public class Fragment_Bus_Information extends Fragment {
         busList = layout.findViewById(R.id.bus_list);
         low_bus = layout.findViewById(R.id.low_bus);
         general_bus = layout.findViewById(R.id.general_bus);
+        start = layout.findViewById(R.id.start_bus_station);
+        end = layout.findViewById(R.id.end_bus_station);
 
         station_name.setText(isBusStop.getName());
         station_id.setText(isBusStop.getId());
@@ -94,7 +101,7 @@ public class Fragment_Bus_Information extends Fragment {
 
         });
 
-       low_bus.setOnClickListener(v -> {
+        low_bus.setOnClickListener(v -> {
            try {
                busStop = new SeoulAsync_LowBusStop().execute(isBusStop.getId()).get();//Nxt 존재 X
                if(busStop.size() <= 1){
@@ -108,6 +115,25 @@ public class Fragment_Bus_Information extends Fragment {
                e.printStackTrace();
            }
        });
+
+        start.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), RouteMenuActivity.class);
+            intent.putExtra("type","start");
+            intent.putExtra("start", isBusStop.getName());
+            intent.putExtra("startX", String.valueOf(isBusStop.getX()));
+            intent.putExtra("startY", String.valueOf(isBusStop.getY()));
+            startActivity(intent);
+        });
+
+        end.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), RouteMenuActivity.class);
+            intent.putExtra("type","end");
+            intent.putExtra("end", isBusStop.getName());
+            intent.putExtra("endX", String.valueOf(isBusStop.getX()));
+            intent.putExtra("endY", String.valueOf(isBusStop.getY()));
+            startActivity(intent);
+        });
+
 
         return layout;
     }

@@ -26,7 +26,7 @@ import com.example.naviforyou.ODsay.Subway;
 import com.example.naviforyou.ODsay.Traffic;
 import com.example.naviforyou.ODsay.Walk;
 import com.example.naviforyou.R;
-import com.example.naviforyou.Data.SearchData;
+import com.example.naviforyou.Data.SearchRouteData;
 import com.odsay.odsayandroidsdk.API;
 import com.odsay.odsayandroidsdk.ODsayData;
 import com.odsay.odsayandroidsdk.ODsayService;
@@ -56,8 +56,8 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
     ListView result;
 
     String type; // start = 출발지 정해짐, end = 도착지 정해짐, none = 둘다 정해지지 않음.
-    SearchData startData;
-    SearchData endData;
+    SearchRouteData startData;
+    SearchRouteData endData;
     ArrayList<ArrayList<Object>> routeList;
     ArrayList<Traffic> routeContent;
 
@@ -92,8 +92,8 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
         recyclerView.setAdapter(myRecyclerViewAdapter);
 
         //데이터 저장
-        startData = new SearchData("start");
-        endData = new SearchData("end");
+        startData = new SearchRouteData("start");
+        endData = new SearchRouteData("end");
 
         //출발지 도착지 검색
         searchStart.setOnClickListener(new View.OnClickListener() {
@@ -260,27 +260,6 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
             relativeLayout.setVisibility(View.GONE);
         }
 
-        OnResultCallbackListener searchStation = new OnResultCallbackListener() {
-            @Override
-            public void onSuccess(ODsayData oDsayData, API api) {
-                try {if (api == API.SEARCH_STATION) {
-                    JSONObject json = oDsayData.getJson();
-                    JSONArray jsonArray = json.getJSONObject("result").getJSONArray("station");
-
-                    String x = jsonArray.getJSONObject(0).getString("x");
-                    String y = jsonArray.getJSONObject(0).getString("y");
-
-                }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onError(int i, String s, API api) {
-
-            }
-        };
 
         result.setOnItemClickListener((parent, view, position, id) -> {
             ArrayList<Object> route = routeList.get(position);
@@ -289,8 +268,8 @@ public class RouteMenuActivity  extends AppCompatActivity implements MyRecyclerV
             Intent intent = new Intent(getApplicationContext(), FindingMapActivity.class);
             intent.putExtra("route",route);
             intent.putExtra("content",traffic);
-            intent.putExtra("start",startData.getPlaceName());
-            intent.putExtra("end",endData.getPlaceName());
+            intent.putExtra("start",startData);
+            intent.putExtra("end",endData);
             startActivity(intent);
 
         });
