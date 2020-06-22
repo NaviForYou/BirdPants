@@ -37,14 +37,14 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/menu_1"></ImageView><!--전화하기-->
+                android:src="@mipmap/ic_launcher"></ImageView><!--전화하기-->
             <LinearLayout
                 android:layout_width="10dp"
                 android:layout_height="match_parent"></LinearLayout>
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/menu_1"
+                android:src="@mipmap/ic_launcher"
                 android:id="@+id/favorite"></ImageView><!--즐겨찾기에 추가하기-->
             <LinearLayout
                 android:layout_width="220dp"
@@ -53,13 +53,13 @@
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:src="@mipmap/menu_1"
+                android:src="@mipmap/ic_launcher"
                 android:id="@+id/start"></ImageView><!--출발-->
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:src="@mipmap/menu_1"
+                android:src="@mipmap/ic_launcher"
                 android:id="@+id/end"></ImageView><!--도착-->
         </LinearLayout>
     </LinearLayout>
