@@ -15,12 +15,7 @@
             android:layout_width="70dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:src="@drawable/customise_bus"></ImageView>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@dra">
-        </ImageView>
+            android:src="@drawable/customise_subway"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -29,7 +24,7 @@
             android:gravity="center_vertical"
             android:textSize="40dp"
             android:textColor="#FFFFFF"
-            android:id="@+id/line_name"></TextView>
+            android:id="@+id/line_name"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

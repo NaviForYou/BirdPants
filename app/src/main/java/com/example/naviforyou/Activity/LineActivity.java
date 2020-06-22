@@ -105,7 +105,7 @@ public class LineActivity extends AppCompatActivity {
             station = String.valueOf(parent.getItemAtPosition(position));
             Intent sendIntent = new Intent(this, SubwayMapActivity.class);
             sendIntent.putExtra("line",line);
-            sendIntent.putExtra("station",station);
+            sendIntent.putExtra("station",position);
             startActivity(sendIntent);
 
         });

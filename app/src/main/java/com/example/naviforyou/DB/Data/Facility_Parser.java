@@ -1,6 +1,7 @@
-package com.example.naviforyou.DB;
+package com.example.naviforyou.DB.Data;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +25,7 @@ public class Facility_Parser {
             is.close();
 
             json = new String(buffer, "UTF-8");
+            Log.d("Json","json : " + json);
         }
         catch (IOException ex)
         {

@@ -1,11 +1,12 @@
-package com.example.naviforyou.DB;
+package com.example.naviforyou.DB.DataBase;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.example.naviforyou.DB.Data.Facility;
 
 import java.util.List;
 

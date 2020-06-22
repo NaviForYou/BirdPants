@@ -1,4 +1,4 @@
-package com.example.naviforyou.DB;
+package com.example.naviforyou.DB.Data;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -6,31 +6,24 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class Favorite {
-    @PrimaryKey
-    @NonNull
-    String title;
+    @PrimaryKey(autoGenerate = true)
+    int id;
     
     String buildName;
     String address;
     double X;
     double Y;
 
-    public Favorite(@NonNull String title, String buildName, String address, double X, double Y) {
-        this.title = title;
+    public Favorite(String buildName, String address, double X, double Y) {
         this.buildName = buildName;
         this.address = address;
         this.X = X;
         this.Y = Y;
     }
 
-    @NonNull
-    public String getTitle() {
-        return title;
-    }
+    public int getId() { return id; }
 
-    public void setTitle(@NonNull String title) {
-        this.title = title;
-    }
+    public void setId(int id) { this.id = id; }
 
     public String getBuildName() {
         return buildName;
@@ -64,10 +57,11 @@ public class Favorite {
         Y = y;
     }
 
+
     @Override
     public String toString() {
         return "Favorite{" +
-                "title='" + title + '\'' +
+                "id='" + id + '\'' +
                 ", buildName='" + buildName + '\'' +
                 ", address='" + address + '\'' +
                 ", X=" + X +

@@ -21,11 +21,16 @@ import com.example.naviforyou.API.IsBusStop;
 import com.example.naviforyou.API.IsBusStop_Parser;
 import com.example.naviforyou.API.Gc;
 import com.example.naviforyou.API.Gc_Parser;
-import com.example.naviforyou.DB.AppDatabase_Facility;
-import com.example.naviforyou.DB.AppDatabase_Favorite;
-import com.example.naviforyou.DB.Facility;
-import com.example.naviforyou.DB.FacilityDao;
-import com.example.naviforyou.DB.Facility_Parser;
+import com.example.naviforyou.DB.DataBase.AppDatabase_Facility;
+import com.example.naviforyou.DB.DataBase.AppDatabase_Favorite;
+import com.example.naviforyou.DB.DataBase.AppDatabase_Runway;
+import com.example.naviforyou.DB.Data.Facility;
+import com.example.naviforyou.DB.DataBase.AppDatabase_Transfer;
+import com.example.naviforyou.DB.DataBase.FacilityDao;
+import com.example.naviforyou.DB.Data.Facility_Parser;
+import com.example.naviforyou.DB.Data.Runway;
+import com.example.naviforyou.DB.DataBase.RunwayDao;
+import com.example.naviforyou.DB.Data.Runway_Parser;
 import com.example.naviforyou.Data.IsSubwayStop;
 import com.example.naviforyou.Fragment.BusInformationFragment;
 import com.example.naviforyou.Fragment.SubwayInformationFragment;
@@ -55,8 +60,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public static NaverMap naverMap;
 
     //시설 데이터 베이스 생성
-   public static AppDatabase_Facility db_facility;
-   public static AppDatabase_Favorite db_favorite;
+    public static AppDatabase_Facility db_facility;
+    public static AppDatabase_Favorite db_favorite;
+    public static AppDatabase_Runway db_runway;
+    public static AppDatabase_Transfer db_transfer;
 
     // 위치를 반환하는 FusedLocationSource 선언
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
@@ -105,8 +112,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .fallbackToDestructiveMigration()
                 .build();
 
+        db_runway = Room.databaseBuilder(this, AppDatabase_Runway.class,"runway-db")
+                .fallbackToDestructiveMigration()
+                .build();
+
         //첫실행시 json Parser 및 데이터베이스에 추가
-        checkFirstRun(db_facility);
+        checkFirstRun();
         new GetAsyncTask(db_facility.facilityDao()).execute();
 
         //NaverMap 객체 얻어오기 - api 호출하는 인터페이스 역할을 함
@@ -118,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         mapFragment.getMapAsync(this);
 
+        db_favorite.favoriteDao().getAll().observe(this,favorites -> {
+            Log.d("TEXT","Favorite : " + favorites.toString());
+        });
 
         // 위치를 반환하는 FusedLocationSource 선언
         locationSource =
@@ -477,16 +491,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     //앱 첫 실행시
-    public void checkFirstRun(AppDatabase_Facility db){
+    public void checkFirstRun(){
         boolean isFirstRun = prefs.getBoolean("isFirstRun",true);
+        Log.d("IsFirst","IsFirst"+isFirstRun);
         if(isFirstRun)
         {
             Facility_Parser facility_parser = new Facility_Parser();
             String json = facility_parser.getJsonString(this);
             ArrayList<Facility> facilityArrayList = facility_parser.Parser(json);
             for(int i = 0; i < facilityArrayList.size(); i++){
-                new InsetAsyncTask(db.facilityDao()).execute(facilityArrayList);
+                new InsetAsyncTask(db_facility.facilityDao()).execute(facilityArrayList);
             }
+            new GetAsyncTask(db_facility.facilityDao()).execute();
+
+            Runway_Parser runway_parser = new Runway_Parser();
+            String json2 = runway_parser.getJsonString(this);
+            ArrayList<Runway> runwayArrayList = runway_parser.Parser(json2);
+            for (int i = 0; i < runwayArrayList.size(); i++){
+                new RunWayInsert(db_runway.runwayDao()).execute(runwayArrayList);
+            }
+
+            new RunWayGetAll(db_runway.runwayDao()).execute();
+
             prefs.edit().putBoolean("isFirstRun",false).apply();
             //처음만 true 그다음부터는 false 바꾸는 동작
         }
@@ -537,6 +563,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+
     //데이터 베이스에 추가
     private static class InsetAsyncTask extends AsyncTask<ArrayList<Facility>, Void, Void>{
         private FacilityDao facilityDao;
@@ -553,11 +580,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return null;
         }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            Log.d("TEXT", "facility : " + facilityDao.getAll().toString());
-        }
     }
 
     //데이터 베이스 모든 데이터 읽기
@@ -574,7 +596,32 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    private static class RunWayInsert extends AsyncTask<ArrayList<Runway>, Void, Void>{
+        private RunwayDao runwayDao;
 
+        public RunWayInsert(RunwayDao runwayDao) { this.runwayDao = runwayDao; }
+
+        @Override
+        protected Void doInBackground(ArrayList<Runway>... arrayLists) {
+            for(int i =0; i< arrayLists[0].size(); i++){
+                runwayDao.insert(arrayLists[0].get(i));
+            }
+            return null;
+        }
+    }
+
+    private static class RunWayGetAll extends AsyncTask<Void, Void, Void>{
+        private RunwayDao runwayDao;
+
+        public RunWayGetAll(RunwayDao runwayDao) { this.runwayDao = runwayDao; }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Log.d("TEXT" ,"Runway : " +runwayDao.getAll().toString());
+            return null;
+        }
+    }
 
 }
 

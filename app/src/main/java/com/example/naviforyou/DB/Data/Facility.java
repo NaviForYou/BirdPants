@@ -1,4 +1,4 @@
-package com.example.naviforyou.DB;
+package com.example.naviforyou.DB.Data;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

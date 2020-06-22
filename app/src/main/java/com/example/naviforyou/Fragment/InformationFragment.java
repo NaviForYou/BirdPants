@@ -17,12 +17,12 @@ import androidx.fragment.app.Fragment;
 import com.example.naviforyou.API.Gc;
 import com.example.naviforyou.Activity.MainActivity;
 import com.example.naviforyou.Activity.RouteMenuActivity;
-import com.example.naviforyou.DB.AppDatabase_Facility;
-import com.example.naviforyou.DB.AppDatabase_Favorite;
-import com.example.naviforyou.DB.Facility;
-import com.example.naviforyou.DB.FacilityDao;
-import com.example.naviforyou.DB.Favorite;
-import com.example.naviforyou.DB.FavoriteDao;
+import com.example.naviforyou.DB.DataBase.AppDatabase_Facility;
+import com.example.naviforyou.DB.DataBase.AppDatabase_Favorite;
+import com.example.naviforyou.DB.Data.Facility;
+import com.example.naviforyou.DB.DataBase.FacilityDao;
+import com.example.naviforyou.DB.Data.Favorite;
+import com.example.naviforyou.DB.DataBase.FavoriteDao;
 import com.example.naviforyou.R;
 
 import java.util.List;
@@ -36,6 +36,9 @@ public class InformationFragment extends Fragment {
 
     TextView place_name;
     TextView place_address;
+
+    //아이콘
+
 
     // True = 검색 False = 심벌클릭
     Boolean isSearch = false;
@@ -62,8 +65,8 @@ public class InformationFragment extends Fragment {
         // 텍스트 추가
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.fragment_information, container, false);
 
-        place_name = (TextView) layout.findViewById(R.id.place_name);
-        place_address = (TextView) layout.findViewById(R.id.place_address);
+        place_name = layout.findViewById(R.id.place_name);
+        place_address = layout.findViewById(R.id.place_address);
 
         //데이터 받기
         Bundle bundle = getArguments();
@@ -75,7 +78,6 @@ public class InformationFragment extends Fragment {
             roadAddress = bundle.getString("roadAddress");
             X = bundle.getDouble("X");
             Y = bundle.getDouble("Y");
-            Log.d("TEXT","TEXT : X : " + X + " Y : " + Y);
             place_name.setText(placeName);
             place_address.setText(roadAddress);
         }else {
@@ -86,18 +88,18 @@ public class InformationFragment extends Fragment {
 
         // 시설 여부 확인
         if(isSearch) {
-            Log.d("XY","XY : " + X +","+Y);
-            new FacilitySearch(db_facility.facilityDao()).execute(X,Y);
+            Log.d("XY","roadAddress : " + roadAddress);
+            new FacilitySearch(db_facility.facilityDao()).execute(roadAddress);
         }
         else {
-            Log.d("XY","XY : " + gc.getX() +","+gc.getY());
-            new FacilitySearch(db_facility.facilityDao()).execute(Double.parseDouble(gc.getX()),Double.parseDouble(gc.getY()));
+            Log.d("XY","roadAddress : " + gc.getRoadAddress());
+            new FacilitySearch(db_facility.facilityDao()).execute(gc.getRoadAddress());
         }
 
 
 
         // 출발 버튼 클릭
-        start = (ImageView)layout.findViewById(R.id.start);
+        start = layout.findViewById(R.id.start);
         start.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), RouteMenuActivity.class);
             intent.putExtra("type","start");
@@ -114,7 +116,7 @@ public class InformationFragment extends Fragment {
         });
 
         // 도착 버튼 클릭
-        end = (ImageView)layout.findViewById(R.id.end);
+        end = layout.findViewById(R.id.end);
         end.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), RouteMenuActivity.class);
             intent.putExtra("type","end");
@@ -131,15 +133,16 @@ public class InformationFragment extends Fragment {
         });
 
         //즐겨찾기 버튼 클릭
-        favorite = (ImageView)layout.findViewById(R.id.favorite);
+        favorite = layout.findViewById(R.id.favorite);
         favorite.setOnClickListener(v -> {
             Favorite favorite;
             if(isSearch) {
-                favorite = new Favorite(placeName,placeName,roadAddress,X,Y);
+                favorite = new Favorite(placeName,roadAddress,X,Y);
             }else{
                 favorite = new Favorite(
-                        gc.getBuildName(),gc.getBuildName(),gc.getRoadAddress(),
-                        Double.parseDouble(gc.getX()), Double.parseDouble(gc.getY()));;
+                        gc.getBuildName(),gc.getRoadAddress(),
+                        Double.parseDouble(gc.getX()), Double.parseDouble(gc.getY())
+                );
             }
             new FavoriteInsert(db_fFavorite.favoriteDao()).execute(favorite);
         });
@@ -153,15 +156,15 @@ public class InformationFragment extends Fragment {
     }
 
     //Facility 데이터 베이스 검색
-    private static class FacilitySearch extends AsyncTask<Double,Void,List<Facility>> {
+    private static class FacilitySearch extends AsyncTask<String,Void,List<Facility>> {
         private FacilityDao facilityDao;
 
         public FacilitySearch(FacilityDao facilityDao){
             this.facilityDao = facilityDao;
         }
         @Override
-        protected List<Facility> doInBackground(Double... doubles) {
-            List<Facility> facility = facilityDao.findWithXY(doubles[0],doubles[1]);
+        protected List<Facility> doInBackground(String... strings) {
+            List<Facility> facility = facilityDao.findBuildWithAddress(strings[0]);
             return facility;
         }
 
@@ -169,10 +172,12 @@ public class InformationFragment extends Fragment {
         protected void onPostExecute(List<Facility> facility) {
             super.onPostExecute(facility);
             if(!facility.isEmpty()) {
-                Log.d("TEXT", "fragment_information : " + facility.get(0).toString());
+                Log.d("TEXT", "GetAll : " + facility.toString());
             }
         }
     }
+
+
 
     //Favorite 데이터 베이스 추가
     private static class FavoriteInsert extends AsyncTask<Favorite,Void,Void>{
