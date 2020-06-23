@@ -13,7 +13,7 @@ public class Transfer {
     int line;
     int station;
     int transferNum;
-    ArrayList<Integer> transfer = new ArrayList<>();
+    ArrayList<String> transferLine;
 
     public int getLine() {
         return line;
@@ -31,6 +31,10 @@ public class Transfer {
         this.station = station;
     }
 
+    public int getId() { return id; }
+
+    public void setId(int id) {  this.id = id;  }
+
     public int getTransferNum() {
         return transferNum;
     }
@@ -39,11 +43,11 @@ public class Transfer {
         this.transferNum = transferNum;
     }
 
-    public ArrayList<Integer> getTransfer() {
-        return transfer;
+    public ArrayList<String> getTransferLine() {
+        return transferLine;
     }
 
-    public void setTransfer(int transfer) {
-        this.transfer.add(transfer);
+    public void setTransferLine(ArrayList<String> transferLine) {
+        this.transferLine = transferLine;
     }
 }

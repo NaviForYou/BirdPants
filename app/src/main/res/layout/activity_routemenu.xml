@@ -41,7 +41,7 @@
             android:layout_height="40dp"
             android:layout_marginVertical="10dp"
             android:layout_toRightOf="@id/searchStart"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:src="@drawable/customise_rotation"/>
 
         <ImageButton
             android:id="@+id/clear"
@@ -50,7 +50,7 @@
             android:layout_marginVertical="10dp"
             android:layout_below="@id/rotation"
             android:layout_toRightOf="@id/searchEnd"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:src="@drawable/customise_clear"/>
     </RelativeLayout>
     <!-- 출발/도착지검색칸 및 버튼 두개 -->
 
@@ -103,49 +103,44 @@
 
     <!-- 화면 가운데 부분 -->
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/menuBar"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="#5B70DA"
+        android:layout_height="50dp"
+        android:background="#095CD7"
         android:layout_alignParentBottom="true">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_finding"
-            android:layout_weight="1"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginVertical="7dp"
-            android:layout_marginHorizontal="15dp"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:layout_width="82dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/in_map" />
             <!--길찾기--><!--id/find_find--><!--노란 아이콘-->
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_subway"
-            android:layout_weight="1"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginVertical="7dp"
-            android:layout_marginHorizontal="15dp"
-            android:src="@drawable/ic_launcher_foreground"/>
+            android:layout_toRightOf="@id/btn_finding"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/subway"/>
             <!--지하철--><!--id/subway_find-->
-        <ImageButton
-            android:id="@+id/btn_taxi"
-            android:layout_weight="1"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginVertical="7dp"
-            android:layout_marginHorizontal="15dp"
-            android:src="@drawable/ic_launcher_foreground"/>
+        <ImageView
+            android:id="@+id/btn_bookmark"
+            android:layout_toRightOf="@id/btn_subway"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/bookmark"/>
             <!--즐겨찾기--><!--id/bookmark_find-->
-        <ImageButton
-            android:id="@+id/btn_bookMark"
-            android:layout_weight="1"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginVertical="7dp"
-            android:layout_marginHorizontal="15dp"
-            android:src="@drawable/ic_launcher_foreground"/>
+        <ImageView
+            android:id="@+id/btn_home"
+            android:layout_toRightOf="@id/btn_bookmark"
+            android:layout_width="82dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/home"/>
             <!--설정--><!--id/setting_find-->
-    </LinearLayout>
+    </RelativeLayout>
     <!-- 가장 아래의 버튼 바 -->
 </RelativeLayout>

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/fragment"
+    android:background="#FBF9ED"
     tools:context=".Activity.SearchActivity"><!--검색창 부분이 프래그먼트를 하는게 맞는거 같은데... 이게 왜 메인화면 뒤로 가는지 찾아보고 없으면 그냥 각자의 액티비티로 해야할듯 하다-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/back"
                 android:layout_margin="5dp"></ImageView><!--뒤로가기-->
             <EditText
                 android:layout_width="310dp"
@@ -28,7 +29,7 @@
             <ImageView
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/search_1"
+                android:src="@mipmap/search"
                 android:layout_margin="5dp"
                 android:id="@+id/search"></ImageView><!--x버튼-->
         </LinearLayout>
@@ -41,7 +42,7 @@
                 android:layout_width="50dp"
                 android:layout_height="27dp"
                 android:layout_margin="6dp"
-                android:src="@mipmap/menu_1"></ImageView><!--즐겨찾기-->
+                android:src="@mipmap/plus"></ImageView><!--즐겨찾기-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

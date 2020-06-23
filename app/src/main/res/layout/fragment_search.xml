@@ -15,7 +15,7 @@
             android:layout_height="40dp"
             android:layout_margin="10dp"
             android:id="@+id/search_button"
-            android:src="@mipmap/search_1"/>
+            android:src="@mipmap/search"/>
         <!--검색버튼-->
         <TextView
             android:layout_width="260dp"
@@ -27,13 +27,6 @@
             android:gravity="center"
             android:background="#FFFFFF"/>
         <!--검색바-->
-        <ImageView
-            android:id="@+id/x_button"
-            android:layout_width="50dp"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:layout_toRightOf="@id/search_bar"
-            android:src="@mipmap/search_1"/>
         <!--음성검색버튼-->
     </RelativeLayout>
 
@@ -44,31 +37,27 @@
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom">
         <RelativeLayout
             android:id="@+id/categoty_gps"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="100dp">
 
             <ImageView
                 android:id="@+id/gps"
-                android:layout_width="19dp"
-                android:layout_height="21dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@mipmap/search_1" />
+                android:src="@mipmap/my_place" />
             <ImageView
                 android:id="@+id/category"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:layout_toRightOf="@id/gps"
-                android:src="@mipmap/search_1"/>
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_below="@id/gps"
+                android:src="@mipmap/category"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -81,14 +70,14 @@
                 android:layout_width="82dp"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/search_1"/>
+                android:src="@mipmap/map"/>
                 <!--길찾기--><!--id/find_main-->
             <ImageView
                 android:id="@+id/subway"
                 android:layout_width="82dp"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/search_1"
+                android:src="@mipmap/subway"
                 android:layout_toRightOf="@id/find"/>
                 <!--지하철 지도--><!--id/subway_main-->
             <ImageView
@@ -96,7 +85,7 @@
                 android:layout_width="82dp"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/search_1"
+                android:src="@mipmap/bookmark"
                 android:layout_toRightOf="@id/subway"/>
                 <!--즐겨찾기--><!--id/bookmark_main-->
             <ImageView
@@ -104,7 +93,7 @@
                 android:layout_width="82dp"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:src="@mipmap/search_1"
+                android:src="@mipmap/in_home"
                 android:layout_toRightOf="@id/bookmark"/>
                 <!--설정--><!--id/setting_main-->
         </RelativeLayout>

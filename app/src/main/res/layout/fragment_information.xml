@@ -6,61 +6,84 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/facility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:orientation="vertical"
-            android:background="#FBF9ED">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/place_name"
-                android:textSize="35dp"
-                android:text="안드로이드"></TextView>
+            android:background="#FBF9ED"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/place_name"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="left|center"
+                android:scrollbars="horizontal"
+                android:text="안드로이드"
+                android:textColor="#000000"
+                android:textSize="35dp"></TextView>
+
+            <TextView
+                android:id="@+id/place_address"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/place_address"
                 android:layout_gravity="bottom"
-                android:textSize="23dp"
-                android:text="안드로이드"></TextView>
+                android:gravity="left|center"
+                android:text="안드로이드"
+                android:textColor="#000000"
+                android:textSize="23dp"></TextView>
         </LinearLayout>
-        <LinearLayout
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:background="#095CD7">
+            android:background="#095CD7"
+            android:orientation="horizontal">
+
             <ImageView
+                android:id="@+id/call"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"></ImageView><!--전화하기-->
-            <LinearLayout
-                android:layout_width="10dp"
-                android:layout_height="match_parent"></LinearLayout>
+                android:layout_margin="5dp"
+                android:src="@mipmap/call"></ImageView><!--전화하기-->
             <ImageView
+                android:id="@+id/favorite"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher"
-                android:id="@+id/favorite"></ImageView><!--즐겨찾기에 추가하기-->
+                android:layout_margin="5dp"
+                android:layout_toRightOf="@id/call"
+                android:src="@mipmap/plus_bookmark_before"></ImageView><!--즐겨찾기에 추가하기-->
+            <!--즐겨찾기에 추가되면 mipmap/plus_bookmark_after로 바꿔줘-->
+
             <LinearLayout
                 android:layout_width="220dp"
                 android:layout_height="match_parent"></LinearLayout>
+
             <ImageView
+                android:id="@+id/start"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:src="@mipmap/ic_launcher"
-                android:id="@+id/start"></ImageView><!--출발-->
+                android:layout_toLeftOf="@id/end"
+                android:src="@mipmap/start"></ImageView><!--출발-->
             <ImageView
+                android:id="@+id/end"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
-                android:src="@mipmap/ic_launcher"
-                android:id="@+id/end"></ImageView><!--도착-->
-        </LinearLayout>
+                android:src="@mipmap/end"></ImageView><!--도착-->
+        </RelativeLayout>
     </LinearLayout>
 </FrameLayout>

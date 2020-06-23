@@ -1,13 +1,16 @@
 package com.example.naviforyou.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,9 +39,9 @@ public class InformationFragment extends Fragment {
 
     TextView place_name;
     TextView place_address;
+    LinearLayout failityLayout;
 
     //아이콘
-
 
     // True = 검색 False = 심벌클릭
     Boolean isSearch = false;
@@ -67,6 +70,7 @@ public class InformationFragment extends Fragment {
 
         place_name = layout.findViewById(R.id.place_name);
         place_address = layout.findViewById(R.id.place_address);
+        failityLayout = layout.findViewById(R.id.facility);
 
         //데이터 받기
         Bundle bundle = getArguments();
@@ -86,14 +90,15 @@ public class InformationFragment extends Fragment {
             place_address.setText(gc.getRoadAddress());
         }
 
+        int dp = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,30,getResources().getDisplayMetrics());
         // 시설 여부 확인
         if(isSearch) {
             Log.d("XY","roadAddress : " + roadAddress);
-            new FacilitySearch(db_facility.facilityDao()).execute(roadAddress);
+            new FacilitySearch(db_facility.facilityDao(),getContext(), failityLayout,dp, dp).execute(roadAddress);
         }
         else {
             Log.d("XY","roadAddress : " + gc.getRoadAddress());
-            new FacilitySearch(db_facility.facilityDao()).execute(gc.getRoadAddress());
+            new FacilitySearch(db_facility.facilityDao(),getContext(), failityLayout,dp,dp).execute(gc.getRoadAddress());
         }
 
 
@@ -122,8 +127,8 @@ public class InformationFragment extends Fragment {
             intent.putExtra("type","end");
             if(isSearch) {
                 intent.putExtra("end", placeName);
-                intent.putExtra("endX", X);
-                intent.putExtra("endY", Y);
+                intent.putExtra("endX", String.valueOf(X));
+                intent.putExtra("endY", String.valueOf(Y));
             }else {
                 intent.putExtra("end", gc.getBuildName());
                 intent.putExtra("endX", gc.getX());
@@ -158,9 +163,17 @@ public class InformationFragment extends Fragment {
     //Facility 데이터 베이스 검색
     private static class FacilitySearch extends AsyncTask<String,Void,List<Facility>> {
         private FacilityDao facilityDao;
+        private Context context;
+        private LinearLayout linearLayout;
+        private int width ;
+        private int height;
 
-        public FacilitySearch(FacilityDao facilityDao){
+        public FacilitySearch(FacilityDao facilityDao, Context context, LinearLayout linearLayout, int width, int height){
             this.facilityDao = facilityDao;
+            this.context = context;
+            this.linearLayout = linearLayout;
+            this.width = width;
+            this.height = height;
         }
         @Override
         protected List<Facility> doInBackground(String... strings) {
@@ -173,6 +186,56 @@ public class InformationFragment extends Fragment {
             super.onPostExecute(facility);
             if(!facility.isEmpty()) {
                 Log.d("TEXT", "GetAll : " + facility.toString());
+                Facility check = facility.get(0);
+                if ( check != null){
+                    if(check.getParking_lot() == 1){
+                        ImageView parkinglot = new ImageView(context);
+                        parkinglot.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+                        parkinglot.setImageResource(R.mipmap.able_park);
+                        linearLayout.addView(parkinglot);
+                    }else if(check.getParking_lot() == 2) {
+                        ImageView parkinglot = new ImageView(context);
+                        parkinglot.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+                        parkinglot.setImageResource(R.mipmap.not_able_park);
+                        linearLayout.addView(parkinglot);
+                    }
+
+                    if(check.getElevator() == 1){
+                        ImageView elevator = new ImageView(context);
+                        elevator.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+                        elevator.setImageResource(R.mipmap.able_elevator);
+                        linearLayout.addView(elevator);
+                    }else if(check.getElevator() == 2) {
+                        ImageView elevator = new ImageView(context);
+                        elevator.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+                        elevator.setImageResource(R.mipmap.not_able_elevator);
+                        linearLayout.addView(elevator);
+                    }
+
+                    if(check.getEntrance() == 1){
+                        ImageView Entrance = new ImageView(context);
+                        Entrance.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+                        Entrance.setImageResource(R.mipmap.able_go);
+                        linearLayout.addView(Entrance);
+                    }else if(check.getEntrance() == 2) {
+                        ImageView Entrance = new ImageView(context);
+                        Entrance.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+                        Entrance.setImageResource(R.mipmap.not_able_go);
+                        linearLayout.addView(Entrance);
+                    }
+
+                    if(check.getToilet() == 1){
+                        ImageView Toilet = new ImageView(context);
+                        Toilet.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+                        Toilet.setImageResource(R.mipmap.able_elevator);
+                        linearLayout.addView(Toilet);
+                    }else if(check.getToilet() == 2) {
+                        ImageView Toilet = new ImageView(context);
+                        Toilet.setLayoutParams(new LinearLayout.LayoutParams(width,height));
+                        Toilet.setImageResource(R.mipmap.not_able_toilet);
+                        linearLayout.addView(Toilet);
+                    }
+                }
             }
         }
     }

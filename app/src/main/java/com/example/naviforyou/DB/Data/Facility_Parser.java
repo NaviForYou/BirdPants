@@ -60,6 +60,8 @@ public class Facility_Parser {
                 height = jsonObject.getInt("Nopi");
                 elevator = jsonObject.getInt("Elevator");
 
+                Log.d("Parser","Parser : " + address);
+
                 facility = new Facility(
                         address,
                         Double.parseDouble(X),
